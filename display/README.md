@@ -123,12 +123,14 @@ DISPLAY_BOOT_ARGS=--fim 9999 --delay 0.05 --loop --manter-ao-sair
 
 ```bash
 # Exibe texto fixo por 5 segundos (até 4 caracteres)
+# O indicador ":" é apagado automaticamente durante a exibição
 tx9-show show_text "UPDT" --duration 5
 
 # Texto com mais de 4 caracteres rola automaticamente no display
+tx9-show show_text "NETFLIX" --duration 5
 tx9-show show_text "Sistema iniciado"
 
-# Exibe número
+# Exibe número (indicador ":" também é apagado)
 tx9-show show_number 42
 
 # Rola texto explicitamente (controle de velocidade)
@@ -153,8 +155,16 @@ from display_client import DisplayClient
 
 c = DisplayClient()
 
+# Texto curto: exibição fixa, indicador ":" apagado
 c.show_text("BOOT", duration=3)
+
+# Texto longo: rola automaticamente (> 4 caracteres)
+c.show_text("NETFLIX", duration=5)
+c.show_text("Atualizando sistema", speed=0.3)
+
+# Número: indicador ":" também apagado
 c.show_number(42, duration=2)
+
 c.scroll("Temperatura 38 graus Celsius", speed=0.3)
 c.set_brightness(0x40)
 c.clear()
@@ -172,6 +182,14 @@ Comandos enviados como JSON com `\n` terminador para `/run/tx9-display.sock`.
 | `cmd` | string | `show_text`, `show_number`, `scroll`, `set_brightness`, `clear`, `status` |
 | `priority` | int | Prioridade da fila (menor = mais urgente). Padrão: `1` |
 | `duration` | float | Tempo de exibição em segundos. Padrão: `3.0` |
+| `speed` | float | Velocidade do scroll em segundos por passo. Padrão: `0.35` |
+
+### Comportamento de `show_text`
+
+| Comprimento do texto | Comportamento |
+|---|---|
+| ≤ 4 caracteres | Exibição fixa pelo tempo de `duration`; indicador `:` apagado |
+| > 4 caracteres | Rola automaticamente da direita para a esquerda; velocidade controlada por `speed` |
 
 ### Exemplos diretos
 
