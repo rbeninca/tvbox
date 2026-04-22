@@ -58,9 +58,11 @@ _SEG: dict[str, int] = {
     '8': 0x7F, '9': 0x6F,
     'A': 0x77, 'B': 0x7C, 'C': 0x39, 'D': 0x5E,
     'E': 0x79, 'F': 0x71, 'G': 0x3D, 'H': 0x76,
-    'I': 0x06, 'J': 0x1E, 'L': 0x38, 'N': 0x37,
+    'I': 0x06, 'J': 0x1E, 'K': 0x75, 'L': 0x38,
+    'M': 0x36, 'N': 0x37,
     'O': 0x3F, 'P': 0x73, 'Q': 0x67, 'R': 0x50,
-    'S': 0x6D, 'T': 0x78, 'U': 0x3E, 'Y': 0x6E,
+    'S': 0x6D, 'T': 0x78, 'U': 0x3E, 'V': 0x3E,
+    'W': 0x1C, 'X': 0x76, 'Y': 0x6E, 'Z': 0x5B,
     '-': 0x40, '_': 0x08, ' ': 0x00, '.': 0x80,
 }
 
@@ -68,6 +70,30 @@ _SEG: dict[str, int] = {
 def _seg(ch: str) -> int:
     """Converte caractere para padrão de segmentos."""
     return _SEG.get(ch.upper(), 0x00)
+
+
+# ── Expansão multi-glifo (uso em scroll) ──────────────────────────────────────
+# Letras difíceis de representar em um único dígito 7-seg ficam mais legíveis
+# quando ocupam 2 posições de dígito ao rolar o texto.
+_WIDE: dict[str, tuple] = {
+    # M: dois glifos "4 verticais sem barras" side-by-side ≈ M
+    'M': (0x36, 0x36),
+    # W: dois "U de baixo" side-by-side ≈ W
+    'W': (0x1C, 0x1C),
+}
+
+
+def expand_to_segs(text: str) -> list:
+    """Converte texto para lista de padrões de segmentos.
+    Caracteres em _WIDE produzem 2 valores (2 posições de dígito);
+    os demais produzem 1 valor. Garante M e W legíveis no scroll."""
+    result = []
+    for ch in text.upper():
+        if ch in _WIDE:
+            result.extend(_WIDE[ch])
+        else:
+            result.append(_SEG.get(ch, 0x00))
+    return result
 
 
 # ── Funções de estado de rede ──────────────────────────────────────────────────
@@ -209,11 +235,20 @@ class DisplayDriver:
         self._write_digits(segs)
         self._send_cmd(REG_IND, 0x00)
 
+    def show_segs4(self, segs: list, indicators: int = 0x00):
+        """Escreve diretamente até 4 padrões de segmentos (lista de ints).
+        Complementa com 0x00 se segs tiver menos de 4 elementos."""
+        padded = (list(segs) + [0x00, 0x00, 0x00, 0x00])[:4]
+        self._write_digits(padded)
+        self._send_cmd(REG_IND, indicators)
+
     def scroll_text(self, text: str, step_delay: float = 0.35):
-        """Rola texto da direita para a esquerda."""
-        padded = "    " + str(text) + "    "
-        for i in range(len(padded) - 3):
-            self.show_text4(padded[i:i + 4])
+        """Rola texto da direita para a esquerda.
+        Caracteres em _WIDE (M, W) ocupam 2 posições para maior legibilidade."""
+        segs = expand_to_segs(text)
+        padded = [0x00] * 4 + segs + [0x00] * 4
+        for i in range(len(segs) + 5):
+            self.show_segs4(padded[i:i + 4])
             time.sleep(step_delay)
 
     def show_clock(

@@ -9,6 +9,7 @@ import time
 from display_driver import (
     usb_storage_is_connected,
     IND_LAN, IND_WIFI, IND_USB,
+    expand_to_segs,
 )
 
 SIOCGIFADDR = 0x8915
@@ -89,8 +90,8 @@ def make_background(
         "last_net": 0.0,
         "ifaces": {},
         "usb": False,
-        # scroll não-bloqueante
-        "scroll_buf": "",
+        # scroll não-bloqueante: lista de ints (padrões de segmentos pré-expandidos)
+        "scroll_buf": [],
         "scroll_pos": 0,
         "scroll_last": 0.0,
     }
@@ -135,9 +136,10 @@ def make_background(
             if t - state["phase_start"] >= clock_duration:
                 text = _build_scroll()
                 if text:
+                    segs = expand_to_segs(text)
                     state["phase"]       = "scroll"
                     state["phase_start"] = t
-                    state["scroll_buf"]  = "    " + text + "    "
+                    state["scroll_buf"]  = [0x00] * 4 + segs + [0x00] * 4
                     state["scroll_pos"]  = 0
                     state["scroll_last"] = t
 
@@ -156,7 +158,7 @@ def make_background(
                 ind |= IND_USB
 
             if t - state["scroll_last"] >= ip_step_delay:
-                hw.show_text4(buf[pos: pos + 4], indicators=ind)
+                hw.show_segs4(buf[pos: pos + 4], indicators=ind)
                 state["scroll_pos"] += 1
                 state["scroll_last"] = t
 
