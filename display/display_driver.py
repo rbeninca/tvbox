@@ -91,6 +91,21 @@ def get_network_state() -> dict:
     return {"lan": read_operstate("eth0"), "wifi": wifi_is_up()}
 
 
+def usb_storage_is_connected() -> bool:
+    """Retorna True se há algum dispositivo de armazenamento USB conectado.
+    Verifica /sys/block/sd* cujo symlink de device contém 'usb'.
+    """
+    import glob
+    for dev in glob.glob("/sys/block/sd*"):
+        try:
+            link = os.readlink(dev)
+            if "usb" in link:
+                return True
+        except OSError:
+            pass
+    return False
+
+
 # ── Preparação ─────────────────────────────────────────────────────────────────
 
 def prepare_display_gpio():
@@ -164,12 +179,12 @@ class DisplayDriver:
         self._brightness = value & 0xF0
         self._send_cmd(REG_CTRL, self._brightness | 0x01)
 
-    def show_text4(self, text: str):
+    def show_text4(self, text: str, indicators: int = 0x00):
         """Exibe até 4 caracteres no display (completado com espaços).
-        Apaga todos os indicadores (incluindo os dois-pontos)."""
+        indicators: máscara de bits IND_* a manter acesos (padrão: apaga todos)."""
         text = (str(text) + "    ")[:4]
         self._write_digits([_seg(c) for c in text])
-        self._send_cmd(REG_IND, 0x00)
+        self._send_cmd(REG_IND, indicators)
 
     def show_number(self, value: int, leading_zeros: bool = True):
         """Exibe número de 0 a 9999.
@@ -208,8 +223,9 @@ class DisplayDriver:
         colon_on: bool = True,
         lan_on: bool = False,
         wifi_on: bool = False,
+        usb_on: bool = False,
     ):
-        """Exibe HH:MM com indicadores de rede."""
+        """Exibe HH:MM com indicadores de rede e USB."""
         segs = [
             _seg(str(hour // 10)),
             _seg(str(hour % 10)),
@@ -224,6 +240,8 @@ class DisplayDriver:
             ind |= IND_LAN
         if wifi_on:
             ind |= IND_WIFI
+        if usb_on:
+            ind |= IND_USB
         self._send_cmd(REG_IND, ind)
 
     # ── Internos de display ────────────────────────────────────────────────────
