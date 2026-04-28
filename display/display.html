@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>FD6551 — Datasheet de Engenharia Reversa</title>
+<style>
+:root {
+  --mono: 'Courier New', 'Lucida Console', monospace;
+  --fg:   #1a1a1a;
+  --fg2:  #444;
+  --fg3:  #888;
+  --bg:   #fff;
+  --bg2:  #f5f5f2;
+  --bg3:  #ebebeb;
+  --bdr:  #c8c8c0;
+  --bdr2: #a0a09a;
+  --grn:  #0a6e1e;
+  --grn2: #d4f0da;
+  --amb:  #7a4800;
+  --amb2: #fff3d4;
+  --red:  #a00;
+  --red2: #fde8e8;
+  --blu:  #003da0;
+  --blu2: #e0eaff;
+  --seg-on:  #e8540a;
+  --seg-off: #e8e0d8;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg:   #e0ddd4;
+    --fg2:  #b0ada4;
+    --fg3:  #706e68;
+    --bg:   #141410;
+    --bg2:  #1e1d18;
+    --bg3:  #2a2924;
+    --bdr:  #3a3932;
+    --bdr2: #5a5950;
+    --grn:  #5ecf78;
+    --grn2: #0c2e14;
+    --amb:  #f5b840;
+    --amb2: #2c1e00;
+    --red:  #f07070;
+    --red2: #300808;
+    --blu:  #7ab0ff;
+    --blu2: #0a1a38;
+    --seg-on:  #ff6420;
+    --seg-off: #2a2620;
+  }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--mono);
+  font-size: 13px;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+  padding: 32px 40px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* ─── HEADER ─── */
+.ds-header {
+  border: 1px solid var(--bdr2);
+  border-left: 4px solid var(--grn);
+  padding: 18px 24px;
+  margin-bottom: 28px;
+  background: var(--bg2);
+}
+.ds-header .chip-name {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--fg);
+}
+.ds-header .chip-sub {
+  font-size: 11px;
+  color: var(--fg3);
+  margin-top: 3px;
+  letter-spacing: 1px;
+}
+.ds-header .meta-row {
+  display: flex;
+  gap: 24px;
+  margin-top: 14px;
+  font-size: 11px;
+  flex-wrap: wrap;
+}
+.meta-tag {
+  background: var(--bg3);
+  border: 1px solid var(--bdr);
+  padding: 2px 8px;
+  color: var(--fg2);
+}
+.meta-tag span { color: var(--grn); font-weight: 700; }
+
+/* ─── SECTION ─── */
+.section { margin-bottom: 32px; }
+.section-title {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--fg3);
+  border-bottom: 1px solid var(--bdr);
+  padding-bottom: 5px;
+  margin-bottom: 14px;
+}
+.section-title::before { content: "§ "; color: var(--grn); }
+
+/* ─── TABLES ─── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+th {
+  background: var(--bg3);
+  border: 1px solid var(--bdr);
+  padding: 5px 10px;
+  text-align: left;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 10px;
+  color: var(--fg2);
+}
+td {
+  border: 1px solid var(--bdr);
+  padding: 5px 10px;
+  vertical-align: middle;
+}
+tr:nth-child(even) td { background: var(--bg2); }
+.addr { color: var(--blu); font-weight: 700; }
+.val  { color: var(--grn); font-weight: 700; }
+.note { color: var(--amb); font-size: 11px; }
+.rw   { color: var(--fg3); font-size: 10px; letter-spacing: 1px; }
+
+/* ─── REGISTER BIT FIELD ─── */
+.bitfield {
+  border: 1px solid var(--bdr);
+  background: var(--bg2);
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+.bitfield-title {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--fg3);
+  margin-bottom: 10px;
+}
+.bitfield-title em { color: var(--blu); font-style: normal; font-weight: 700; }
+.bf-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 3px;
+  margin-bottom: 10px;
+}
+.bf-bit {
+  border: 1px solid var(--bdr);
+  text-align: center;
+  padding: 6px 2px;
+  font-size: 10px;
+}
+.bf-bit .bit-num { color: var(--fg3); font-size: 9px; display: block; }
+.bf-bit .bit-name { font-weight: 700; color: var(--fg); font-size: 11px; display: block; margin-top: 2px; }
+.bf-bit.active { background: var(--grn2); border-color: var(--grn); }
+.bf-bit.active .bit-name { color: var(--grn); }
+.bf-bit.reserved { background: var(--bg3); }
+.bf-bit.reserved .bit-name { color: var(--fg3); }
+.bf-bit.control { background: var(--blu2); border-color: var(--blu); }
+.bf-bit.control .bit-name { color: var(--blu); }
+.bf-desc {
+  font-size: 11px;
+  color: var(--fg2);
+  border-top: 1px dashed var(--bdr);
+  padding-top: 8px;
+}
+.bf-desc table { border: none; }
+.bf-desc td { border: none; padding: 2px 8px 2px 0; }
+.bf-desc td:first-child { color: var(--grn); width: 60px; }
+
+/* ─── TIMING DIAGRAM ─── */
+.timing-wrap {
+  background: var(--bg2);
+  border: 1px solid var(--bdr);
+  padding: 16px;
+  overflow-x: auto;
+}
+
+/* ─── 7-SEG DISPLAY ─── */
+.seg-table { width: 100%; }
+.seg-table td { border: 1px solid var(--bdr); padding: 8px; text-align: center; }
+.seg-table td.char-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--fg);
+  width: 24px;
+}
+.seg-table td.hex-val {
+  font-size: 10px;
+  color: var(--blu);
+  padding: 2px 4px;
+  width: 40px;
+}
+
+svg.seg7 {
+  width: 28px;
+  height: 40px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ─── INIT SEQUENCE ─── */
+.init-seq {
+  background: var(--bg2);
+  border: 1px solid var(--bdr);
+  padding: 14px 16px;
+}
+.init-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.init-step:last-child { margin-bottom: 0; }
+.step-num {
+  min-width: 24px;
+  height: 24px;
+  background: var(--bg3);
+  border: 1px solid var(--bdr);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--grn);
+  flex-shrink: 0;
+}
+.step-body { font-size: 12px; line-height: 1.5; }
+.step-body code {
+  background: var(--bg3);
+  border: 1px solid var(--bdr);
+  padding: 1px 5px;
+  color: var(--grn);
+  font-size: 11px;
+}
+.step-body .warn { color: var(--amb); }
+
+/* ─── MISC ─── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+.callout {
+  border-left: 3px solid var(--amb);
+  background: var(--amb2);
+  padding: 8px 12px;
+  font-size: 11px;
+  color: var(--amb);
+  margin-bottom: 10px;
+}
+.callout.info { border-color: var(--blu); background: var(--blu2); color: var(--blu); }
+.callout.ok   { border-color: var(--grn); background: var(--grn2); color: var(--grn); }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════ HEADER -->
+<div class="ds-header">
+  <div class="chip-name">FD6551</div>
+  <div class="chip-sub">4-DIGIT 7-SEGMENT LED DISPLAY DRIVER — ENGENHARIA REVERSA</div>
+  <div class="meta-row">
+    <span class="meta-tag">PLATAFORMA <span>TX9 Pro (P281)</span></span>
+    <span class="meta-tag">SOC <span>Amlogic S905W/X (GXL)</span></span>
+    <span class="meta-tag">INTERFACE <span>Serial Síncrono 2-Fios</span></span>
+    <span class="meta-tag">VCC <span>3.3V / 5V</span></span>
+    <span class="meta-tag">STATUS <span>REV. ENGENHARIA</span></span>
+    <span class="meta-tag">DOC <span>v1.0 · 2025</span></span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ §1 · VISÃO GERAL -->
+<div class="section">
+  <div class="section-title">01 · Visão Geral do Sistema</div>
+  <div class="callout info">
+    Documentação derivada por engenharia reversa do firmware e análise de GPIO.
+    Endereços e nomes de registradores são inferidos — sem datasheet oficial.
+  </div>
+  <table>
+    <tr><th>Parâmetro</th><th>Valor</th><th>Observação</th></tr>
+    <tr><td>Dígitos</td><td class="val">4 × 7-seg</td><td>Multiplexado, MSB first</td></tr>
+    <tr><td>Indicadores</td><td class="val">7 bits</td><td>LAN, WiFi, Play, Pause, Colon, Clock, USB</td></tr>
+    <tr><td>Interface</td><td class="val">Serial sínc. 2-fios</td><td>Bit-bang via GPIO Amlogic</td></tr>
+    <tr><td>Brilho (PWM)</td><td class="val">8 níveis</td><td>Bits [7:4] do reg. 0x48</td></tr>
+    <tr><td>Bit order</td><td class="val">MSB first</td><td>Bit 7 transmitido primeiro</td></tr>
+    <tr><td>Timing</td><td class="val">10 – 100 µs</td><td>Delay por borda de clock</td></tr>
+    <tr><td>ACK</td><td class="val">9º ciclo de clock</td><td>DIO liberado, CLK pulsado</td></tr>
+  </table>
+</div>
+
+<!-- ════════════════════════════════════════════════ §2 · GPIO / MMAP -->
+<div class="section">
+  <div class="section-title">02 · Mapeamento de GPIO — Amlogic GXL (/dev/mem)</div>
+
+  <div class="two-col">
+    <div>
+      <table style="margin-bottom:12px">
+        <tr><th colspan="2">Endereço Base</th></tr>
+        <tr><td>GPIO_BASE</td><td class="addr">0xC883_4000</td></tr>
+        <tr><td>PAGE_SIZE</td><td class="val">0x1000 (4 KB)</td></tr>
+      </table>
+      <table>
+        <tr><th>Registrador</th><th>Offset</th><th>Função</th></tr>
+        <tr><td>OEN</td><td class="addr">+0x43C</td><td>Output Enable (1=HiZ, 0=saída)</td></tr>
+        <tr><td>OUT</td><td class="addr">+0x440</td><td>Output Data</td></tr>
+        <tr><td>IN</td><td class="addr">+0x444</td><td>Input Data (leitura)</td></tr>
+      </table>
+    </div>
+    <div>
+      <table style="margin-bottom:12px">
+        <tr><th colspan="3">Bits de Pino</th></tr>
+        <tr><th>Sinal</th><th>BIT</th><th>Modo</th></tr>
+        <tr><td>CLK</td><td class="val">27</td><td>Saída permanente</td></tr>
+        <tr><td>DIO</td><td class="val">29</td><td>Open-drain bidirecional</td></tr>
+      </table>
+      <div class="callout">
+        <strong>DIO Open-Drain:</strong> OUT[29] mantém sempre 0.<br>
+        HIGH → OEN[29]=1 (HiZ / entrada)<br>
+        LOW &nbsp;→ OEN[29]=0 (força 0V na linha)
+      </div>
+    </div>
+  </div>
+
+  <table style="margin-top:10px">
+    <tr><th>Operação</th><th>OEN[27]</th><th>OUT[27]</th><th>OEN[29]</th><th>OUT[29]</th><th>Estado do Barramento</th></tr>
+    <tr><td>CLK = LOW</td><td class="val">0</td><td class="val">0</td><td>—</td><td>—</td><td>Clock em repouso</td></tr>
+    <tr><td>CLK = HIGH</td><td class="val">0</td><td class="val">1</td><td>—</td><td>—</td><td>Clock ativo</td></tr>
+    <tr><td>DIO = HIGH (idle)</td><td>—</td><td>—</td><td class="val">1</td><td class="val">0</td><td>Linha liberada (pull-up externo)</td></tr>
+    <tr><td>DIO = LOW</td><td>—</td><td>—</td><td class="val">0</td><td class="val">0</td><td>DIO forçado em 0V</td></tr>
+  </table>
+</div>
+
+<!-- ════════════════════════════════════════════════ §3 · PROTOCOLO -->
+<div class="section">
+  <div class="section-title">03 · Protocolo de Comunicação Serial Síncrono</div>
+
+  <div class="callout ok">
+    Quadro = START + ADDR (8 bits) + ACK + DATA (8 bits) + ACK + STOP
+  </div>
+
+  <div class="timing-wrap">
+    <svg width="880" viewBox="0 0 880 310" xmlns="http://www.w3.org/2000/svg"
+         style="display:block;min-width:700px;font-family:var(--mono)">
+
+      <!-- Labels de canal -->
+      <text x="4"  y="56"  font-size="11" fill="var(--fg2)">CLK</text>
+      <text x="4"  y="136" font-size="11" fill="var(--fg2)">DIO</text>
+      <text x="4"  y="230" font-size="11" fill="var(--fg2)">BUS</text>
+
+      <!-- ── linhas de fundo / baseline ── -->
+      <line x1="52" y1="65"  x2="870" y2="65"  stroke="var(--bdr)"  stroke-width="0.5" stroke-dasharray="4 4"/>
+      <line x1="52" y1="45"  x2="870" y2="45"  stroke="var(--bdr)"  stroke-width="0.5" stroke-dasharray="4 4"/>
+      <line x1="52" y1="145" x2="870" y2="145" stroke="var(--bdr)"  stroke-width="0.5" stroke-dasharray="4 4"/>
+      <line x1="52" y1="125" x2="870" y2="125" stroke="var(--bdr)"  stroke-width="0.5" stroke-dasharray="4 4"/>
+
+      <!-- ══ CLK waveform ══ -->
+      <!-- idle H -->
+      <polyline fill="none" stroke="var(--grn)" stroke-width="1.5"
+        points="52,45 70,45"/>
+      <!-- START region -->
+      <polyline fill="none" stroke="var(--grn)" stroke-width="1.5"
+        points="70,45 70,65 90,65 90,45"/>
+      <!-- 8 bit clocks (addr byte) -->
+      <polyline fill="none" stroke="var(--grn)" stroke-width="1.5"
+        points="90,45 100,45 100,65 118,65 118,45 128,45 128,65 146,65 146,45 156,45 156,65 174,65 174,45 184,45 184,65 202,65 202,45 212,45 212,65 230,65 230,45 240,45 240,65 258,65 258,45 268,45 268,65 286,65 286,45"/>
+      <!-- ACK1 -->
+      <polyline fill="none" stroke="var(--grn)" stroke-width="1.5"
+        points="286,45 296,45 296,65 314,65 314,45"/>
+      <!-- 8 bit clocks (data byte) -->
+      <polyline fill="none" stroke="var(--grn)" stroke-width="1.5"
+        points="314,45 324,45 324,65 342,65 342,45 352,45 352,65 370,65 370,45 380,45 380,65 398,65 398,45 408,45 408,65 426,65 426,45 436,45 436,65 454,65 454,45 464,45 464,65 482,65 482,45 492,45 492,65 510,65 510,45 520,45 520,65 538,65 538,45"/>
+      <!-- ACK2 -->
+      <polyline fill="none" stroke="var(--grn)" stroke-width="1.5"
+        points="538,45 548,45 548,65 566,65 566,45"/>
+      <!-- STOP + idle -->
+      <polyline fill="none" stroke="var(--grn)" stroke-width="1.5"
+        points="566,45 590,45 590,65 610,65 610,45 870,45"/>
+
+      <!-- ══ DIO waveform ══ -->
+      <!-- idle H -->
+      <polyline fill="none" stroke="var(--amb)" stroke-width="1.5"
+        points="52,125 70,125"/>
+      <!-- START: DIO 1→0 com CLK=H, depois CLK cai -->
+      <polyline fill="none" stroke="var(--amb)" stroke-width="1.5"
+        points="70,125 80,125 80,145 90,145"/>
+      <!-- addr bits (abstracted — alternating) -->
+      <polyline fill="none" stroke="var(--amb)" stroke-width="1.5"
+        points="90,145 100,145 100,125 118,125 118,145 128,145 128,125 146,125 146,145 156,145 156,125 174,125 174,145 184,145 184,125 202,125 202,145 212,145 212,125 230,125 230,145 240,145 240,125 258,125 258,145 268,145 268,125 286,125"/>
+      <!-- ACK1: DIO liberado (H) -->
+      <polyline fill="none" stroke="var(--amb)" stroke-width="1.5"
+        points="286,125 314,125"/>
+      <!-- data bits -->
+      <polyline fill="none" stroke="var(--amb)" stroke-width="1.5"
+        points="314,125 324,125 324,145 342,145 342,125 352,125 352,145 370,145 370,125 380,125 380,145 398,145 398,125 408,125 408,145 426,145 426,125 436,125 436,145 454,145 454,125 464,125 464,145 482,145 482,125 492,125 492,145 510,145 510,125 520,125 520,145 538,145 538,125"/>
+      <!-- ACK2: DIO liberado -->
+      <polyline fill="none" stroke="var(--amb)" stroke-width="1.5"
+        points="538,125 566,125"/>
+      <!-- STOP: DIO 0→H com CLK=H -->
+      <polyline fill="none" stroke="var(--amb)" stroke-width="1.5"
+        points="566,145 590,145 590,125 870,125"/>
+
+      <!-- ══ Labels de zona ══ -->
+      <text x="70"  y="20" font-size="9" fill="var(--red)" text-anchor="middle">START</text>
+      <line x1="70" y1="22" x2="90"  y2="22" stroke="var(--red)" stroke-width="0.5"/>
+      <text x="190" y="20" font-size="9" fill="var(--fg2)" text-anchor="middle">ADDR [7:0]</text>
+      <line x1="90" y1="22" x2="286" y2="22" stroke="var(--fg2)" stroke-width="0.5"/>
+      <text x="300" y="20" font-size="9" fill="var(--grn)" text-anchor="middle">ACK</text>
+      <text x="428" y="20" font-size="9" fill="var(--fg2)" text-anchor="middle">DATA [7:0]</text>
+      <line x1="314" y1="22" x2="538" y2="22" stroke="var(--fg2)" stroke-width="0.5"/>
+      <text x="552" y="20" font-size="9" fill="var(--grn)" text-anchor="middle">ACK</text>
+      <text x="600" y="20" font-size="9" fill="var(--red)" text-anchor="middle">STOP</text>
+      <line x1="590" y1="22" x2="640" y2="22" stroke="var(--red)" stroke-width="0.5"/>
+
+      <!-- ══ BUS annotations ══ -->
+      <rect x="92"  y="215" width="192" height="20" fill="none" stroke="var(--fg3)" stroke-width="0.5"/>
+      <text x="188" y="228" font-size="9" fill="var(--fg3)" text-anchor="middle">ENDEREÇO (8 bits)</text>
+      <rect x="316" y="215" width="220" height="20" fill="none" stroke="var(--fg3)" stroke-width="0.5"/>
+      <text x="426" y="228" font-size="9" fill="var(--fg3)" text-anchor="middle">DADO (8 bits)</text>
+      <text x="71"  y="228" font-size="9" fill="var(--red)" text-anchor="middle">S</text>
+      <text x="600" y="228" font-size="9" fill="var(--red)" text-anchor="middle">P</text>
+      <text x="300" y="228" font-size="9" fill="var(--grn)">A</text>
+      <text x="552" y="228" font-size="9" fill="var(--grn)">A</text>
+
+      <!-- ══ bit detail (zoom) ══ -->
+      <line x1="100" y1="250" x2="118" y2="250" stroke="var(--fg3)" stroke-width="0.5"/>
+      <text x="109" y="265" font-size="9" fill="var(--fg3)" text-anchor="middle">tBIT</text>
+      <line x1="100" y1="252" x2="100" y2="248" stroke="var(--fg3)" stroke-width="0.5"/>
+      <line x1="118" y1="252" x2="118" y2="248" stroke="var(--fg3)" stroke-width="0.5"/>
+
+      <text x="109" y="285" font-size="9" fill="var(--fg3)" text-anchor="middle">10–100µs</text>
+
+      <!-- ── referência de nível ── -->
+      <text x="856" y="48"  font-size="9" fill="var(--grn)">H</text>
+      <text x="856" y="68"  font-size="9" fill="var(--fg3)">L</text>
+      <text x="856" y="128" font-size="9" fill="var(--amb)">H</text>
+      <text x="856" y="148" font-size="9" fill="var(--fg3)">L</text>
+
+      <!-- START detail -->
+      <text x="75" y="108" font-size="8" fill="var(--fg3)" text-anchor="middle">CLK=H</text>
+      <text x="75" y="118" font-size="8" fill="var(--fg3)" text-anchor="middle">DIO↓</text>
+
+      <!-- STOP detail -->
+      <text x="598" y="108" font-size="8" fill="var(--fg3)" text-anchor="middle">CLK=H</text>
+      <text x="598" y="118" font-size="8" fill="var(--fg3)" text-anchor="middle">DIO↑</text>
+
+    </svg>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+    <div class="init-seq">
+      <div style="font-size:10px;letter-spacing:2px;color:var(--fg3);margin-bottom:10px">CONDIÇÃO START</div>
+      <table>
+        <tr><th>#</th><th>Sinal</th><th>Ação</th></tr>
+        <tr><td>1</td><td>CLK</td><td class="val">= 1</td></tr>
+        <tr><td>2</td><td>DIO</td><td class="val">1 → 0</td></tr>
+        <tr><td>3</td><td>CLK</td><td class="val">= 0</td></tr>
+      </table>
+    </div>
+    <div class="init-seq">
+      <div style="font-size:10px;letter-spacing:2px;color:var(--fg3);margin-bottom:10px">CONDIÇÃO STOP</div>
+      <table>
+        <tr><th>#</th><th>Sinal</th><th>Ação</th></tr>
+        <tr><td>1</td><td>CLK</td><td class="val">= 1</td></tr>
+        <tr><td>2</td><td>DIO</td><td class="val">0 → 1</td></tr>
+        <tr>  <td colspan="3" class="note">CLK permanece HIGH</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ §4 · MAPA DE REGISTRADORES -->
+<div class="section">
+  <div class="section-title">04 · Mapa de Registradores FD6551</div>
+  <table>
+    <tr>
+      <th>Endereço</th><th>Símbolo</th><th>R/W</th>
+      <th>Reset</th><th>Função</th>
+    </tr>
+    <tr>
+      <td class="addr">0x48</td><td>CTRL</td><td class="rw">W</td>
+      <td class="val">0x00</td><td>Controle: brilho [7:4] + enable [0]</td>
+    </tr>
+    <tr>
+      <td class="addr">0x66</td><td>DIG0</td><td class="rw">W</td>
+      <td class="val">0x00</td><td>Dígito 0 — posição mais à esquerda</td>
+    </tr>
+    <tr>
+      <td class="addr">0x68</td><td>DIG1</td><td class="rw">W</td>
+      <td class="val">0x00</td><td>Dígito 1</td>
+    </tr>
+    <tr>
+      <td class="addr">0x6A</td><td>DIG2</td><td class="rw">W</td>
+      <td class="val">0x00</td><td>Dígito 2</td>
+    </tr>
+    <tr>
+      <td class="addr">0x6C</td><td>DIG3</td><td class="rw">W</td>
+      <td class="val">0x00</td><td>Dígito 3 — posição mais à direita</td>
+    </tr>
+    <tr>
+      <td class="addr">0x6E</td><td>IND</td><td class="rw">W</td>
+      <td class="val">0x00</td><td>Indicadores: USB, Clock, Colon, Pause, Play, WiFi, LAN</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ════════════════════════════════════════════════ §5 · BIT FIELDS -->
+<div class="section">
+  <div class="section-title">05 · Descrição de Campos de Bits</div>
+
+  <!-- CTRL 0x48 -->
+  <div class="bitfield">
+    <div class="bitfield-title">REG <em>0x48</em> · CTRL — Controle de Display</div>
+    <div class="bf-grid">
+      <div class="bf-bit control"><span class="bit-num">7</span><span class="bit-name">B3</span></div>
+      <div class="bf-bit control"><span class="bit-num">6</span><span class="bit-name">B2</span></div>
+      <div class="bf-bit control"><span class="bit-num">5</span><span class="bit-name">B1</span></div>
+      <div class="bf-bit control"><span class="bit-num">4</span><span class="bit-name">B0</span></div>
+      <div class="bf-bit reserved"><span class="bit-num">3</span><span class="bit-name">—</span></div>
+      <div class="bf-bit reserved"><span class="bit-num">2</span><span class="bit-name">—</span></div>
+      <div class="bf-bit reserved"><span class="bit-num">1</span><span class="bit-name">—</span></div>
+      <div class="bf-bit active"><span class="bit-num">0</span><span class="bit-name">EN</span></div>
+    </div>
+    <div class="bf-desc">
+      <table>
+        <tr><td>[7:4]</td><td>BRILHO — PWM de brilho. 0x10=mín, 0x70=máx. Nibble alto.</td></tr>
+        <tr><td>[3:1]</td><td>RESERVADO — Escrever 0.</td></tr>
+        <tr><td>[0]</td>  <td>ENABLE — 1 = display ativo, 0 = display apagado.</td></tr>
+      </table>
+      <div style="margin-top:6px;font-size:10px;color:var(--fg3)">
+        Exemplos: <span style="color:var(--grn)">0x01</span>=EN mín-brilho&nbsp;
+        <span style="color:var(--grn)">0x71</span>=EN máx-brilho&nbsp;
+        <span style="color:var(--grn)">0x00</span>=desligado
+      </div>
+    </div>
+  </div>
+
+  <!-- DIG 0x66..0x6C -->
+  <div class="bitfield">
+    <div class="bitfield-title">REG <em>0x66 / 0x68 / 0x6A / 0x6C</em> · DIG0..3 — Padrão de Segmentos</div>
+    <div class="bf-grid">
+      <div class="bf-bit reserved"><span class="bit-num">7</span><span class="bit-name">DP</span></div>
+      <div class="bf-bit active"><span class="bit-num">6</span><span class="bit-name">G</span></div>
+      <div class="bf-bit active"><span class="bit-num">5</span><span class="bit-name">F</span></div>
+      <div class="bf-bit active"><span class="bit-num">4</span><span class="bit-name">E</span></div>
+      <div class="bf-bit active"><span class="bit-num">3</span><span class="bit-name">D</span></div>
+      <div class="bf-bit active"><span class="bit-num">2</span><span class="bit-name">C</span></div>
+      <div class="bf-bit active"><span class="bit-num">1</span><span class="bit-name">B</span></div>
+      <div class="bf-bit active"><span class="bit-num">0</span><span class="bit-name">A</span></div>
+    </div>
+    <div class="bf-desc">
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center">
+        <div>
+          <!-- 7-seg diagram (physical layout) -->
+          <svg width="56" height="80" viewBox="0 0 56 80" xmlns="http://www.w3.org/2000/svg">
+            <style>.so{fill:var(--seg-on)} .sx{fill:var(--seg-off)}</style>
+            <!-- A top -->
+            <rect class="so" x="10" y="2"  width="36" height="6" rx="2"/>
+            <text x="28" y="7"  font-size="7" text-anchor="middle" fill="var(--bg)">A</text>
+            <!-- B top-right -->
+            <rect class="so" x="46" y="4"  width="6" height="30" rx="2"/>
+            <text x="49" y="21" font-size="7" text-anchor="middle" fill="var(--bg)">B</text>
+            <!-- C bot-right -->
+            <rect class="so" x="46" y="42" width="6" height="30" rx="2"/>
+            <text x="49" y="59" font-size="7" text-anchor="middle" fill="var(--bg)">C</text>
+            <!-- D bottom -->
+            <rect class="so" x="10" y="72" width="36" height="6" rx="2"/>
+            <text x="28" y="77" font-size="7" text-anchor="middle" fill="var(--bg)">D</text>
+            <!-- E bot-left -->
+            <rect class="so" x="4"  y="42" width="6" height="30" rx="2"/>
+            <text x="7"  y="59" font-size="7" text-anchor="middle" fill="var(--bg)">E</text>
+            <!-- F top-left -->
+            <rect class="so" x="4"  y="4"  width="6" height="30" rx="2"/>
+            <text x="7"  y="21" font-size="7" text-anchor="middle" fill="var(--bg)">F</text>
+            <!-- G middle -->
+            <rect class="so" x="10" y="37" width="36" height="6" rx="2"/>
+            <text x="28" y="42" font-size="7" text-anchor="middle" fill="var(--bg)">G</text>
+          </svg>
+        </div>
+        <table>
+          <tr><td>Bit 0 (A)</td><td>Segmento SUPERIOR horizontal</td></tr>
+          <tr><td>Bit 1 (B)</td><td>Segmento SUPERIOR DIREITO vertical</td></tr>
+          <tr><td>Bit 2 (C)</td><td>Segmento INFERIOR DIREITO vertical</td></tr>
+          <tr><td>Bit 3 (D)</td><td>Segmento INFERIOR horizontal</td></tr>
+          <tr><td>Bit 4 (E)</td><td>Segmento INFERIOR ESQUERDO vertical</td></tr>
+          <tr><td>Bit 5 (F)</td><td>Segmento SUPERIOR ESQUERDO vertical</td></tr>
+          <tr><td>Bit 6 (G)</td><td>Segmento CENTRAL horizontal (meio)</td></tr>
+          <tr><td>Bit 7 (DP)</td><td>Ponto decimal — suporte depende do hardware</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- IND 0x6E -->
+  <div class="bitfield">
+    <div class="bitfield-title">REG <em>0x6E</em> · IND — Indicadores de Status</div>
+    <div class="bf-grid">
+      <div class="bf-bit reserved"><span class="bit-num">7</span><span class="bit-name">—</span></div>
+      <div class="bf-bit active"><span class="bit-num">6</span><span class="bit-name">USB</span></div>
+      <div class="bf-bit active"><span class="bit-num">5</span><span class="bit-name">CLK</span></div>
+      <div class="bf-bit active"><span class="bit-num">4</span><span class="bit-name">COL</span></div>
+      <div class="bf-bit active"><span class="bit-num">3</span><span class="bit-name">PAU</span></div>
+      <div class="bf-bit active"><span class="bit-num">2</span><span class="bit-name">PLY</span></div>
+      <div class="bf-bit active"><span class="bit-num">1</span><span class="bit-name">WIF</span></div>
+      <div class="bf-bit active"><span class="bit-num">0</span><span class="bit-name">LAN</span></div>
+    </div>
+    <div class="bf-desc">
+      <table>
+        <tr><td>Bit 0 · LAN</td><td>Indicador Ethernet / LAN ativo</td></tr>
+        <tr><td>Bit 1 · WIF</td><td>Indicador Wi-Fi ativo</td></tr>
+        <tr><td>Bit 2 · PLY</td><td>Indicador Play (reprodução)</td></tr>
+        <tr><td>Bit 3 · PAU</td><td>Indicador Pause (pausa)</td></tr>
+        <tr><td>Bit 4 · COL</td><td>Dois-pontos (:) entre dígitos 1–2 e 2–3</td></tr>
+        <tr><td>Bit 5 · CLK</td><td>Ícone de relógio</td></tr>
+        <tr><td>Bit 6 · USB</td><td>Indicador USB conectado</td></tr>
+        <tr><td>Bit 7</td><td>Reservado — escrever 0</td></tr>
+      </table>
+      <div style="margin-top:6px;font-size:10px;color:var(--fg3)">
+        Exemplo modo relógio com LAN:
+        <span style="color:var(--grn)">IND = IND_COLON | IND_LAN = 0x10 | 0x01 = 0x11</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ §6 · TABELA DE CARACTERES -->
+<div class="section">
+  <div class="section-title">06 · Tabela de Caracteres — Segmentos 7-seg</div>
+  <div style="overflow-x:auto">
+  <table class="seg-table" style="font-size:11px;min-width:700px">
+    <tr>
+      <th>CH</th><th>HEX</th><th>Seg</th>
+      <th>CH</th><th>HEX</th><th>Seg</th>
+      <th>CH</th><th>HEX</th><th>Seg</th>
+      <th>CH</th><th>HEX</th><th>Seg</th>
+    </tr>
+
+    <!-- JS renders the SVGs dynamically after page load -->
+    <!-- Rows populated by script below -->
+  </table>
+  </div>
+  <script>
+  // SEG MAP: segments = [DP,G,F,E,D,C,B,A] = bit 7..0
+  const CHARS = {
+    '0':0x3F,'1':0x06,'2':0x5B,'3':0x4F,'4':0x66,'5':0x6D,'6':0x7D,'7':0x07,
+    '8':0x7F,'9':0x6F,'A':0x77,'B':0x7C,'C':0x39,'D':0x5E,'E':0x79,'F':0x71,
+    'G':0x3D,'H':0x76,'I':0x06,'J':0x1E,'L':0x38,'N':0x37,'O':0x3F,'P':0x73,
+    'Q':0x67,'R':0x50,'S':0x6D,'T':0x78,'U':0x3E,'Y':0x6E,'Z':0x5B,
+    '-':0x40,'_':0x08,' ':0x00
+  };
+
+  function seg7svg(val) {
+    const on = 'var(--seg-on)', off = 'var(--seg-off)';
+    const b = (n) => (val >> n) & 1 ? on : off;
+    return `<svg class="seg7" viewBox="0 0 28 40" xmlns="http://www.w3.org/2000/svg">
+      <rect fill="${b(0)}" x="5"  y="1"  width="18" height="4" rx="1.5"/>
+      <rect fill="${b(1)}" x="23" y="2"  width="4"  height="15" rx="1.5"/>
+      <rect fill="${b(2)}" x="23" y="22" width="4"  height="15" rx="1.5"/>
+      <rect fill="${b(3)}" x="5"  y="35" width="18" height="4" rx="1.5"/>
+      <rect fill="${b(4)}" x="1"  y="22" width="4"  height="15" rx="1.5"/>
+      <rect fill="${b(5)}" x="1"  y="2"  width="4"  height="15" rx="1.5"/>
+      <rect fill="${b(6)}" x="5"  y="18" width="18" height="4" rx="1.5"/>
+    </svg>`;
+  }
+
+  const keys = Object.keys(CHARS);
+  const tbody = document.querySelector('.seg-table');
+  let html = '';
+  for (let i = 0; i < keys.length; i += 4) {
+    html += '<tr>';
+    for (let j = 0; j < 4; j++) {
+      const ch = keys[i + j];
+      if (ch !== undefined) {
+        const v = CHARS[ch];
+        html += `<td class="char-label">${ch === ' ' ? '&nbsp;SPC' : ch}</td>`;
+        html += `<td class="hex-val" style="color:var(--grn)">0x${v.toString(16).toUpperCase().padStart(2,'0')}</td>`;
+        html += `<td>${seg7svg(v)}</td>`;
+      } else {
+        html += '<td colspan="3"></td>';
+      }
+    }
+    html += '</tr>';
+  }
+  tbody.innerHTML += html;
+  </script>
+</div>
+
+<!-- ════════════════════════════════════════════════ §7 · SEQUÊNCIA DE INIT -->
+<div class="section">
+  <div class="section-title">07 · Sequência de Inicialização Robusta</div>
+
+  <div class="callout">
+    O FD6551 requer rampa de brilho na inicialização. Init direto com brilho máximo
+    pode resultar em display sem resposta ou artefatos visuais.
+  </div>
+
+  <div class="init-seq">
+    <div class="init-step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Mapear GPIO via /dev/mem</strong><br>
+        <code>mmap(fd, 0x1000, MAP_SHARED, PROT_RW, GPIO_BASE=0xC8834000)</code><br>
+        CLK (bit 27) → saída, nível LOW. DIO (bit 29) → HiZ (OEN=1, OUT=0).
+      </div>
+    </div>
+    <div class="init-step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>Rampa de brilho em 8 passos</strong><br>
+        Para cada valor da sequência abaixo, enviar via <code>send_cmd(0x48, val)</code>
+        seguido de <code>clear()</code> (zerar todos os registradores de dígito + indicadores):<br>
+        <br>
+        <table style="width:auto">
+          <tr>
+            <th>Passo</th>
+            <th>CTRL (0x48)</th>
+            <th>Brilho [7:4]</th>
+            <th>EN [0]</th>
+          </tr>
+          <tr><td>1</td><td class="val">0x01</td><td>0x00</td><td class="val">1</td></tr>
+          <tr><td>2</td><td class="val">0x11</td><td>0x10</td><td class="val">1</td></tr>
+          <tr><td>3</td><td class="val">0x21</td><td>0x20</td><td class="val">1</td></tr>
+          <tr><td>4</td><td class="val">0x31</td><td>0x30</td><td class="val">1</td></tr>
+          <tr><td>5</td><td class="val">0x41</td><td>0x40</td><td class="val">1</td></tr>
+          <tr><td>6</td><td class="val">0x51</td><td>0x50</td><td class="val">1</td></tr>
+          <tr><td>7</td><td class="val">0x61</td><td>0x60</td><td class="val">1</td></tr>
+          <tr><td>8</td><td class="val">0x71</td><td>0x70</td><td class="val">1</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="init-step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>Aplicar brilho de operação desejado</strong><br>
+        <code>send_cmd(0x48, (brightness &amp; 0xF0) | 0x01)</code><br>
+        Exemplo brilho mínimo: <code>0x10 | 0x01 = 0x11</code>.
+        Brilho máximo: <code>0x70 | 0x01 = 0x71</code>.
+      </div>
+    </div>
+    <div class="init-step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <strong>Display pronto — escrever conteúdo inicial</strong><br>
+        Escrever nos registradores <code>0x66, 0x68, 0x6A, 0x6C</code> (dígitos) e
+        <code>0x6E</code> (indicadores).<br>
+        <span class="warn">⚠ Sempre limpar todos os registradores antes de novo conteúdo para evitar ghosting.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ §8 · ENVIO DE BYTE -->
+<div class="section">
+  <div class="section-title">08 · Detalhe do Ciclo de Escrita de Byte</div>
+  <div class="two-col">
+    <div>
+      <table>
+        <tr><th colspan="2">Sequência por Bit (MSB first, bit 7 → bit 0)</th></tr>
+        <tr><td>1</td><td>Configurar DIO para o valor do bit</td></tr>
+        <tr><td>2</td><td>Aguardar <span class="val">tBIT</span> (10–100 µs)</td></tr>
+        <tr><td>3</td><td>CLK → HIGH (borda de subida)</td></tr>
+        <tr><td>4</td><td>Aguardar <span class="val">tBIT</span></td></tr>
+        <tr><td>5</td><td>CLK → LOW (borda de descida)</td></tr>
+        <tr><td>6</td><td>Aguardar <span class="val">tBIT</span> → próximo bit</td></tr>
+      </table>
+    </div>
+    <div>
+      <table>
+        <tr><th colspan="2">9º Ciclo — ACK</th></tr>
+        <tr><td>1</td><td>DIO liberado → HiZ (OEN[29]=1)</td></tr>
+        <tr><td>2</td><td>Aguardar <span class="val">tBIT</span></td></tr>
+        <tr><td>3</td><td>CLK → HIGH</td></tr>
+        <tr><td>4</td><td>Aguardar <span class="val">tBIT</span></td></tr>
+        <tr><td>5</td><td>CLK → LOW</td></tr>
+        <tr><td>6</td><td class="note">ACK consumido (DIO não verificado)</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ §9 · CONSTANTES DE REFERÊNCIA -->
+<div class="section">
+  <div class="section-title">09 · Constantes de Referência Rápida</div>
+  <div class="two-col">
+    <table>
+      <tr><th colspan="2">Máscaras de Indicador (REG 0x6E)</th></tr>
+      <tr><td>IND_LAN</td>  <td class="val">0x01 &nbsp;(1&lt;&lt;0)</td></tr>
+      <tr><td>IND_WIFI</td> <td class="val">0x02 &nbsp;(1&lt;&lt;1)</td></tr>
+      <tr><td>IND_PLAY</td> <td class="val">0x04 &nbsp;(1&lt;&lt;2)</td></tr>
+      <tr><td>IND_PAUSE</td><td class="val">0x08 &nbsp;(1&lt;&lt;3)</td></tr>
+      <tr><td>IND_COLON</td><td class="val">0x10 &nbsp;(1&lt;&lt;4)</td></tr>
+      <tr><td>IND_CLOCK</td><td class="val">0x20 &nbsp;(1&lt;&lt;5)</td></tr>
+      <tr><td>IND_USB</td>  <td class="val">0x40 &nbsp;(1&lt;&lt;6)</td></tr>
+    </table>
+    <table>
+      <tr><th colspan="2">Valores CTRL Comuns (REG 0x48)</th></tr>
+      <tr><td>Display OFF</td>     <td class="val">0x00</td></tr>
+      <tr><td>Brilho mínimo</td>   <td class="val">0x11</td></tr>
+      <tr><td>Brilho 25%</td>      <td class="val">0x31</td></tr>
+      <tr><td>Brilho 50%</td>      <td class="val">0x51</td></tr>
+      <tr><td>Brilho máximo</td>   <td class="val">0x71</td></tr>
+      <tr><td>GPIO bit CLK</td>    <td class="val">27 &nbsp;(mask=0x0800_0000)</td></tr>
+      <tr><td>GPIO bit DIO</td>    <td class="val">29 &nbsp;(mask=0x2000_0000)</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ FOOTER -->
+<div style="margin-top:40px;border-top:1px solid var(--bdr);padding-top:10px;
+            font-size:10px;color:var(--fg3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
+  <span>FD6551 · ENGENHARIA REVERSA · TX9 PRO (P281) · SOC AMLOGIC GXL · SEM DATASHEET OFICIAL</span>
+  <span>REV 1.0 · 2025 · GFIG / IFSC GASPAR</span>
+</div>
+
+</body>
+</html>
