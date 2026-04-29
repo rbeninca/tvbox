@@ -272,6 +272,8 @@ def run_auto(evdev):
     try:
         with open(evdev, "rb") as ir_fd:
             while True:
+                if not select.select([ir_fd], [], [], 0.5)[0]:
+                    continue
                 code = read_ir_event(ir_fd)
                 if code is None:
                     continue

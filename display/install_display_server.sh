@@ -104,12 +104,16 @@ REMOTE
 
 do_send() {
   [[ -z "$SEND_PAYLOAD" ]] && { echo "Payload JSON obrigatorio para 'send'" >&2; exit 1; }
+  # Codifica em base64 para evitar quebra com payloads que contenham aspas ou barras
+  local b64_payload
+  b64_payload=$(printf '%s\n' "$SEND_PAYLOAD" | base64 -w0)
   run_remote <<REMOTE
 python3 -c "
-import socket
+import socket, base64
+payload = base64.b64decode('${b64_payload}')
 s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
 s.connect('${SOCKET_PATH}')
-s.sendall(b'${SEND_PAYLOAD}\n')
+s.sendall(payload)
 print(s.recv(256).decode())
 s.close()
 "

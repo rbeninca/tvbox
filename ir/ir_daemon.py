@@ -227,12 +227,21 @@ class IrDaemon:
         # Estado de repeat/hold
         last_code:     int | None = None
         first_press_t: float      = 0.0
+        last_event_t:  float      = 0.0  # tempo do último evento deste código
         last_action_t: float      = 0.0
         in_hold:       bool       = False
 
         with open(dev, 'rb') as fd:
             while not self._stop and not self._reload:
-                ready, _, _ = select.select([fd], [], [], 1.0)
+                # Reduz o timeout do select quando há sequência em andamento,
+                # para que o seq_timeout seja honrado com precisão razoável.
+                if seq_buf:
+                    remaining = cfg.seq_timeout - (time.monotonic() - seq_last)
+                    sel_timeout = max(0.05, min(1.0, remaining))
+                else:
+                    sel_timeout = 1.0
+
+                ready, _, _ = select.select([fd], [], [], sel_timeout)
                 now = time.monotonic()
 
                 # Timeout de sequência sem evento
@@ -263,16 +272,21 @@ class IrDaemon:
                         continue
 
                 # ── Detecção de repeat/hold ────────────────────────────────────
-                # NEC protocol envia frames de repeat a cada ~110ms quando o botão
-                # é mantido pressionado. Dois eventos do mesmo código em menos de
-                # repeat_threshold segundos são tratados como hold.
-                if scancode == last_code and (now - first_press_t) < cfg.repeat_threshold:
+                # NEC envia repeats a cada ~110ms enquanto o botão fica pressionado.
+                # A comparação correta é o gap entre eventos CONSECUTIVOS do mesmo
+                # código (inter-event gap), não o tempo desde o primeiro press.
+                # Usar first_press_t como referência quebrava o hold após o 2°
+                # repeat: ao chegar o frame de ~220ms, (now - first_press_t) já
+                # ultrapassava repeat_threshold e o estado era resetado.
+                gap = (now - last_event_t) if scancode == last_code else float('inf')
+                if gap < cfg.repeat_threshold:
                     is_repeat = True
                 else:
                     is_repeat     = False
                     last_code     = scancode
                     first_press_t = now
                     in_hold       = False
+                last_event_t = now
 
                 if is_repeat:
                     if not in_hold:

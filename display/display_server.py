@@ -19,7 +19,7 @@ import sys
 import threading
 import time
 
-from display_driver import DisplayDriver, prepare_display_gpio
+from display_driver import DisplayDriver, prepare_display_gpio, expand_to_segs
 
 SOCKET_PATH = "/run/tx9-display.sock"
 BG_REFRESH  = 0.5   # intervalo da tarefa de fundo (s)
@@ -32,6 +32,7 @@ class DisplayServer:
         self.hw.activate()
 
         self._q        = queue.PriorityQueue()
+        self._q_seq    = 0          # desambiguador de prioridade — evita comparação de dicts
         self._lock     = threading.Lock()
         self._stop     = threading.Event()
         self._bg       = None
@@ -48,7 +49,8 @@ class DisplayServer:
         priority = payload.get("priority", 1)
         duration = payload.get("duration", 3.0)
         deadline = time.monotonic() + duration
-        self._q.put((priority, deadline, payload))
+        self._q_seq += 1
+        self._q.put((priority, deadline, self._q_seq, payload))
 
     # ── Loop principal ─────────────────────────────────────────────────────────
 
@@ -59,7 +61,7 @@ class DisplayServer:
             # Consome mensagens prioritárias dentro do prazo
             try:
                 while True:
-                    pri, deadline, payload = self._q.get_nowait()
+                    pri, deadline, _, payload = self._q.get_nowait()
                     remaining = deadline - time.monotonic()
                     if remaining > 0:
                         self._dispatch(payload, remaining)
@@ -92,23 +94,34 @@ class DisplayServer:
         if cmd == "show_text":
             text = p.get("text", "    ")
             if len(text) > 4:
-                hw.scroll_text(text, step_delay=p.get("speed", 0.35))
+                self._scroll_interruptible(hw, text, p.get("speed", 0.35))
             else:
                 hw.show_text4(text)
-                time.sleep(min(duration, end - time.monotonic()))
+                time.sleep(max(0.0, end - time.monotonic()))
 
         elif cmd == "show_number":
-            hw.show_number(int(p.get("value", 0)))
-            time.sleep(min(duration, end - time.monotonic()))
+            hw.show_number(int(p.get("value", 0)),
+                           leading_zeros=bool(p.get("leading_zeros", True)))
+            time.sleep(max(0.0, end - time.monotonic()))
 
         elif cmd == "scroll":
-            hw.scroll_text(p.get("text", ""), step_delay=p.get("speed", 0.35))
+            self._scroll_interruptible(hw, p.get("text", ""), p.get("speed", 0.35))
 
         elif cmd == "set_brightness":
             hw.set_brightness(int(p.get("value", 0x10)))
 
         elif cmd == "clear":
             hw.clear()
+
+    def _scroll_interruptible(self, hw, text: str, speed: float):
+        """Rola texto passo a passo, abortando se nova mensagem chegar na fila."""
+        segs   = expand_to_segs(text)
+        padded = [0x00] * 4 + segs + [0x00] * 4
+        for i in range(len(segs) + 5):
+            if not self._q.empty():
+                break
+            hw.show_segs4(padded[i:i + 4])
+            time.sleep(speed)
 
     # ── Listener de socket Unix ────────────────────────────────────────────────
 
@@ -136,6 +149,7 @@ class DisplayServer:
             os.unlink(SOCKET_PATH)
 
     def _handle_conn(self, conn):
+        MAX_MSG = 4096
         try:
             data = b""
             conn.settimeout(2.0)
@@ -144,6 +158,8 @@ class DisplayServer:
                 if not chunk:
                     break
                 data += chunk
+                if len(data) > MAX_MSG:
+                    raise ValueError("mensagem excede tamanho máximo")
             payload = json.loads(data.strip())
 
             if payload.get("cmd") == "status":
