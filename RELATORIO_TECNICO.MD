@@ -486,6 +486,9 @@ Por fim, a implementação do serviço de escuta de IR e a configuração do rec
 
 ### Implementação de um serviço de escuta de IR
 Foi criado um serviço systemd (`tx9-ir.service`) para executar o script de escuta.
+Foram realizados alguns testes com o dispositivo com IR e o display
+<img src="./imgs/testeIR1.png">
+<img src="./imgs/testeIR2.png">
 
 # 4.7 Instalação e configuração do Docker no TX9 Pro
 
