@@ -1,40 +1,99 @@
-# Relatório Técnico: Descaracterização de TV Box TX9 Pro para Armbian Linux
+# TX9 Pro → Armbian Linux: WiFi SSV6051 + Display FD6551 + IR + Docker
 
-> **Projeto:** Transformação de TV Boxes apreendidos pela Receita Federal do Brasil em minicomputadores Linux  para fins educacionais e projetos de tecnologia. como microservidores, automação residencial, e ambientes de desenvolvimento.  
-> **Hardware:** TX9 Pro — SoC Amlogic S905W (GXL), 1 GB RAM, 8 GB eMMC  mascarado com 32GB
-> **SO original:** Android 7.1.2 (mascarado como Android 10)  
-> **SO final:** Armbian Linux — Ubuntu Noble, kernel 6.18.23-current-meson64
+**TV Box TX9 Pro rodando Linux completo** | Amlogic S905W (GXL) | Ubuntu Noble | Kernel 6.18.x
+
+> Transformação de TV Boxes TX9 Pro (SoC Amlogic S905W/GXL) em minicomputadores Linux com Wi-Fi funcionando, display de 7 segmentos, controle remoto IR e Docker — incluindo toda a engenharia reversa e drivers necessários.
+
+**Tags/Keywords:** `armbian` `tx9` `tx9-pro` `amlogic` `s905w` `s905x` `gxl` `meson64` `aml-s9xx-box` `ssv6051` `ssv6200` `wifi-driver` `fd6551` `fd650` `vfd-display` `7-segment` `ir-remote` `meson-ir` `necx` `linux` `embedded-linux` `device-tree` `dtb` `out-of-tree-module` `version-magic` `docker` `arm64` `tvbox` `receita-federal`
 
 ---
 
-Palavras chave: armbian
-tvbox ,tx9 ,amlogic, rk3328 ,wifi ,linux, embedded-linux , device-tree
-# Armbian TX9 with Working WiFi
+## O que este repositório resolve
 
-## 🔧 Problem
-Most TX9 devices have no WiFi support on Armbian.
+A maioria das migrações de TX9 Pro para Linux **perde permanentemente o Wi-Fi** — este chipset (SSV6051) não tem suporte no kernel mainline e exige compilação out-of-tree com correção manual de version magic. Este projeto documenta a solução completa para todos os componentes de hardware:
 
-## ✅ Solution
-This repo provides:
-- Correct DTB
-- Working WiFi driver
-- Firmware included
+| Componente | Status | Detalhes |
+|-----------|--------|---------|
+| Wi-Fi SSV6051/6200 | Funcional | Driver out-of-tree + correção de `EXTRAVERSION`/`utsrelease.h` |
+| Display FD6551 (4x7seg) | Funcional | Driver bit-bang via `/dev/mem` — protocolo mapeado por engenharia reversa |
+| Receptor IR (NECx 0x4040) | Funcional | Overlay `meson-ir` + mapa de 13 teclas |
+| Ethernet | Funcional (~92 Mbps) | Driver nativo meson64, sem configuração extra |
+| Docker Engine (arm64) | Funcional | Repositório oficial Docker, compose plugin incluído |
+| Boot na eMMC | Funcional | Via `armbian-install`, substitui Android completamente |
 
-## 📦 Supported devices
-- TX9 (RK3328)
-- TX9 (S905X?) [se aplicável]
+---
 
-## 🚀 Installation
-(passos claros)
+## Hardware suportado
 
-## 📶 WiFi details
-(chip, driver, etc)
+| Campo | Valor |
+|-------|-------|
+| Modelo | TX9 Pro |
+| SoC | Amlogic S905W (família GXL, plataforma meson-gxl) |
+| CPU | ARM Cortex-A53 x4 @ 1,5 GHz (aarch64) |
+| GPU | ARM Mali-450 MP5 |
+| RAM | 1 GB LPDDR3 |
+| Armazenamento | eMMC 8 GB (firmware mascarava como 32 GB) |
+| Wi-Fi | South Silicon Valley SSV6051/6200 |
+| Display | FD6551 — 4 dígitos de 7 segmentos (protocolo proprietário 2 fios) |
+| IR | GPIOAO_7, protocolo NECx, custom code 0x4040 |
+| SO original | Android 7.1.2 (mascarado como Android 10, kernel 3.14) |
+| SO instalado | Armbian Ubuntu Noble, kernel 6.18.23-current-meson64 |
+| DTB | `meson-gxl-s905w-tx9.dtb` |
 
-## 🧪 Technical details
-- DTB changes
-- kernel version
-- modules
+---
 
+## Instalação rápida — Wi-Fi SSV6051
+
+O maior obstáculo na migração TX9 Pro para Armbian é o Wi-Fi. Siga estes passos no dispositivo já rodando Armbian:
+
+```bash
+# 1. Instalar dependências de compilação
+sudo apt install -y build-essential linux-headers-$(uname -r) git bc libssl-dev
+
+# 2. Clonar o driver
+git clone https://github.com/eloi-rotava/ssv6051.git /root/ssv6051-driver
+
+# 3. Corrigir version magic (passo crítico — sem isso o módulo é rejeitado)
+KVER=$(uname -r)
+sudo sed -i "s/^EXTRAVERSION =.*/EXTRAVERSION = -current-meson64/" \
+    /usr/src/linux-headers-${KVER}/Makefile
+sudo bash -c "echo '#define UTS_RELEASE \"${KVER}\"' \
+    > /usr/src/linux-headers-${KVER}/include/generated/utsrelease.h"
+
+# 4. Compilar e instalar o módulo
+cd /root/ssv6051-driver && bash rebuild_wifi_v3.sh
+
+# 5. Configurar autoload e corrigir power_save
+echo 'ssv6051' | sudo tee /etc/modules-load.d/ssv6051.conf
+sudo reboot
+```
+
+Guia completo com diagnóstico de erros na [Seção 4.1](#41-driver-wi-fi-ssv6051).
+
+---
+
+## Contexto: Receita Federal do Brasil
+
+Os dispositivos TX9 Pro foram disponibilizados pela **Receita Federal do Brasil** via processos de apreensão — utilizados originalmente para IPTV pirata. O firmware Android original apresentava:
+
+- Kernel 3.14.29 (sem patches de segurança desde 2015)
+- Sistema de arquivos raiz montado como `rw`
+- Processos root não documentados em execução em segundo plano
+- Android 7.1.2 mascarado como Android 10 via `ro.build.version.release` adulterado
+
+A descaracterização completa (remoção total do Android) elimina essas superfícies de ataque e viabiliza uso institucional seguro como microservidor, ponto de automação ou ambiente de desenvolvimento.
+
+---
+
+## Contribuições técnicas originais deste projeto
+
+1. **Protocolo FD6551 completamente mapeado** por engenharia reversa — incluindo a rampa de brilho obrigatória de 8 passos (`0x01→0x71`) não documentada publicamente
+2. **Procedimento reprodutível para SSV6051 em kernels 6.x** com correção de `EXTRAVERSION` e `utsrelease.h` nos headers do Armbian
+3. **Diagnóstico e solução do cold boot do display** — causa raiz: GPIOs em estado indefinido após remoção de energia
+4. **Arquitetura de serviço em 3 camadas** para o display: driver (acesso `/dev/mem`) → servidor IPC (socket Unix) → CLI (`tx9-show`)
+5. **Mapa completo de scancodes IR** do controle original TX9 (protocolo NECx, 13 botões)
+
+---
 
 ## Índice
 
