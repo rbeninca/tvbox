@@ -7,6 +7,35 @@
 
 ---
 
+Palavras chave: armbian
+tvbox ,tx9 ,amlogic, rk3328 ,wifi ,linux, embedded-linux , device-tree
+# Armbian TX9 with Working WiFi
+
+## 🔧 Problem
+Most TX9 devices have no WiFi support on Armbian.
+
+## ✅ Solution
+This repo provides:
+- Correct DTB
+- Working WiFi driver
+- Firmware included
+
+## 📦 Supported devices
+- TX9 (RK3328)
+- TX9 (S905X?) [se aplicável]
+
+## 🚀 Installation
+(passos claros)
+
+## 📶 WiFi details
+(chip, driver, etc)
+
+## 🧪 Technical details
+- DTB changes
+- kernel version
+- modules
+
+
 ## Índice
 
 1. [Introdução e Contexto](#1-introdução-e-contexto)
