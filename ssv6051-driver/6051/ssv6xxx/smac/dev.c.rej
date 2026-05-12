@@ -1,0 +1,11 @@
+--- ssv6xxx/smac/dev.c
++++ ssv6xxx/smac/dev.c
+@@ -3232,6 +3290,8 @@ struct ieee80211_ops ssv6200_ops = {
+ 	.config = ssv6200_config,
+ 	.configure_filter = ssv6200_config_filter,
+ 	.bss_info_changed = ssv6200_bss_info_changed,
++	.start_ap = ssv6200_start_ap,
++	.stop_ap  = ssv6200_stop_ap,
+ 	.sta_add = ssv6200_sta_add,
+ 	.sta_remove = ssv6200_sta_remove,
+ 	.sta_notify = ssv6200_sta_notify,

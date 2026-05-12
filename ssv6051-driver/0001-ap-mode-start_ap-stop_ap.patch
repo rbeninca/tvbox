@@ -1,0 +1,114 @@
+From: TX9 AP Mode Patch
+Subject: [PATCH] smac: add start_ap/stop_ap callbacks + enable hw_cap_ap
+
+The driver implements AP mode beacon management in ap.c and handles
+NL80211_IFTYPE_AP in bss_info_changed, but two things prevent hostapd
+from working:
+
+1. ssv6051-wifi.cfg has hw_cap_ap = off, so the wiphy never announces
+   AP mode support and hostapd fails before even trying.
+
+2. On kernels >= 6.1 hostapd may call NL80211_CMD_START_AP via cfg80211
+   which calls drv_start_ap(); without start_ap/stop_ap in ieee80211_ops
+   the beacon-interval state can be set up inconsistently.
+
+Fix: enable hw_cap_ap in the config file and add minimal start_ap/stop_ap
+callbacks that seed sc->beacon_interval / sc->beacon_dtim_cnt so that
+the existing bss_info_changed path (which mac80211 still calls after
+start_ap) can find consistent state.
+
+---
+ ssv6xxx/smac/dev.c        | 54 +++++++++++++++++++++++++++++++++++++++
+ ssv6xxx/ssv6051-wifi.cfg  |  2 +-
+ 2 files changed, 55 insertions(+), 1 deletion(-)
+
+diff --git a/ssv6xxx/smac/dev.c b/ssv6xxx/smac/dev.c
+--- a/ssv6xxx/smac/dev.c
++++ b/ssv6xxx/smac/dev.c
+@@ -3162,6 +3162,58 @@ int ssv6xxx_resume(struct ieee80211_hw *hw)
+ }
+ #endif
+
++/*
++ * start_ap / stop_ap — minimal callbacks required by mac80211 on kernel >= 6.1.
++ *
++ * mac80211 still calls bss_info_changed() with BSS_CHANGED_BEACON_ENABLED |
++ * BSS_CHANGED_BEACON | BSS_CHANGED_BEACON_INT after start_ap returns, so the
++ * existing bss_info_changed handler in this file does the real beacon work.
++ * These callbacks only need to seed the sc->beacon_interval state and disable
++ * the beacon on stop.
++ */
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 1, 0)
++static int ssv6200_start_ap(struct ieee80211_hw *hw,
++			    struct ieee80211_vif *vif,
++			    struct ieee80211_bss_conf *link_conf)
++{
++	struct ssv_softc *sc = hw->priv;
++
++	dev_dbg(sc->dev, "[AP] start_ap: beacon_int=%u dtim=%u\n",
++		link_conf->beacon_int, link_conf->dtim_period);
++
++	mutex_lock(&sc->mutex);
++	sc->beacon_interval = link_conf->beacon_int ? link_conf->beacon_int : 100;
++	sc->beacon_dtim_cnt = (link_conf->dtim_period > 0)
++			      ? link_conf->dtim_period - 1 : 0;
++	ssv6xxx_beacon_set_info(sc, sc->beacon_interval, sc->beacon_dtim_cnt);
++	mutex_unlock(&sc->mutex);
++
++	return 0;
++}
++
++static void ssv6200_stop_ap(struct ieee80211_hw *hw,
++			    struct ieee80211_vif *vif,
++			    struct ieee80211_bss_conf *link_conf)
++{
++	struct ssv_softc *sc = hw->priv;
++
++	dev_dbg(sc->dev, "[AP] stop_ap\n");
++
++	mutex_lock(&sc->mutex);
++	ssv6xxx_beacon_enable(sc, false);
++	mutex_unlock(&sc->mutex);
++}
++#else
++static int ssv6200_start_ap(struct ieee80211_hw *hw, struct ieee80211_vif *vif)
++{
++	struct ssv_softc *sc = hw->priv;
++	mutex_lock(&sc->mutex);
++	sc->beacon_interval = vif->bss_conf.beacon_int ? vif->bss_conf.beacon_int : 100;
++	sc->beacon_dtim_cnt = (vif->bss_conf.dtim_period > 0)
++			      ? vif->bss_conf.dtim_period - 1 : 0;
++	ssv6xxx_beacon_set_info(sc, sc->beacon_interval, sc->beacon_dtim_cnt);
++	mutex_unlock(&sc->mutex);
++	return 0;
++}
++
++static void ssv6200_stop_ap(struct ieee80211_hw *hw, struct ieee80211_vif *vif)
++{
++	struct ssv_softc *sc = hw->priv;
++	mutex_lock(&sc->mutex);
++	ssv6xxx_beacon_enable(sc, false);
++	mutex_unlock(&sc->mutex);
++}
++#endif
++
+ struct ieee80211_ops ssv6200_ops = {
+     .add_chanctx = ieee80211_emulate_add_chanctx,
+     .remove_chanctx = ieee80211_emulate_remove_chanctx,
+@@ -3175,6 +3227,8 @@ struct ieee80211_ops ssv6200_ops = {
+ 	.configure_filter = ssv6200_config_filter,
+ 	.bss_info_changed = ssv6200_bss_info_changed,
+ 	.sta_add = ssv6200_sta_add,
++	.start_ap = ssv6200_start_ap,
++	.stop_ap  = ssv6200_stop_ap,
+ 	.sta_remove = ssv6200_sta_remove,
+ 	.sta_notify = ssv6200_sta_notify,
+ 	.set_key = ssv6200_set_key,
+diff --git a/ssv6xxx/ssv6051-wifi.cfg b/ssv6xxx/ssv6051-wifi.cfg
+--- a/ssv6xxx/ssv6051-wifi.cfg
++++ b/ssv6xxx/ssv6051-wifi.cfg
+@@ -20,7 +20,7 @@ hw_cap_sgi_20 = on
+ hw_cap_sgi_40 = off
+-hw_cap_ap = off
++hw_cap_ap = on
+ hw_cap_p2p = off
