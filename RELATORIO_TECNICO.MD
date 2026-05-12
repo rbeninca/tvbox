@@ -474,18 +474,19 @@ de fábrica para o receptor IR no S905W e funciona diretamente com o driver
 Após a implementação do serviço de escuta, foram realizados testes com um script ouvirsh.sh que utiliza o `ir-keytable` para monitorar os eventos do receptor IR. O script exibe os scancodes capturados em tempo real, permitindo a validação do funcionamento do receptor e a correspondência dos códigos com os botões do controle remoto.
 
 Figura 2. Saída do `ir-keytable -t` mostrando os scancodes capturados ao pressionar os botões do controle remoto.
-<img src="https://i.imgur.com/ouvirsh.png" alt="Saída do ir-keytable" width="600">
+<img src="./imgs/ouvirsh.png" alt="Saída do ir-keytable" width="600">
 
 Os códigos do controle remoto padrão do TX9 foram capturados, e foi configurado no servidor de IR uma ação para cada botão imprimir no display frontal o nome do botão pressionado, confirmando a integração entre o receptor IR e o serviço de display desenvolvido anteriormente. Com isso, o controle remoto passou a ser funcional para interagir com o sistema, permitindo, por exemplo, ligar/desligar o dispositivo, ajustar o volume e navegar pelos menus utilizando os botões do controle remoto original do TX9 Pro.
 
-<img src="https://i.imgur.com/testeIR1.png" alt="Teste do receptor IR" width="600">
-<img src="https://i.imgur.com/testeIR2.png" alt="Teste do receptor IR" width="600">
+<img src="./imgs/testeIR1.png" alt="Teste do receptor IR" width="600">
+<img src="./imgs/testeIR2.png" alt="Teste do receptor IR" width="600">
 
 Por fim, a implementação do serviço de escuta de IR e a configuração do receptor permitiram que o controle remoto do TX9 Pro fosse plenamente funcional no ambiente Armbian, mantendo a experiência de usuário original e garantindo a compatibilidade total com o hardware específico do dispositivo.
 
 
 ### Implementação de um serviço de escuta de IR
 Foi criado um serviço systemd (`tx9-ir.service`) para executar o script de escuta.
+
 
 # 4.7 Instalação e configuração do Docker no TX9 Pro
 
