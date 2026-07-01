@@ -178,13 +178,23 @@
             <div class="formula-box" style="margin-top:14px;">
                 <strong>O trabalho pesado ja foi feito.</strong> A imagem que vamos usar hoje inclui o DTB correto, o driver Wi-Fi compilado, o servidor do display e o daemon IR — tudo pronto para funcionar.
             </div>
+        </section>
 
-            <table class="tbl" style="margin-top:12px;">
+        <!-- ===================== ACPI vs DTB (resumo) ===================== -->
+        <section class="compact">
+            <h2>PC x86 vs ARM — como o kernel conhece o hardware</h2>
+            <p>No <strong>PC x86</strong>, o firmware UEFI/BIOS entrega tabelas <strong>ACPI</strong> e barramentos PCI/PCIe permitem descoberta automatica. No <strong>ARM</strong>, perifericos estao ligados por enderecos fixos — o kernel precisa de um <span class="highlight">DTB</span>.</p>
+
+            <table class="tbl" style="margin-top:14px; font-size:0.72em;">
                 <tr><th></th><th>PC x86</th><th>TX9 / ARM SoC</th></tr>
                 <tr><td>Quem descreve o hardware</td><td>UEFI/BIOS + ACPI</td><td>Device Tree Blob (<code>.dtb</code>)</td></tr>
                 <tr><td>Descoberta de dispositivos</td><td>PCI/PCIe — automatica</td><td>Memory-mapped — manual via DTB</td></tr>
                 <tr><td>Intervencao do usuario</td><td>Raramente</td><td>Precisa escolher/ajustar o <code>.dtb</code></td></tr>
             </table>
+
+            <div class="warn-box" style="margin-top:16px;">
+                <strong>Sem o DTB correto</strong>, o Linux ate inicia, mas perde display, Wi-Fi e IR. Por isso nenhuma imagem Armbian generica funcionou completamente no TX9 — foi necessario extrair e adaptar o DTB do Android original.
+            </div>
         </section>
 
         <!-- ===================== ROTEIRO ===================== -->
