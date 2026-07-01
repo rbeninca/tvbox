@@ -49,15 +49,15 @@ Uso (como root):
   install_ir_service.sh  reload     recarrega config sem reiniciar (SIGHUP)
 
 Apos instalar, os seguintes comandos ficam disponiveis:
-  ir-listen              exibe eventos IR brutos de qualquer controle
-  ir-map [saida.conf]    mapeamento interativo -- gera .conf pronto
-  ir-map --auto          lista codigos sem perguntar nomes
-  ir-log                 acompanha o journal do daemon IR ao vivo
-  ir-reload              recarrega o .conf sem reiniciar o servico
-  ir-help                mostra um manual rapido dos comandos IR
+  tx9-ir-listen              exibe eventos IR brutos de qualquer controle
+  tx9-ir-map [saida.conf]    mapeamento interativo -- gera .conf pronto
+  tx9-ir-map --auto          lista codigos sem perguntar nomes
+  tx9-ir-log                 acompanha o journal do daemon IR ao vivo
+  tx9-ir-reload              recarrega o .conf sem reiniciar o servico
+  tx9-ir-help                mostra um manual rapido dos comandos IR
 
 Fluxo para configurar um novo controle:
-  sudo ir-map /etc/tx9-ir/ir_daemon.conf
+  sudo tx9-ir-map /etc/tx9-ir/ir_daemon.conf
   # edite o arquivo: substitua os comentarios pelos comandos desejados
   sudo install_ir_service.sh reload
 USAGE
@@ -114,11 +114,11 @@ do_install() {
   install -m 0755 "$SCRIPT_DIR/ir_help.sh"    "$INSTALL_DIR/ir_help.sh"
 
   # Symlinks nos binarios do sistema
-  ln -sf "$INSTALL_DIR/ir_listen.sh" "$BIN_DIR/ir-listen"
-  ln -sf "$INSTALL_DIR/ir_map.py"    "$BIN_DIR/ir-map"
-  ln -sf "$INSTALL_DIR/ir_log.sh"    "$BIN_DIR/ir-log"
-  ln -sf "$INSTALL_DIR/ir_reload.sh" "$BIN_DIR/ir-reload"
-  ln -sf "$INSTALL_DIR/ir_help.sh"   "$BIN_DIR/ir-help"
+  ln -sf "$INSTALL_DIR/ir_listen.sh" "$BIN_DIR/tx9-ir-listen"
+  ln -sf "$INSTALL_DIR/ir_map.py"    "$BIN_DIR/tx9-ir-map"
+  ln -sf "$INSTALL_DIR/ir_log.sh"    "$BIN_DIR/tx9-ir-log"
+  ln -sf "$INSTALL_DIR/ir_reload.sh" "$BIN_DIR/tx9-ir-reload"
+  ln -sf "$INSTALL_DIR/ir_help.sh"   "$BIN_DIR/tx9-ir-help"
 
   # Configuracao: nao sobrescreve se ja existir
   if [[ ! -f "$CONF_FILE" ]]; then
@@ -170,13 +170,13 @@ UNITEOF
   echo "==> Instalacao concluida."
   echo "    Daemon   : $INSTALL_DIR/ir_daemon.py"
   echo "    Config   : $CONF_FILE"
-  echo "    Comandos : ir-listen | ir-map | ir-log | ir-reload | ir-help"
+  echo "    Comandos : tx9-ir-listen | tx9-ir-map | tx9-ir-log | tx9-ir-reload | tx9-ir-help"
   echo ""
-  echo "  sudo ir-listen                        # veja os codigos do controle"
-  echo "  sudo ir-map /etc/tx9-ir/ir_daemon.conf # mapeie e salve direto"
-  echo "  sudo ir-log                           # logs ao vivo"
-  echo "  sudo ir-reload                        # recarrega o .conf"
-  echo "  ir-help                               # manual rapido"
+  echo "  sudo tx9-ir-listen                        # veja os codigos do controle"
+  echo "  sudo tx9-ir-map /etc/tx9-ir/ir_daemon.conf # mapeie e salve direto"
+  echo "  sudo tx9-ir-log                           # logs ao vivo"
+  echo "  sudo tx9-ir-reload                        # recarrega o .conf"
+  echo "  tx9-ir-help                               # manual rapido"
   echo ""
   systemctl status "$SERVICE_NAME" --no-pager || true
 }
@@ -188,6 +188,8 @@ do_uninstall() {
   systemctl disable "$SERVICE_NAME" 2>/dev/null || true
   rm -f "$UNIT"
   rm -rf "$INSTALL_DIR"
+  rm -f "$BIN_DIR/tx9-ir-listen" "$BIN_DIR/tx9-ir-map" "$BIN_DIR/tx9-ir-log" "$BIN_DIR/tx9-ir-reload" "$BIN_DIR/tx9-ir-help"
+  # Remove symlinks antigos (migracao)
   rm -f "$BIN_DIR/ir-listen" "$BIN_DIR/ir-map" "$BIN_DIR/ir-log" "$BIN_DIR/ir-reload" "$BIN_DIR/ir-help"
   systemctl daemon-reload
   echo "==> Pronto. Configuracoes preservadas em $CONF_DIR"

@@ -1,0 +1,2 @@
+# Ignore Armbian image in repository root
+/Armbian_community_26.2.0-trunk.703_Aml-s9xx-box_noble_current_6.18.21_xfce_desktop.img

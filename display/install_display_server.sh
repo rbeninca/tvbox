@@ -16,7 +16,8 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
 REMOTE_ROOT=/opt/tx9/display
 SOCKET_PATH=/run/tx9-display.sock
-REMOTE_ENV=/etc/default/tx9-display
+CONF_DIR=/etc/tx9-display
+CONF_FILE=${CONF_DIR}/display.conf
 REMOTE_LAUNCHER=/usr/local/bin/tx9-display
 SERVICE_NAME=tx9-display.service
 REMOTE_UNIT=/etc/systemd/system/${SERVICE_NAME}
@@ -127,8 +128,11 @@ set -e
 systemctl stop    ${SERVICE_NAME} 2>/dev/null || true
 systemctl disable ${SERVICE_NAME} 2>/dev/null || true
 rm -f  "${REMOTE_UNIT}"
-rm -f  "${REMOTE_ENV}" "${REMOTE_LAUNCHER}"
-rm -f  /usr/local/bin/tx9-show
+rm -rf "${CONF_DIR}"
+rm -f  "${REMOTE_LAUNCHER}"
+rm -f  /usr/local/bin/tx9-display-show
+# Remove symlinks antigos (migracao)
+rm -f  /etc/default/tx9-display /usr/local/bin/tx9-show
 rm -rf "${REMOTE_ROOT}"
 systemctl daemon-reload
 echo "Desinstalacao concluida."
@@ -157,7 +161,7 @@ do_install() {
 set -e
 
 mkdir -p "${REMOTE_ROOT}/backgrounds" \
-         /etc/default /etc/systemd/system /usr/local/bin
+         "${CONF_DIR}" /etc/systemd/system /usr/local/bin
 
 # Copia arquivos Python
 printf '%s' "${b64_driver}"    | base64 -d > "${REMOTE_ROOT}/display_driver.py"
@@ -169,20 +173,22 @@ printf '%s' "${b64_bg_clock}"  | base64 -d > "${REMOTE_ROOT}/backgrounds/bg_cloc
 chmod 0755 "${REMOTE_ROOT}"/*.py "${REMOTE_ROOT}/backgrounds"/*.py
 
 # Configuracao (nao sobrescreve se ja existir)
-if [[ ! -f "${REMOTE_ENV}" ]]; then
-cat > "${REMOTE_ENV}" <<'ENVEOF'
+if [[ ! -f "${CONF_FILE}" ]]; then
+cat > "${CONF_FILE}" <<'CONFEOF'
 # Brilho: 0x10 (minimo) a 0x70 (maximo)
 DISPLAY_BRIGHTNESS=0x10
 
 # Tarefa de fundo: clock_ip | clock | none
 DISPLAY_BACKGROUND=clock_ip
-ENVEOF
+CONFEOF
 fi
+# Remove config antiga se existir
+rm -f /etc/default/tx9-display
 
 # Launcher principal
 cat > "${REMOTE_LAUNCHER}" <<'LAUNCHEOF'
 #!/usr/bin/env bash
-source /etc/default/tx9-display 2>/dev/null || true
+source /etc/tx9-display/display.conf 2>/dev/null || true
 exec /usr/bin/python3 /opt/tx9/display/display_server.py \
      --brightness "\${DISPLAY_BRIGHTNESS:-0x10}" \
      --background "\${DISPLAY_BACKGROUND:-clock_ip}"
@@ -190,7 +196,9 @@ LAUNCHEOF
 chmod 0755 "${REMOTE_LAUNCHER}"
 
 # CLI global
-ln -sf "${REMOTE_ROOT}/display_client.py" /usr/local/bin/tx9-show
+ln -sf "${REMOTE_ROOT}/display_client.py" /usr/local/bin/tx9-display-show
+# Remove symlink antigo (migracao)
+rm -f /usr/local/bin/tx9-show
 
 # Servico principal (servidor IPC)
 cat > "${REMOTE_UNIT}" <<'UNITEOF'
@@ -202,7 +210,7 @@ After=local-fs.target
 [Service]
 Type=simple
 User=root
-EnvironmentFile=-/etc/default/tx9-display
+EnvironmentFile=-/etc/tx9-display/display.conf
 WorkingDirectory=/opt/tx9/display
 ExecStart=/usr/local/bin/tx9-display
 Restart=on-failure
@@ -219,8 +227,8 @@ sleep 2
 
 echo ""
 echo "Instalado em ${REMOTE_ROOT}/"
-echo "Config : /etc/default/tx9-display"
-echo "CLI    : tx9-show <comando>"
+echo "Config : /etc/tx9-display/display.conf"
+echo "CLI    : tx9-display-show <comando>"
 echo ""
 systemctl status "${SERVICE_NAME}" --no-pager
 REMOTE_EOF

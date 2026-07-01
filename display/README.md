@@ -69,7 +69,7 @@ Serviço de controle do display frontal 7-segmentos do TV Box **TX9 Pro** (SoC A
 |---|---|
 | `display_driver.py` | Driver de baixo nível — GPIO/mmap, protocolo FD6551, tabela 7-seg |
 | `display_server.py` | Servidor IPC — fila de prioridade, socket Unix, background plugável |
-| `display_client.py` | Cliente — módulo Python e CLI (`tx9-show`) |
+| `display_client.py` | Cliente — modulo Python e CLI (`tx9-display-show`) |
 | `display_boot.py` | Contador de boot — roda antes do servidor, acesso direto ao driver |
 | `backgrounds/bg_clock_ip.py` | Tarefa de fundo — relógio HH:MM com indicadores LAN/Wi-Fi |
 | `install_display_server.sh` | Script de instalação/desinstalação local ou remota (via SSH) |
@@ -91,8 +91,8 @@ TARGET_HOST=192.168.1.106 TARGET_USER=root bash install_display_server.sh instal
 O script instala:
 
 - Arquivos Python em `/opt/tx9/display/`
-- Configuração em `/etc/default/tx9-display`
-- CLI global `/usr/local/bin/tx9-show` → `display_client.py`
+- Configuração em `/etc/tx9-display/display.conf`
+- CLI global `/usr/local/bin/tx9-display-show` → `display_client.py`
 - Dois serviços systemd:
 
 | Serviço | Quando | Função |
@@ -104,7 +104,7 @@ O script instala:
 
 ## Configuração
 
-`/etc/default/tx9-display`:
+`/etc/tx9-display/display.conf`:
 
 ```bash
 # Brilho: 0x10 (mínimo) a 0x70 (máximo)
@@ -112,10 +112,18 @@ DISPLAY_BRIGHTNESS=0x10
 
 # Tarefa de fundo: clock_ip | clock | none
 DISPLAY_BACKGROUND=clock_ip
-
-# Argumentos do contador de boot
-DISPLAY_BOOT_ARGS=--fim 9999 --delay 0.05 --loop --manter-ao-sair
 ```
+
+---
+
+## Estrutura no sistema
+
+| Item | Caminho |
+|---|---|
+| Servico systemd | `tx9-display.service` |
+| Servidor | `/opt/tx9/display/display_server.py` |
+| Configuracao | `/etc/tx9-display/display.conf` |
+| CLI | `/usr/local/bin/tx9-display-show` |
 
 ---
 
@@ -124,26 +132,26 @@ DISPLAY_BOOT_ARGS=--fim 9999 --delay 0.05 --loop --manter-ao-sair
 ```bash
 # Exibe texto fixo por 5 segundos (até 4 caracteres)
 # O indicador ":" é apagado automaticamente durante a exibição
-tx9-show show_text "UPDT" --duration 5
+tx9-display-show show_text "UPDT" --duration 5
 
 # Texto com mais de 4 caracteres rola automaticamente no display
-tx9-show show_text "NETFLIX" --duration 5
-tx9-show show_text "Sistema iniciado"
+tx9-display-show show_text "NETFLIX" --duration 5
+tx9-display-show show_text "Sistema iniciado"
 
 # Exibe número (indicador ":" também é apagado)
-tx9-show show_number 42
+tx9-display-show show_number 42
 
 # Rola texto explicitamente (controle de velocidade)
-tx9-show scroll "Sistema atualizado com sucesso" --speed 0.3
+tx9-display-show scroll "Sistema atualizado com sucesso" --speed 0.3
 
 # Ajusta brilho (0x10 mínimo, 0x70 máximo)
-tx9-show set_brightness 0x40
+tx9-display-show set_brightness 0x40
 
 # Limpa o display
-tx9-show clear
+tx9-display-show clear
 
 # Verifica se o servidor está respondendo
-tx9-show status
+tx9-display-show status
 ```
 
 ---
@@ -244,7 +252,7 @@ def make_background():
     return tick
 ```
 
-Registre em `DISPLAY_BACKGROUND` (via `/etc/default/tx9-display`) e adicione o carregamento em `display_server.py` na função `_load_background()`.
+Registre em `DISPLAY_BACKGROUND` (via `/etc/tx9-display/display.conf`) e adicione o carregamento em `display_server.py` na função `_load_background()`.
 
 ---
 

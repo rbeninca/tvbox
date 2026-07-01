@@ -9,7 +9,7 @@
 set -euo pipefail
 
 if [[ $EUID -ne 0 ]]; then
-  echo "Execute como root: sudo ir-listen" >&2
+  echo "Execute como root: sudo tx9-ir-listen" >&2
   exit 1
 fi
 

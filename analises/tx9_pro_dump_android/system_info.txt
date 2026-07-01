@@ -1,0 +1,55 @@
+Processor	: AArch64 Processor rev 4 (aarch64)
+processor	: 0
+processor	: 1
+processor	: 2
+processor	: 3
+Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 wp half thumb fastmult vfp edsp neon vfpv3 tlsi vfpv4 idiva idivt 
+CPU implementer	: 0x41
+CPU architecture: 8
+CPU variant	: 0x0
+CPU part	: 0xd03
+CPU revision	: 4
+
+Hardware	: Amlogic
+Serial		: 210da400c808d569258064e9e0f94325
+MemTotal:        4194304 kB
+MemFree:           85524 kB
+MemAvailable:     498756 kB
+Buffers:           32324 kB
+Cached:           405920 kB
+SwapCached:          440 kB
+Active:           372384 kB
+Inactive:         313740 kB
+Active(anon):     154400 kB
+Inactive(anon):   102132 kB
+Active(file):     217984 kB
+Inactive(file):   211608 kB
+Unevictable:        4204 kB
+Mlocked:             252 kB
+SwapTotal:        511996 kB
+SwapFree:         499556 kB
+Dirty:                 0 kB
+Writeback:             0 kB
+AnonPages:        251756 kB
+Mapped:           142388 kB
+Shmem:              4700 kB
+Slab:              60284 kB
+SReclaimable:      29148 kB
+SUnreclaim:        31136 kB
+KernelStack:       12512 kB
+PageTables:        13120 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     1001760 kB
+Committed_AS:   18454388 kB
+VmallocTotal:    1048576 kB
+VmallocUsed:       79356 kB
+VmallocChunk:     396156 kB
+TotalCMA:         258048 kB
+UsedCMA:            4424 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
