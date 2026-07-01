@@ -83,6 +83,10 @@
 </head>
 <body>
 
+<div id="imgOverlayAcpi" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.92); z-index:9999; cursor:pointer; justify-content:center; align-items:center;">
+    <img src="./acpiVSdtb.png" alt="Infografico ampliado" style="max-width:94vw; max-height:94vh; border-radius:8px;">
+</div>
+
 <div id="imgOverlayPlaca" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.92); z-index:9999; cursor:pointer; justify-content:center; align-items:center;">
     <img src="./placa_tx9.png" alt="Placa TX9 Pro ampliada" style="max-width:94vw; max-height:94vh; border-radius:8px;">
 </div>
@@ -203,6 +207,15 @@
             <div class="warn-box" style="margin-top:16px;">
                 <strong>Sem o DTB correto</strong>, o Linux ate inicia, mas perde display, Wi-Fi e IR. Por isso nenhuma imagem Armbian generica funcionou completamente no TX9 — foi necessario extrair e adaptar o DTB do Android original.
             </div>
+        </section>
+
+        <!-- ===================== ACPI vs DTB (infografico) ===================== -->
+        <section>
+            <h2>ACPI vs DTB — Visao Comparativa</h2>
+            <div style="text-align:center; margin: 20px 0;">
+                <img id="imgAcpiDtb" src="./acpiVSdtb.png" alt="Infografico: x86 com ACPI vs ARM SoC com DTB" style="max-width:88%; border-radius:10px; box-shadow: 0 6px 20px rgba(0,0,0,0.18); cursor:pointer;" title="Clique para ampliar">
+            </div>
+            <p style="text-align:center; font-size:0.8em; color:#666;">Ambos fornecem ao kernel um mapa do hardware. No x86 isso vem via ACPI no firmware; em sistemas ARM embarcados, vem via Device Tree (DTB).</p>
         </section>
 
         <!-- ===================== ROTEIRO ===================== -->
@@ -505,27 +518,28 @@ sudo tx9-ir-log</code></pre>
         window.addEventListener('load', () => setTimeout(() => window.print(), 800));
     }
 
-    // --- Fullscreen da imagem da placa ---
-    (function () {
-        var img = document.getElementById('imgPlaca');
-        var overlay = document.getElementById('imgOverlayPlaca');
+    // --- Fullscreen generico ---
+    function setupOverlay(imgId, overlayId) {
+        var img = document.getElementById(imgId);
+        var overlay = document.getElementById(overlayId);
         if (!img || !overlay) return;
-
         img.addEventListener('click', function (e) {
             e.stopPropagation();
             overlay.style.display = 'flex';
         });
-
         overlay.addEventListener('click', function () {
             overlay.style.display = 'none';
         });
-
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape' && overlay.style.display === 'flex') {
                 overlay.style.display = 'none';
             }
         });
-    })();
+    }
+
+    setupOverlay('imgAcpiDtb', 'imgOverlayAcpi');
+
+    setupOverlay('imgPlaca', 'imgOverlayPlaca');
 </script>
 </body>
 </html>
