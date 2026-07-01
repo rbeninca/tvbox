@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oficina Prática — Descaracterização TX9 Pro</title>
+
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/css/print/pdf.css" media="print">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/monokai.css">
+
+    <style>
+        :root {
+            --ifsc-green: #2e7d32;
+            --ifsc-dark:  #1b5e20;
+            --accent-red: #c0392b;
+            --accent-gold: #f39c12;
+            --accent-blue: #2980b9;
+        }
+        .reveal h1, .reveal h2 { color: var(--ifsc-green); font-weight: 800; text-transform: uppercase; }
+        .reveal h2 { border-bottom: 3px solid var(--ifsc-green); display: inline-block; padding-bottom: 5px; margin-bottom: 18px; }
+        .reveal h3 { color: var(--ifsc-dark); }
+        .reveal section { text-align: left; padding: 18px; }
+        .reveal section p { margin: 8px 0; }
+        .reveal section ul, .reveal section ol { margin: 8px 0; }
+
+        .reveal section.compact { font-size: 0.80em; }
+        .reveal section.compact li { margin: 5px 0; }
+
+        .reveal pre { width: 100%; box-shadow: 0 3px 12px rgba(0,0,0,0.18); font-size: 0.62em; margin: 10px 0; }
+        .reveal pre code { padding: 14px 16px; max-height: 460px; border-radius: 6px; }
+
+        .formula-box {
+            background: #f3faf4; padding: 12px 16px; border-left: 6px solid var(--ifsc-green);
+            border-radius: 4px; margin: 10px 0; font-size: 0.88em; box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
+        }
+        .warn-box {
+            background: #fdf3f2; border-left: 6px solid var(--accent-red);
+            padding: 12px 16px; border-radius: 4px; margin: 10px 0; font-size: 0.85em;
+        }
+        .tip-box {
+            background: #fff8e8; border-left: 6px solid var(--accent-gold);
+            padding: 12px 16px; border-radius: 4px; margin: 10px 0; font-size: 0.85em;
+        }
+
+        .highlight { color: var(--ifsc-green); font-weight: bold; }
+        .small-text { font-size: 0.72em; color: #666; }
+
+        table.tbl { width: 100%; font-size: 0.62em; border-collapse: collapse; margin-top: 10px; }
+        table.tbl th { background: var(--ifsc-green); color: white; padding: 8px; }
+        table.tbl td { border: 1px solid #ddd; padding: 6px 8px; }
+        table.tbl tr:nth-child(even) td { background: #f6faf6; }
+
+        .two-col { display: flex; align-items: flex-start; gap: 36px; }
+        .two-col .col-text { flex: 1.2; }
+
+        .icon-list { list-style: none; margin-left: 0; }
+        .icon-list li { margin: 12px 0; padding-left: 4px; }
+        .icon-list .ic { color: var(--ifsc-green); margin-right: 8px; font-weight: 700; }
+
+        .timeline { position: relative; display: flex; justify-content: space-between; margin: 26px 0 14px; }
+        .timeline::before { content: ""; position: absolute; top: 12px; left: 4%; right: 4%; height: 3px; background: #cfe3cf; z-index: 0; }
+        .timeline .stage { position: relative; z-index: 1; flex: 1; text-align: center; padding: 0 6px; }
+        .timeline .dot { width: 22px; height: 22px; border-radius: 50%; background: var(--ifsc-green); border: 4px solid #fff; box-shadow: 0 0 0 2px var(--ifsc-green); margin: 0 auto 12px; }
+        .timeline .stage h4 { color: #1a3b1a; font-size: 0.92em; font-weight: 700; margin: 0 0 6px; }
+        .timeline .stage p { font-size: 0.68em; color: #555; margin: 0; line-height: 1.3em; }
+
+        .step-badge { display:inline-block; background: var(--ifsc-green); color:#fff; border-radius:50%;
+            width: 34px; height: 34px; line-height: 34px; text-align:center; font-weight:800; margin-right:10px; }
+
+        #btnPdf { position: fixed; top: 16px; right: 16px; z-index: 1000; background: var(--ifsc-green);
+            color: #fff; border: none; border-radius: 6px; padding: 8px 14px; font-size: 14px; font-weight: 700;
+            cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.25); transition: background 0.2s, transform 0.1s; }
+        #btnPdf:hover { background: var(--ifsc-dark); }
+        #btnPdf:active { transform: scale(0.96); }
+        @media print { #btnPdf { display: none !important; } }
+
+        .reveal .slide-number { background: var(--ifsc-green); color: #fff; font-size: 16px; padding: 4px 10px; border-radius: 4px; }
+        .pill { display:inline-block; background:#e8f5e9; color: var(--ifsc-dark); border-radius: 12px; padding: 2px 10px; font-size: 0.7em; font-weight:700; margin: 2px; }
+    </style>
+</head>
+<body>
+
+<div id="imgOverlayPlaca" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.92); z-index:9999; cursor:pointer; justify-content:center; align-items:center;">
+    <img src="./placa_tx9.png" alt="Placa TX9 Pro ampliada" style="max-width:94vw; max-height:94vh; border-radius:8px;">
+</div>
+
+<button id="btnPdf" title="Gerar PDF da apresentação" aria-label="Gerar PDF">PDF</button>
+
+<div class="reveal">
+    <div class="slides">
+
+        <!-- ===================== CAPA ===================== -->
+        <section style="text-align: center;">
+            <h1 style="font-size: 2.0em;">Oficina Pratica</h1>
+            <h2 style="border:none; color:#555; text-transform:none;">Descaracterizacao de TV Box TX9 Pro</h2>
+            <p style="font-size:1.05em;">Do Android ao Armbian Linux — passo a passo direto</p>
+            <div style="margin-top: 50px;">
+                <p><span class="pill">Receita Federal</span> <span class="pill">IFSC</span> <span class="pill">Amlogic S905W</span></p>
+                <p style="margin-top:24px;"><strong>Apresentador:</strong> Romulo de Aguiar Beninca</p>
+            </div>
+        </section>
+
+        <!-- ===================== O PROJETO ===================== -->
+        <section class="compact">
+            <h2>O Projeto de Descaracterizacao</h2>
+            <div class="two-col">
+                <div class="col-text">
+                    <ul class="icon-list">
+                        <li><span class="ic">▸</span><strong>Origem:</strong> TV Boxes apreendidas pela <strong>Receita Federal</strong> e destinadas ao IFSC para reaproveitamento.</li>
+                        <li><span class="ic">▸</span><strong>Dispositivo:</strong> TX9 Pro — SoC Amlogic S905W (ARM Cortex-A53), 1 GB RAM, 8 GB eMMC.</li>
+                        <li><span class="ic">▸</span><strong>Objetivo:</strong> substituir o firmware Android inseguro por <strong>Armbian Linux</strong>, mantendo <strong>todo o hardware funcional</strong>.</li>
+                        <li><span class="ic">▸</span><strong>Resultado:</strong> dispositivo seguro, controlavel e reaproveitado como no Linux, mini-servidor ou laboratorio de containers.</li>
+                    </ul>
+                    <div class="formula-box" style="margin-top:12px;">
+                        <strong>Descaracterizar</strong> = remover completamente o sistema original (Android) e instalar um sistema operacional limpo, auditavel e mantido pela comunidade.
+                    </div>
+                </div>
+                <div class="col-text" style="text-align:center;">
+                    <figure>
+                        <img src="./placa_tx9.png" alt="Placa do TX9 Pro com componentes identificados" style="max-width:100%; border-radius:10px; box-shadow: 0 6px 20px rgba(0,0,0,0.18);">
+                        <figcaption class="small-text" style="margin-top:8px;">Placa do TX9 Pro — componentes identificados durante o projeto.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== HARDWARE DA PLACA ===================== -->
+        <section>
+            <h2>Hardware — TX9 Pro por dentro</h2>
+            <div style="text-align:center; margin: 10px 0;">
+                <img id="imgPlaca" src="./placa_tx9.png" alt="Placa do TX9 Pro" style="max-width:52%; border-radius:10px; box-shadow: 0 6px 20px rgba(0,0,0,0.18); cursor:pointer;" title="Clique para ampliar">
+            </div>
+            <table class="tbl">
+                <tr><th>Componente</th><th>Chip / Interface</th><th>Desafio no Linux</th></tr>
+                <tr><td><strong>SoC</strong></td><td>Amlogic S905W (Cortex-A53, Mali-450)</td><td>DTB correto para a placa P281</td></tr>
+                <tr><td><strong>Display frontal</strong></td><td>FD6551 — bit-bang via GPIO (bits 27/29)</td><td>Driver proprio via <code>/dev/mem</code></td></tr>
+                <tr><td><strong>Wi-Fi</strong></td><td>SSV6051 — SDIO, sem suporte mainline</td><td>Compilar driver out-of-tree para kernel 6.x</td></tr>
+                <tr><td><strong>IR</strong></td><td>Receptor em GPIOAO_7 — driver <code>meson-ir</code></td><td>Overlay + mapeamento de scancodes</td></tr>
+                <tr><td><strong>Armazenamento</strong></td><td>eMMC ~7,5 GB</td><td>Migrar sistema do SD para eMMC</td></tr>
+            </table>
+            <p class="small-text" style="text-align:center; margin-top:10px;">Todos esses componentes foram mapeados a partir do DTB extraido do Android original e validados no Armbian.</p>
+        </section>
+
+        <!-- ===================== POR QUE DESCARACTERIZAR ===================== -->
+        <section class="compact">
+            <h2>Por que remover o Android?</h2>
+            <table class="tbl" style="font-size:0.72em;">
+                <tr><th style="width:50%;">Risco no Android original</th><th>Como o Armbian resolve</th></tr>
+                <tr><td>Processos root desconhecidos em background</td><td>Sistema limpo, controle total do que executa</td></tr>
+                <tr><td>Sistema de arquivos montado em <code>rw</code> (inseguro)</td><td>Montagem controlada e endurecimento</td></tr>
+                <tr><td>Versao mascarada: reporta Android 10, e Android 7.1.2 / kernel 3.14</td><td>Kernel moderno 6.x mantido pela comunidade</td></tr>
+                <tr><td>Sem atualizacoes de seguranca</td><td>Atualizacoes via <code>apt</code></td></tr>
+                <tr><td>Possiveis backdoors no firmware de fabrica</td><td>Sistema auditavel, repositorios abertos</td></tr>
+            </table>
+
+            <div class="warn-box" style="margin-top:16px;">
+                <strong>Por que nao basta instalar um app sobre o Android?</strong> Uma camada de compatibilidade nao elimina as vulnerabilidades nem o software malicioso do firmware original. A descaracterizacao precisa ir ate o kernel.
+            </div>
+
+            <div class="formula-box" style="margin-top:12px;">
+                <strong>O Android original nao e confiavel.</strong> A unica forma segura de reaproveitar o hardware e substituir o sistema inteiro — do bootloader ao userspace.
+            </div>
+        </section>
+
+        <!-- ===================== POR QUE E DIFICIL ===================== -->
+        <section class="compact">
+            <h2>Por que descaracterizar e dificil?</h2>
+            <ul class="icon-list">
+                <li><span class="ic">▸</span><strong>Nao e so "instalar Linux":</strong> o hardware do TX9 nao e padronizado como um PC. O kernel precisa de um <span class="highlight">Device Tree Blob (DTB)</span> especifico para cada placa.</li>
+                <li><span class="ic">▸</span><strong>Wi-Fi sem suporte mainline:</strong> o chip SSV6051 nao tem driver no kernel oficial — precisa ser compilado out-of-tree para cada versao de kernel.</li>
+                <li><span class="ic">▸</span><strong>Display frontal proprietario:</strong> o FD6551 e controlado por bit-bang via GPIO, sem driver Linux existente — foi necessario criar um do zero.</li>
+                <li><span class="ic">▸</span><strong>DTB inexistente:</strong> nenhuma imagem Armbian generica traz o mapeamento correto dos perifericos do TX9 — foi preciso extrair o DTB do Android, descompilar e correlacionar pinos.</li>
+            </ul>
+
+            <div class="formula-box" style="margin-top:14px;">
+                <strong>O trabalho pesado ja foi feito.</strong> A imagem que vamos usar hoje inclui o DTB correto, o driver Wi-Fi compilado, o servidor do display e o daemon IR — tudo pronto para funcionar.
+            </div>
+
+            <table class="tbl" style="margin-top:12px;">
+                <tr><th></th><th>PC x86</th><th>TX9 / ARM SoC</th></tr>
+                <tr><td>Quem descreve o hardware</td><td>UEFI/BIOS + ACPI</td><td>Device Tree Blob (<code>.dtb</code>)</td></tr>
+                <tr><td>Descoberta de dispositivos</td><td>PCI/PCIe — automatica</td><td>Memory-mapped — manual via DTB</td></tr>
+                <tr><td>Intervencao do usuario</td><td>Raramente</td><td>Precisa escolher/ajustar o <code>.dtb</code></td></tr>
+            </table>
+        </section>
+
+        <!-- ===================== ROTEIRO ===================== -->
+        <section class="compact">
+            <h2>Roteiro da Oficina</h2>
+            <div class="timeline">
+                <div class="stage"><div class="dot"></div><h4>1. Gravar</h4><p>Imagem pronta no cartao SD</p></div>
+                <div class="stage"><div class="dot"></div><h4>2. Bootar</h4><p>Botao inferior + ligar</p></div>
+                <div class="stage"><div class="dot"></div><h4>3. Instalar</h4><p><code>instal-aml.sh</code> na eMMC</p></div>
+                <div class="stage"><div class="dot"></div><h4>4. Validar</h4><p>Servicos e Docker</p></div>
+            </div>
+
+            <div class="tip-box" style="margin-top:18px;">
+                <strong>Material necessario:</strong> notebook Linux, cartao microSD (min. 8 GB), leitor de cartao USB, TV Box TX9 Pro, cabo de rede.
+            </div>
+
+            <div class="formula-box">
+                <strong>O que a imagem ja inclui:</strong>
+                <ul style="margin:6px 0 0;">
+                    <li>Armbian + kernel 6.x + DTB correto para TX9 Pro (S905W / P281)</li>
+                    <li>Driver Wi-Fi SSV6051 compilado</li>
+                    <li>Servico do display frontal (<code>tx9-display.service</code>)</li>
+                    <li>Servico do controle remoto IR (<code>tx9-ir.service</code>)</li>
+                    <li>Docker instalado e pronto</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ===================== PASSO 1: GRAVAR ===================== -->
+        <section class="compact">
+            <h2><span class="step-badge">1</span>Gravar a imagem no cartao SD</h2>
+            <p><strong>1.1 — Baixar a imagem</strong> (ja inclui tudo: Armbian + DTB + drivers + servicos + Docker):</p>
+            <pre><code class="language-text" data-trim>https://drive.google.com/file/d/1u4GrDhsN_l2zTHFpy2P6BQBlMFfIhFet/view?usp=sharing</code></pre>
+
+            <p><strong>1.2 — Baixar o script de gravacao:</strong></p>
+            <pre><code class="language-bash" data-trim>wget https://rbeninca.github.io/tvbox/oficina/gravar-cartao.sh</code></pre>
+
+            <p><strong>1.3 — Identificar o cartao e gravar:</strong></p>
+            <pre><code class="language-bash" data-trim># identifique o cartao SD (CUIDADO: confira o dispositivo!)
+lsblk
+
+# grave a imagem (substitua /dev/sdX pelo seu cartao)
+sudo bash gravar-cartao.sh tx9-pro-armbian-reduzido.img /dev/sdX</code></pre>
+
+            <div class="warn-box">
+                O script <strong>apaga todo o conteudo</strong> do cartao. Confira o dispositivo com <code>lsblk</code> antes. Apos gravar, ele verifica automaticamente a integridade com <code>cmp</code>.
+            </div>
+
+            <div class="tip-box">
+                <strong>Leitor USB lento?</strong> Limite a velocidade: <code>RATE=10M sudo bash gravar-cartao.sh tx9-pro-armbian-reduzido.img /dev/sdX</code>
+            </div>
+        </section>
+
+        <!-- ===================== PASSO 2: BOOT ===================== -->
+        <section class="compact">
+            <h2><span class="step-badge">2</span>Bootar pelo cartao SD</h2>
+
+            <div class="two-col">
+                <div class="col-text">
+                    <ol style="font-size:0.95em; line-height:1.6em;">
+                        <li><strong>Desligue</strong> a TV Box (retire da tomada).</li>
+                        <li><strong>Insira</strong> o cartao SD gravado.</li>
+                        <li>Com um palito, <strong>pressione e segure</strong> o botao escondido no <strong>conector AV</strong> (parte inferior/traseira).</li>
+                        <li><strong>Sem soltar</strong> o botao, ligue a TV Box na tomada.</li>
+                        <li>Segure por <strong>5 segundos</strong> e solte.</li>
+                        <li>O Armbian vai iniciar pelo cartao.</li>
+                    </ol>
+                </div>
+                <div class="col-text" style="text-align:center;">
+                    <div class="formula-box" style="font-size:1.3em; padding:30px; text-align:center;">
+                        <strong>Botao de boot</strong><br><br>
+                        Conector AV<br>
+                        (parte inferior)<br><br>
+                        <span class="small-text">Pressione com palito<br>ANTES de ligar na tomada</span>
+                    </div>
+                    <div class="tip-box" style="margin-top:14px; text-align:left;">
+                        <strong>Credenciais:</strong><br>
+                        Usuario: <code>root</code><br>
+                        Senha: <code>aluno123</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== PASSO 2b: DESCOBRIR IP ===================== -->
+        <section class="compact">
+            <h2><span class="step-badge">2</span>Descobrir o IP — ifrede.apk</h2>
+            <p>Se a TV Box ainda estiver no Android e voce precisar do IP para conectar via rede, instale o app <strong>ifrede.apk</strong> — ele exibe o endereco de rede no <strong>display frontal</strong> da caixa.</p>
+
+            <h3>Opcao A — Instalar via navegador (na TV Box)</h3>
+            <pre><code class="language-text" data-trim>https://rbeninca.github.io/tvbox/oficina/ifrede.apk</code></pre>
+            <p class="small-text">Abra no navegador Android, baixe e instale. Pode ser necessario habilitar "Fontes desconhecidas".</p>
+
+            <h3>Opcao B — Instalar via cabo USB (com ADB)</h3>
+            <pre><code class="language-bash" data-trim>wget https://rbeninca.github.io/tvbox/oficina/ifrede.apk
+adb install ifrede.apk</code></pre>
+
+            <div class="tip-box">
+                Abra o app <strong>ifrede</strong> na TV Box. O IP aparecera no <strong>display frontal</strong> (ex.: <code>192.168.1.50</code>).
+            </div>
+        </section>
+
+        <!-- ===================== PASSO 3: INSTALAR NA eMMC ===================== -->
+        <section class="compact">
+            <h2><span class="step-badge">3</span>Instalar na eMMC</h2>
+            <p>Com o Armbian rodando pelo cartao SD, conecte-se e execute o script de instalacao:</p>
+
+            <pre><code class="language-bash" data-trim># conecte via SSH (ou use o terminal local)
+ssh root@IP_DA_TVBOX       # senha: aluno123
+
+# rode o script de instalacao na eMMC
+/root/instal-aml.sh</code></pre>
+
+            <p>O script copia o sistema do cartao para a memoria interna (eMMC), configura o bootloader e prepara tudo para funcionar <strong>sem o cartao</strong>.</p>
+
+            <div class="warn-box">
+                <strong>Operacao destrutiva:</strong> apaga o Android da eMMC permanentemente. So execute apos confirmar que o boot pelo cartao esta funcionando.
+            </div>
+
+            <p><strong>Apos a instalacao:</strong></p>
+            <ol>
+                <li>Desligue a TV Box.</li>
+                <li><strong>Remova</strong> o cartao SD.</li>
+                <li>Ligue novamente — o Armbian deve iniciar pela eMMC.</li>
+            </ol>
+
+            <div class="tip-box">
+                <strong>Verificacao rapida:</strong> <code>lsblk</code> deve mostrar <code>/</code> montado em <code>mmcblk1p2</code> (eMMC) e nao em <code>mmcblk0</code> (SD).
+            </div>
+        </section>
+
+        <!-- ===================== PASSO 4: VALIDAR SERVICOS ===================== -->
+        <section class="compact">
+            <h2><span class="step-badge">4</span>Validar os servicos</h2>
+            <p>Apos o boot pela eMMC, confirme que tudo esta funcionando:</p>
+
+            <pre><code class="language-bash" data-trim># sistema
+uname -r                                  # kernel 6.x
+ip -br a                                  # IP na rede
+
+# display frontal
+systemctl status tx9-display.service
+tx9-display-show show_text "OK" --duration 3
+
+# controle remoto IR
+systemctl status tx9-ir.service
+tx9-ir-listen                             # aperte botoes no controle
+
+# Wi-Fi
+lsmod | grep ssv6051
+nmcli device wifi list</code></pre>
+
+            <table class="tbl" style="margin-top:14px;">
+                <tr><th>Servico</th><th>Verificacao</th><th>CLI</th></tr>
+                <tr><td>Display frontal</td><td><code>systemctl status tx9-display.service</code></td><td><code>tx9-display-show</code></td></tr>
+                <tr><td>Controle remoto IR</td><td><code>systemctl status tx9-ir.service</code></td><td><code>tx9-ir-listen</code>, <code>tx9-ir-map</code>, <code>tx9-ir-log</code></td></tr>
+                <tr><td>Wi-Fi SSV6051</td><td><code>lsmod | grep ssv6051</code></td><td><code>nmcli</code></td></tr>
+                <tr><td>Docker</td><td><code>systemctl status docker</code></td><td><code>docker run</code></td></tr>
+            </table>
+        </section>
+
+        <!-- ===================== PASSO 4b: DOCKER ===================== -->
+        <section class="compact">
+            <h2><span class="step-badge">4</span>Usando Docker no TX9</h2>
+            <p>O Docker ja vem instalado. Teste e comece a usar:</p>
+
+            <pre><code class="language-bash" data-trim># verificar se esta rodando
+systemctl status docker
+
+# teste rapido
+docker run --rm hello-world
+
+# subir um servidor web
+docker run -d --name web -p 80:80 nginx
+
+# acessar no navegador do notebook:
+# http://IP_DA_TVBOX</code></pre>
+
+            <div class="formula-box" style="margin-top:14px;">
+                <strong>Resultado:</strong> voce tem um mini-servidor Linux com kernel moderno, rodando Docker, com display frontal e controle remoto IR funcionais — tudo a partir de uma TV Box que era lixo eletronico com Android inseguro.
+            </div>
+
+            <div class="tip-box" style="margin-top:12px;">
+                <strong>Teste o display:</strong> <code>tx9-display-show show_text "DOCK" --duration 3</code>
+            </div>
+        </section>
+
+        <!-- ===================== ESTRUTURA DOS SERVICOS ===================== -->
+        <section class="compact">
+            <h2>Servicos instalados — referencia rapida</h2>
+            <div class="two-col">
+                <div class="col-text">
+                    <h3 style="margin-top:0;">Display frontal</h3>
+                    <table class="tbl">
+                        <tr><td>Servico</td><td><code>tx9-display.service</code></td></tr>
+                        <tr><td>Config</td><td><code>/etc/tx9-display/display.conf</code></td></tr>
+                        <tr><td>CLI</td><td><code>tx9-display-show</code></td></tr>
+                    </table>
+                    <pre style="margin-top:10px;"><code class="language-bash" data-trim>tx9-display-show show_text "BOOT" --duration 5
+tx9-display-show scroll "Texto longo" --speed 0.3
+tx9-display-show set_brightness 0x40
+tx9-display-show clear</code></pre>
+                </div>
+                <div class="col-text">
+                    <h3 style="margin-top:0;">Controle remoto IR</h3>
+                    <table class="tbl">
+                        <tr><td>Servico</td><td><code>tx9-ir.service</code></td></tr>
+                        <tr><td>Config</td><td><code>/etc/tx9-ir/ir_daemon.conf</code></td></tr>
+                        <tr><td>CLI</td><td><code>tx9-ir-listen</code>, <code>tx9-ir-map</code>, <code>tx9-ir-log</code>, <code>tx9-ir-reload</code>, <code>tx9-ir-help</code></td></tr>
+                    </table>
+                    <pre style="margin-top:10px;"><code class="language-bash" data-trim>sudo tx9-ir-listen    # ver scancodes
+sudo tx9-ir-map /etc/tx9-ir/ir_daemon.conf
+sudo tx9-ir-reload
+sudo tx9-ir-log</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== CHECKLIST ===================== -->
+        <section class="compact">
+            <h2>Checklist da Oficina</h2>
+            <div class="two-col">
+                <div class="col-text">
+                    <h3 style="margin-top:0;">Feito</h3>
+                    <ul class="icon-list">
+                        <li><span class="ic">&#9745;</span>Gravar imagem no cartao SD</li>
+                        <li><span class="ic">&#9745;</span>Bootar pelo cartao (botao AV)</li>
+                        <li><span class="ic">&#9745;</span>Instalar na eMMC com <code>instal-aml.sh</code></li>
+                        <li><span class="ic">&#9745;</span>Boot pela eMMC sem cartao</li>
+                        <li><span class="ic">&#9745;</span>Display frontal funcionando (<code>tx9-display-show</code>)</li>
+                        <li><span class="ic">&#9745;</span>Controle IR funcionando (<code>tx9-ir-listen</code>)</li>
+                        <li><span class="ic">&#9745;</span>Docker rodando (<code>docker run hello-world</code>)</li>
+                    </ul>
+                </div>
+                <div class="col-text">
+                    <h3 style="margin-top:0;">Cuidados</h3>
+                    <ul class="icon-list">
+                        <li><span class="ic" style="color:var(--accent-red)">!</span>Confirme o <code>/dev/sdX</code> antes de gravar</li>
+                        <li><span class="ic" style="color:var(--accent-red)">!</span>Valide o boot via SD antes do <code>instal-aml.sh</code></li>
+                        <li><span class="ic" style="color:var(--accent-red)">!</span>A instalacao na eMMC apaga o Android permanentemente</li>
+                        <li><span class="ic" style="color:var(--accent-red)">!</span>Revisoes de placa podem precisar de DTB diferente</li>
+                    </ul>
+
+                    <div class="formula-box" style="margin-top:14px;">
+                        <strong>Proximos passos:</strong>
+                        <ul style="margin:6px 0 0;">
+                            <li>Conectar Wi-Fi com <code>nmcli</code></li>
+                            <li>Mapear botoes do controle com <code>tx9-ir-map</code></li>
+                            <li>Subir containers Docker para seus projetos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== ENCERRAMENTO ===================== -->
+        <section style="text-align:center;">
+            <h1 style="font-size:2.2em; border:none;">Maos a obra!</h1>
+            <p style="font-size:1.1em; color:#555;">Descaracterizacao de TV Box TX9 Pro — Android para Armbian</p>
+            <div style="margin-top:40px;">
+                <p><strong>Romulo de Aguiar Beninca</strong></p>
+                <p class="small-text">Projeto IFSC — Dispositivos destinados pela Receita Federal</p>
+                <p class="small-text" style="margin-top:20px;">
+                    Repositorio: <code>github.com/rbeninca/tvbox</code><br>
+                    Slides completos: <code>rbeninca.github.io/tvbox/oficina/slide-oficina.html</code><br>
+                    Este guia: <code>rbeninca.github.io/tvbox/oficina/oficina-install.html</code>
+                </p>
+            </div>
+            <p style="margin-top:36px; font-size:0.9em; color:#888;">Perguntas?</p>
+        </section>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+<script>
+    Reveal.initialize({
+        hash: true,
+        center: true,
+        transition: 'slide',
+        slideNumber: 'c/t',
+        width: 1100,
+        height: 800,
+        margin: 0.04,
+        minScale: 0.2,
+        maxScale: 1.5,
+        plugins: [ RevealHighlight ]
+    });
+
+    document.getElementById('btnPdf').addEventListener('click', function () {
+        if (window.location.search.indexOf('print-pdf') === -1) {
+            const sep = window.location.search ? '&' : '?';
+            window.location.href = window.location.pathname + window.location.search + sep + 'print-pdf';
+        } else {
+            window.print();
+        }
+    });
+    if (window.location.search.indexOf('print-pdf') !== -1) {
+        window.addEventListener('load', () => setTimeout(() => window.print(), 800));
+    }
+
+    // --- Fullscreen da imagem da placa ---
+    (function () {
+        var img = document.getElementById('imgPlaca');
+        var overlay = document.getElementById('imgOverlayPlaca');
+        if (!img || !overlay) return;
+
+        img.addEventListener('click', function (e) {
+            e.stopPropagation();
+            overlay.style.display = 'flex';
+        });
+
+        overlay.addEventListener('click', function () {
+            overlay.style.display = 'none';
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && overlay.style.display === 'flex') {
+                overlay.style.display = 'none';
+            }
+        });
+    })();
+</script>
+</body>
+</html>
