@@ -127,13 +127,19 @@
             </div>
         </section>
 
-        <!-- ===================== HARDWARE DA PLACA ===================== -->
+        <!-- ===================== HARDWARE DA PLACA (foto) ===================== -->
         <section>
             <h2>Hardware — TX9 Pro por dentro</h2>
-            <div style="text-align:center; margin: 10px 0;">
-                <img id="imgPlaca" src="./placa_tx9.png" alt="Placa do TX9 Pro" style="max-width:52%; border-radius:10px; box-shadow: 0 6px 20px rgba(0,0,0,0.18); cursor:pointer;" title="Clique para ampliar">
+            <div style="text-align:center; margin: 16px 0;">
+                <img id="imgPlaca" src="./placa_tx9.png" alt="Placa do TX9 Pro" style="max-width:58%; border-radius:10px; box-shadow: 0 6px 20px rgba(0,0,0,0.18); cursor:pointer;" title="Clique para ampliar">
+                <p class="small-text" style="margin-top:8px;">Clique na imagem para ampliar</p>
             </div>
-            <table class="tbl">
+        </section>
+
+        <!-- ===================== HARDWARE DA PLACA (tabela) ===================== -->
+        <section class="compact">
+            <h2>Componentes identificados</h2>
+            <table class="tbl" style="font-size:0.72em;">
                 <tr><th>Componente</th><th>Chip / Interface</th><th>Desafio no Linux</th></tr>
                 <tr><td><strong>SoC</strong></td><td>Amlogic S905W (Cortex-A53, Mali-450)</td><td>DTB correto para a placa P281</td></tr>
                 <tr><td><strong>Display frontal</strong></td><td>FD6551 — bit-bang via GPIO (bits 27/29)</td><td>Driver proprio via <code>/dev/mem</code></td></tr>
@@ -141,7 +147,9 @@
                 <tr><td><strong>IR</strong></td><td>Receptor em GPIOAO_7 — driver <code>meson-ir</code></td><td>Overlay + mapeamento de scancodes</td></tr>
                 <tr><td><strong>Armazenamento</strong></td><td>eMMC ~7,5 GB</td><td>Migrar sistema do SD para eMMC</td></tr>
             </table>
-            <p class="small-text" style="text-align:center; margin-top:10px;">Todos esses componentes foram mapeados a partir do DTB extraido do Android original e validados no Armbian.</p>
+            <div class="formula-box" style="margin-top:16px;">
+                Todos esses componentes foram mapeados a partir do DTB extraido do Android original e validados no Armbian. A imagem que vamos usar ja traz drivers e servicos para cada um deles.
+            </div>
         </section>
 
         <!-- ===================== POR QUE DESCARACTERIZAR ===================== -->
