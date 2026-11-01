@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TX9 Pro — Descaracterizacao de TV Box</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(135deg, #1b5e20, #2e7d32);
+            color: #fff;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        header h1 { font-size: 2.4em; font-weight: 800; margin-bottom: 10px; }
+        header p { font-size: 1.15em; opacity: 0.9; max-width: 700px; margin: 0 auto; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+
+        .section-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #1b5e20;
+            border-bottom: 3px solid #2e7d32;
+            display: inline-block;
+            padding-bottom: 4px;
+            margin-bottom: 20px;
+            margin-top: 40px;
+        }
+        .section-title:first-of-type { margin-top: 0; }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin-bottom: 10px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            text-decoration: none;
+            color: #333;
+            transition: transform 0.15s, box-shadow 0.15s;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.14);
+        }
+        .card h3 {
+            font-size: 1.05em;
+            color: #2e7d32;
+            margin-bottom: 8px;
+        }
+        .card p {
+            font-size: 0.88em;
+            color: #555;
+            flex: 1;
+        }
+        .card .badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #1b5e20;
+            border-radius: 12px;
+            padding: 2px 10px;
+            font-size: 0.7em;
+            font-weight: 700;
+            margin-top: 12px;
+            align-self: flex-start;
+        }
+
+        .link-list { list-style: none; margin: 10px 0; }
+        .link-list li { margin: 10px 0; }
+        .link-list a {
+            color: #2e7d32;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+        .link-list a:hover { text-decoration: underline; }
+        .link-list .desc { color: #777; font-size: 0.82em; font-weight: 400; margin-left: 6px; }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #888;
+            font-size: 0.82em;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 40px;
+        }
+        footer a { color: #2e7d32; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>TX9 Pro — Descaracterizacao</h1>
+    <p>Projeto de transformacao de TV Boxes apreendidas pela Receita Federal: do Android inseguro ao Armbian Linux com hardware funcional.</p>
+</header>
+
+<div class="container">
+
+    <h2 class="section-title">Apresentacoes</h2>
+    <div class="card-grid">
+        <a class="card" href="oficina/oficina-install.html">
+            <h3>Oficina Pratica</h3>
+            <p>Guia direto para a oficina de descaracterizacao: gravar imagem, bootar, instalar na eMMC e rodar Docker.</p>
+            <span class="badge">Oficina</span>
+        </a>
+        <a class="card" href="oficina/slide-oficina.html">
+            <h3>Slides Completos</h3>
+            <p>Apresentacao detalhada do projeto: conexao ADB, extracao do DTB, mapeamento de hardware, driver Wi-Fi, display e IR.</p>
+            <span class="badge">Apresentacao</span>
+        </a>
+    </div>
+
+    <h2 class="section-title">Documentacao</h2>
+    <div class="card-grid">
+        <a class="card" href="RELATORIO_TECNICO.MD">
+            <h3>Relatorio Tecnico</h3>
+            <p>Relatorio completo do processo de descaracterizacao: analise do firmware, extracao do DTB, drivers e configuracao do Armbian.</p>
+            <span class="badge">Relatorio</span>
+        </a>
+        <a class="card" href="TX9_PRO_HARDWARE_REPORT.md">
+            <h3>Relatorio de Hardware</h3>
+            <p>Identificacao detalhada dos componentes: SoC S905W, display FD6551, Wi-Fi SSV6051, receptor IR.</p>
+            <span class="badge">Hardware</span>
+        </a>
+        <a class="card" href="ir/IR.MD">
+            <h3>Infravermelho (IR)</h3>
+            <p>Documentacao do receptor IR: pinagem GPIOAO_7, driver meson-ir, servico tx9-ir e comandos CLI.</p>
+            <span class="badge">Modulo</span>
+        </a>
+        <a class="card" href="display/DISPLAY.MD">
+            <h3>Display Frontal</h3>
+            <p>Documentacao tecnica do display FD6551: protocolo, registradores, GPIO e bit-bang.</p>
+            <span class="badge">Modulo</span>
+        </a>
+        <a class="card" href="display/README.md">
+            <h3>Display — Servico e CLI</h3>
+            <p>Arquitetura do servidor IPC, instalacao, configuracao e uso do tx9-display-show.</p>
+            <span class="badge">Modulo</span>
+        </a>
+        <a class="card" href="CONFIG_SDCAD.md">
+            <h3>Configuracao do SD</h3>
+            <p>Preparacao do cartao SD para boot do Armbian: DTB, extlinux.conf e u-boot.</p>
+            <span class="badge">Guia</span>
+        </a>
+    </div>
+
+    <h2 class="section-title">Downloads</h2>
+    <ul class="link-list">
+        <li>
+            <a href="https://drive.google.com/file/d/1u4GrDhsN_l2zTHFpy2P6BQBlMFfIhFet/view?usp=sharing" target="_blank">Imagem Armbian para TX9 Pro</a>
+            <span class="desc">— imagem pronta com DTB, drivers, servicos e Docker (Google Drive)</span>
+        </li>
+        <li>
+            <a href="oficina/gravar-cartao.sh">Script de gravacao (gravar-cartao.sh)</a>
+            <span class="desc">— grava a imagem no cartao SD com verificacao automatica</span>
+        </li>
+        <li>
+            <a href="oficina/ifrede.apk">ifrede.apk</a>
+            <span class="desc">— app Android para descobrir o IP da TV Box via display frontal</span>
+        </li>
+    </ul>
+
+    <h2 class="section-title">Repositorio</h2>
+    <ul class="link-list">
+        <li>
+            <a href="https://github.com/rbeninca/tvbox" target="_blank">github.com/rbeninca/tvbox</a>
+            <span class="desc">— codigo-fonte, scripts, documentacao e historico do projeto</span>
+        </li>
+    </ul>
+
+</div>
+
+<footer>
+    Projeto IFSC — Dispositivos destinados pela Receita Federal<br>
+    <a href="https://github.com/rbeninca/tvbox">github.com/rbeninca/tvbox</a> — Romulo de Aguiar Beninca
+</footer>
+
+</body>
+</html>

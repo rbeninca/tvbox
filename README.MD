@@ -1,3 +1,14 @@
+# CompSTEAM: TV boxes reaproveitadas na escola
+
+**CompSTEAM** transforma TV boxes (TX9 e MXQ Pro) em computadores para escolas, com Android TV e Linux (Debian 13), instalados pela própria TV.
+
+- Página do projeto: https://rbeninca.github.io/tvbox/
+- Documentação técnica: [docs/](docs/README.md)
+- Instalador (zip para o cartão): https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.44
+- Projetos anteriores (oficina e slides): [anteriores.html](anteriores.html)
+
+---
+
 # TX9 Pro → Armbian Linux: WiFi SSV6051 + Display FD6551 + IR + Docker
 
 **TV Box TX9 Pro rodando Linux completo** | Amlogic S905W (GXL) | Ubuntu Noble | Kernel 6.18.x
