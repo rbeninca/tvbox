@@ -21,7 +21,7 @@ O CompSTEAM tem imagens para duas TV boxes. O instalador reconhece a placa e só
 | Botão reset | fica no fundo do box (pelo furo, com um palito); é ele que abre o instalador |
 | Sistema de fábrica | Android 7.1.2 de 32 bits com kernel 3.14 de 64 bits |
 
-![Placa do TX9 com os componentes principais](../imgs/compsteam/placa-tx9-anotada.png)
+![Placa do TX9 (P281) com os componentes identificados](../imgs/compsteam/placa-tx9-componentes.jpg)
 
 A placa do TX9 vem em revisões diferentes no mercado; o CompSTEAM foi desenvolvido e testado na placa P281 com 1 GB de RAM.
 Caixas com o mesmo nome comercial e placa diferente (outra RAM, outro Wi-Fi) não são cobertas.
@@ -36,6 +36,8 @@ Caixas com o mesmo nome comercial e placa diferente (outra RAM, outro Wi-Fi) nã
 | Wi-Fi | SSV6006C, somente 2,4 GHz |
 | GPU | Mali-400 (3D funciona com o driver livre lima, cerca de 40 quadros por segundo em teste) |
 | Observação | muitos boxes desse modelo trazem o mesmo MAC e número de série; o CompSTEAM cria uma identidade própria a partir do número do chip |
+
+![Placa do MXQ Pro (R329Q V8.0) com os componentes identificados](../imgs/compsteam/placa-mxq-componentes.jpg)
 
 Do MXQ Pro existem as variações Debian, Debian com área de trabalho, Alpine e Ubuntu com interface gráfica
 (ver [sistemas.md](sistemas.md)). Não há Android CompSTEAM para ele.
