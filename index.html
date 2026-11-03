@@ -53,12 +53,13 @@
 <p class="hint login">Usuário e senha padrão dos sistemas Linux: <code>compsteam</code> / <code>compsteam</code>. Troque a senha no primeiro acesso.</p>
 <p class="links"><a href="#sistemas-tx9">Sistemas do TX9</a><a href="#como-instalar">Como instalar</a></p>
 </article>
-<article class="aparelho" data-estado="breve">
+<article class="aparelho" data-estado="publicado">
 <header><span class="tag g">Rockchip RK3229</span><h2>MXQ Pro</h2></header>
 <figure class="foto"><img src="imgs/compsteam/mxq-caixa.jpg" width="727" height="410" alt="A TV box MXQ Pro vista de lado, caixa preta com portas USB, leitor de cartão e saídas de áudio" loading="lazy"></figure>
 <p class="chip-linha">Placa R329Q V8.0 · 4 núcleos Cortex-A7 · 1 GB de RAM · NAND de 8 GB</p>
-<p><span class="sel nt"><span class="ic" aria-hidden="true">⏲</span>Instalador em breve</span></p>
-<div class="btns"><span class="btn off" aria-disabled="true" role="link">Instalador do MXQ: em breve</span></div>
+<p><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Instalador publicado</span></p>
+<div class="btns"><a class="btn pri" href="https://github.com/rbeninca/tvbox/releases/tag/instalador-mxq-1.2.45">Baixar o instalador do MXQ</a></div>
+<p class="hint login">Usuário e senha padrão dos sistemas Linux: <code>compsteam</code> / <code>compsteam</code>. Troque a senha no primeiro acesso.</p>
 <p class="links"><a href="#sistemas-mxq">Sistemas do MXQ Pro</a><a href="https://github.com/rbeninca/tvbox/releases">Imagens publicadas</a></p>
 </article>
 <article class="aparelho" data-estado="breve">
@@ -202,7 +203,14 @@
 
 <div class="painel" id="pn-mxq" data-aba="MXQ Pro">
 <h3>Instalação no MXQ Pro</h3>
-<div class="em-breve"><p><strong>Instalador público em breve.</strong> É o mesmo programa do TX9, com os sistemas desta placa. Só a tela da lista de sistemas está pronta para mostrar; as outras telas do MXQ ainda não foram capturadas.</p>
+<div><p>É o mesmo programa do TX9, com os sistemas desta placa. O MXQ sobe pelo cartão microSD:</p>
+<ol>
+<li>Baixe o <a href="https://github.com/rbeninca/tvbox/releases/tag/instalador-mxq-1.2.45">instalador do MXQ</a>, confira o <code>SHA256SUMS</code> e grave o arquivo <code>.img</code> num cartão microSD de 1 GB ou mais (balenaEtcher, Raspberry Pi Imager ou <code>dd</code>). O cartão é apagado.</li>
+<li>Box desligado, cabo de rede com internet, TV no HDMI. Ponha o cartão no box e ligue a fonte: o box sobe pelo cartão.</li>
+<li>Escolha o sistema na TV com o controle, o teclado ou o mouse e confirme. Há 10 s para desistir; depois a instalação grava a memória do box. Não tire da tomada.</li>
+<li>No fim, tire o cartão e ligue o box de novo.</li>
+</ol>
+<p>O Wi-Fi do instalador não vem configurado: use o cabo de rede. Só a tela da lista de sistemas foi capturada; as outras telas do MXQ ainda não.</p>
 <figure class="shot" style="max-width:640px"><img src="imgs/compsteam/instalador-mxq-lista.png" width="1600" height="900" loading="lazy" alt="Tela do instalador do MXQ Pro na TV com a lista de sistemas desta placa: Alpine, Debian, Debian gráfico e Ubuntu gráfico (a lista de uma versão antiga)"><figcaption>Lista de sistemas do instalador do MXQ Pro (versão antiga: o Ubuntu saiu da lista atual).</figcaption></figure></div>
 </div>
 

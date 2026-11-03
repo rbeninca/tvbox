@@ -83,5 +83,15 @@ Telemetria: o botão **Telemetria**, no rodapé do instalador, explica o que ser
 
 ## MXQ Pro
 
-As imagens do MXQ Pro estão listadas em [sistemas.md](sistemas.md). Esta página descreve o cartão do **TX9**; o zip público
-`instalador-publico-tx9-1.2.45.zip` é só para o TX9.
+As imagens do MXQ Pro estão listadas em [sistemas.md](sistemas.md). O zip `instalador-publico-tx9-1.2.45.zip` é só para o TX9;
+o MXQ tem o seu: [instalador-mxq-1.2.45](https://github.com/rbeninca/tvbox/releases/tag/instalador-mxq-1.2.45)
+(`instalador-publico-mxq-1.2.45.zip`).
+
+1. Confira o `SHA256SUMS` e grave o arquivo `compsteam-mxq-publico-1.2.45.img` num cartão microSD de 1 GB ou mais
+   (balenaEtcher, Raspberry Pi Imager ou `dd`). O cartão é apagado.
+2. Se quiser, edite o `compsteam.conf` da unidade `COMPSTEAM` do cartão (telemetria, registro).
+3. Box desligado, cabo de rede com internet, TV no HDMI. Ponha o cartão no slot microSD e ligue a fonte: o box sobe pelo cartão.
+4. Escolha o sistema na TV e confirme. Há 10 s para desistir; depois a instalação grava a memória (NAND) do box.
+5. No fim, tire o cartão e ligue o box de novo.
+
+O Wi-Fi do instalador não vem configurado: use o cabo de rede.
