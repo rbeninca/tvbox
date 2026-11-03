@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 420" width="700" height="420" role="img" aria-labelledby="t d">
+<title id="t">Ilustração de uma TV box de topo quadrado</title>
+<desc id="d">Desenho neutro de uma caixa preta de cantos arredondados vista em perspectiva, com uma luz indicadora e uma entrada de cabo na lateral. Não é uma fotografia do aparelho.</desc>
+<defs>
+<linearGradient id="top" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a4250"/><stop offset="1" stop-color="#1b212b"/></linearGradient>
+<linearGradient id="side" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#232a35"/><stop offset="1" stop-color="#0e1218"/></linearGradient>
+</defs>
+<ellipse cx="350" cy="352" rx="250" ry="34" fill="#000" opacity=".22"/>
+<path d="M92 214 L92 262 Q92 296 128 306 L336 352 Q352 355 368 352 L574 306 Q608 296 608 262 L608 214 Z" fill="url(#side)"/>
+<path d="M92 214 Q92 178 130 166 L330 98 Q350 92 370 98 L570 166 Q608 178 608 214 Q608 248 570 260 L370 328 Q350 334 330 328 L130 260 Q92 248 92 214 Z" fill="url(#top)" stroke="#4c5666" stroke-width="2"/>
+<path d="M150 214 Q150 198 168 192 L336 136 Q350 132 364 136 L532 192 Q550 198 550 214" fill="none" stroke="#5a6577" stroke-width="2" opacity=".6"/>
+<circle cx="350" cy="214" r="26" fill="none" stroke="#6b778a" stroke-width="3" opacity=".7"/>
+<circle cx="350" cy="214" r="9" fill="#6b778a" opacity=".7"/>
+<circle cx="214" cy="300" r="6" fill="#2dd4a0"/>
+<rect x="470" y="294" width="56" height="12" rx="3" fill="#0a0d12" transform="rotate(14 498 300)"/>
+</svg>

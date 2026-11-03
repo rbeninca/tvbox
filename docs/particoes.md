@@ -130,3 +130,17 @@ tamanhos são os de fábrica.
 | `sistema` (era `userdata`) | o restante | raiz do sistema |
 
 No MXQ não há perfis de volume: a raiz é uma partição só e o `/home` é outra.
+
+No novo desenho aprovado em 2026-11-03, o `/home` (partição 13, `reserva`) passa de 3 GiB para **1536 MiB** e a raiz (partição 14, `sistema`) fica com **o restante** da NAND. A variação Educação do MXQ precisa deste desenho e está em teste.
+
+## BTV11: a eMMC em resumo
+
+A eMMC de 16 GB (14,6 GiB) mantém as áreas de fábrica (bootloader, `reserved` com MPT, chaves e DTB, e o `env` do U-Boot). Depois delas o Linux usa duas partições comuns:
+
+| Partição | Início | Tamanho | Uso |
+|---|---:|---:|---|
+| p1 (FAT32, `BOOT_EMMC`) | 117 MiB | 255 MiB | kernel, DTB, initramfs, script de boot |
+| p2 (ext4) | 373 MiB | até o fim | raiz do sistema |
+| p3 (decidida) | fim da eMMC | 40 MiB | identidade e agente do inventário (`rsv` 8 MiB + `crypt` 32 MiB); entra com a próxima versão |
+
+O bootloader de fábrica nunca é gravado. Estes valores são um esquema; nada aqui é para gravar à mão.
