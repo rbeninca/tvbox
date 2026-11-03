@@ -286,3 +286,25 @@ table.matriz .sel{font-size:.75rem;white-space:normal}
   table.matriz td::before{content:attr(data-label);display:block;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:700}
   table.matriz th.linha{background:var(--bg2);font-size:1.1rem}
 }
+/* aviso de login e carrossel "em uso" */
+.hint.login{margin:10px 0 0}
+.carrossel{margin-top:28px}
+.carrossel .trilho{list-style:none;margin:0;padding:0 0 6px;display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:thin;overscroll-behavior-x:contain}
+.carrossel .trilho:focus-visible{outline:3px solid var(--ac);outline-offset:4px;border-radius:var(--r)}
+.carrossel .slide{flex:0 0 min(100%,560px);scroll-snap-align:start;display:flex}
+.carrossel figure{margin:0;width:100%;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+.carrossel figure img,.carrossel video{width:100%;height:380px;object-fit:cover;background:#000;display:block}
+.carrossel video{object-fit:contain}
+.carrossel figcaption{padding:12px 16px;color:var(--mut);font-size:.95rem}
+.carrossel .artigo{display:grid;grid-template-columns:160px 1fr;gap:18px;align-items:center;width:100%;padding:20px;background:var(--card);border:2px solid var(--ac);border-radius:var(--r);box-shadow:var(--sh);text-decoration:none;color:var(--tx)}
+.carrossel .artigo img{border:1px solid var(--bd);border-radius:6px}
+.carrossel .artigo strong{display:block;color:var(--ac);font-size:1.15rem;margin-bottom:6px}
+.carrossel .ctl{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:16px}
+.carrossel .ctl>button{padding:0;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:2px solid var(--ac);background:var(--card);color:var(--ac);font-size:1.6rem;line-height:1;cursor:pointer}
+.carrossel .ctl>button:disabled{opacity:.35;cursor:default}
+.carrossel .pontos{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.carrossel .pontos button{flex:0 0 24px;width:24px;height:24px;min-height:0;min-width:0;border:0;padding:0;margin:0;background:none;font-size:0;cursor:pointer;display:grid;place-items:center}
+.carrossel .pontos button::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--bd)}
+.carrossel .pontos button[aria-current="true"]::before{background:var(--ac)}
+@media (max-width:600px){.carrossel figure img,.carrossel video{height:260px}.carrossel .artigo{grid-template-columns:110px 1fr;padding:14px}}
+@media (prefers-reduced-motion:reduce){.carrossel .trilho{scroll-behavior:auto}}

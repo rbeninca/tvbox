@@ -23,10 +23,11 @@
 <button class="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
 <ul id="menu">
 <li><a href="#aparelhos">Aparelhos</a></li>
+<li><a href="#em-uso">Em uso</a></li>
 <li><a href="#sistemas">Sistemas</a></li>
 <li><a href="#como-instalar">Instalar</a></li>
 <li><a href="#hardware">Hardware</a></li>
-<li><a href="#termica">Temperatura</a></li>
+<li><a href="#termica">Térmica</a></li>
 <li><a href="#particoes">Partições</a></li>
 <li><a href="#boot">Boot</a></li>
 <li><a href="#documentacao">Documentação</a></li>
@@ -49,6 +50,7 @@
 <p class="chip-linha">Placa P281 · 4 núcleos Cortex-A53 · 1 GB de RAM · eMMC de 8 GB</p>
 <p><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Instalador publicado</span></p>
 <div class="btns"><a class="btn pri" href="https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.44">Baixar o instalador do TX9</a></div>
+<p class="hint login">Usuário e senha padrão dos sistemas Linux: <code>compsteam</code> / <code>compsteam</code>. Troque a senha no primeiro acesso.</p>
 <p class="links"><a href="#sistemas-tx9">Sistemas do TX9</a><a href="#como-instalar">Como instalar</a></p>
 </article>
 <article class="aparelho" data-estado="breve">
@@ -92,7 +94,27 @@
 </div>
 </section>
 
-<section id="sistemas" class="alt">
+<section id="em-uso" class="alt">
+<div class="wrap">
+<p class="kicker">Na prática</p>
+<h2>O projeto em uso</h2>
+<p class="lead">Boxes com CompSTEAM no laboratório: controlam impressoras 3D com Klipper, leem sensores em projetos dos alunos e servem de computador na bancada. O trabalho foi publicado como artigo científico.</p>
+<div class="carrossel" id="carrossel" role="region" aria-roledescription="carrossel" aria-label="Fotos e vídeos do projeto em uso">
+<ul class="trilho" tabindex="0">
+<li class="slide"><figure class="shot"><img src="imgs/uso/uso-laboratorio.jpg" width="1240" height="930" loading="lazy" alt="Bancada do laboratório com uma impressora 3D e um monitor ligado a um TV box"><figcaption>Bancada do laboratório: impressora 3D e um box ligado ao monitor.</figcaption></figure></li>
+<li class="slide"><figure class="shot"><img src="imgs/uso/uso-klipper-impressora.jpg" width="1240" height="930" loading="lazy" alt="TX9 sobre a impressora 3D, ao lado do visor da impressora, controlando a impressão"><figcaption>Um TX9 controla a impressora 3D com Klipper.</figcaption></figure></li>
+<li class="slide"><figure class="vid"><video controls muted playsinline preload="none" poster="imgs/uso/uso-impressao-3d-capa.jpg" width="960" height="540"><source src="imgs/uso/uso-impressao-3d.mp4" type="video/mp4"></video><figcaption>Impressão 3D acompanhada pela câmera do Klipper, no box.</figcaption></figure></li>
+<li class="slide"><figure class="shot"><img src="imgs/uso/uso-klipper-pecas.jpg" width="697" height="930" loading="lazy" alt="Peças impressas em 3D ao lado do TX9 que comandou a impressora"><figcaption>Peças impressas com o box no comando.</figcaption></figure></li>
+<li class="slide"><figure class="shot"><img src="imgs/uso/uso-tx9-controle.jpg" width="697" height="930" loading="lazy" alt="Mão segurando o controle remoto apontado para o TX9 sobre a mesa"><figcaption>O TX9 usado com o controle remoto, como na instalação.</figcaption></figure></li>
+<li class="slide"><figure class="vid"><video controls muted playsinline preload="none" poster="imgs/uso/uso-balanca-capa.jpg" width="540" height="406"><source src="imgs/uso/uso-balanca.mp4" type="video/mp4"></video><figcaption>Projeto de balança com sensor de carga na bancada.</figcaption></figure></li>
+<li class="slide"><a class="artigo" href="docs/artigo-sepei-2026-tv-box-tx9.pdf"><img src="imgs/uso/artigo-sepei-2026-capa.jpg" width="497" height="702" loading="lazy" alt="Primeira página do artigo científico sobre o TX9 com Armbian Linux"><span><strong>Artigo científico</strong>Descaracterização de TV Box TX9 para Armbian Linux: para uso como plataforma de computação embarcada educacional. SEPEI 2026, IFSC. Abrir o PDF.</span></a></li>
+</ul>
+<div class="ctl"><button type="button" class="ant" aria-label="Anterior">‹</button><div class="pontos" role="group" aria-label="Escolher o item"></div><button type="button" class="prox" aria-label="Próximo">›</button></div>
+</div>
+</div>
+</section>
+
+<section id="sistemas">
 <div class="wrap">
 <p class="kicker">Sistemas por aparelho</p>
 <h2>O que já construímos para cada caixa</h2>
@@ -145,7 +167,7 @@
 </div>
 </section>
 
-<section id="como-instalar">
+<section id="como-instalar" class="alt">
 <div class="wrap">
 <p class="kicker">Como instalar</p>
 <h2>Do cartão à TV em poucos passos</h2>
@@ -191,7 +213,7 @@
 </div>
 </section>
 
-<section id="hardware" class="alt">
+<section id="hardware">
 <div class="wrap">
 <p class="kicker">Hardware</p>
 <h2>O que funciona em cada aparelho</h2>
@@ -249,10 +271,10 @@
 </div>
 </section>
 
-<section id="termica">
+<section id="termica" class="alt">
 <div class="wrap">
 <p class="kicker">Testes de temperatura</p>
-<h2>Quente ou frio?</h2>
+<h2>Análise térmica dos boxes</h2>
 <p class="lead">Caixa fechada, chip pequeno e nenhum ventilador. Medimos para saber até onde dá para pedir. A boa notícia: sob carga máxima, nenhum box chegou perto de queimar, e o sistema se protege sozinho reduzindo a velocidade (o “clock”) quando passa do limite.</p>
 <ul class="leg-g" id="leg1" aria-label="Legenda do gráfico 1"></ul>
 
@@ -289,15 +311,10 @@
 <details id="t4"><summary>Ver a tabela</summary><div class="tbl"></div></details>
 </div>
 
-<details>
-<summary>Como medimos e o que falta</summary>
-<p>Carga com 4 processos de cálculo (um por núcleo) por 3 a 10 minutos, leitura do sensor do chip a cada 5 a 30 segundos, caixa fechada, sem dissipador extra. <strong>Cada curva é um box e uma rodada.</strong> A temperatura da sala nunca foi medida; as curvas valem para a sala daquele dia. O sensor tem passo de cerca de 1 °C e o do RK3229 pode marcar alto. Curvas de parado e de carga de unidades diferentes não são controle uma da outra: duas unidades do MXQ Pro com o mesmo software ficaram a 54–58 °C e a 76–80 °C parados (a causa provável é o contato do dissipador, a pasta ou o ar ao redor). Não damos garantia de desempenho.</p>
-<p>Ainda falta: carga longa no BTV11, vídeo e GPU no BTV11, e o TX9 com Linux 6.12 sob carga repetido hoje. Limites configurados: TX9 reduz em 80 °C; BTV11 em 85 °C; MXQ Pro de fábrica em 70 °C e, no perfil novo, em 85 °C.</p>
-</details>
 </div>
 </section>
 
-<section id="particoes" class="alt">
+<section id="particoes">
 <div class="wrap">
 <p class="kicker">Esquema de partição</p>
 <h2>O mapa da memória de cada aparelho</h2>
@@ -359,7 +376,7 @@
 </div>
 </section>
 
-<section id="boot">
+<section id="boot" class="alt">
 <div class="wrap">
 <p class="kicker">Como um TV box acorda</p>
 <h2>O que acontece nos segundos entre ligar e a imagem aparecer?</h2>
@@ -416,7 +433,7 @@
 </div>
 </section>
 
-<section id="como-foi-feito" class="alt">
+<section id="como-foi-feito">
 <div class="wrap">
 <p class="kicker">Como foi construído</p>
 <h2>Do Android ao instalador de rede</h2>
@@ -432,7 +449,7 @@
 </div>
 </section>
 
-<section id="documentacao">
+<section id="documentacao" class="alt">
 <div class="wrap">
 <p class="kicker">Documentação</p>
 <h2>Leia os detalhes técnicos</h2>

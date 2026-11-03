@@ -88,4 +88,22 @@
     st.classList.add('pronto');
     ir(0);
   }
+  /* carrossel "em uso" */
+  (function(car){
+  if(car){
+    var tr=car.querySelector('.trilho'),sl=[].slice.call(tr.children),po=car.querySelector('.pontos'),
+        an=car.querySelector('.ant'),px=car.querySelector('.prox'),pts=[];
+    function ir(i){i=Math.max(0,Math.min(sl.length-1,i));tr.scrollTo({left:sl[i].offsetLeft-tr.offsetLeft,behavior:reduzido?'auto':'smooth'});}
+    function atual(){var x=tr.scrollLeft,m=0;sl.forEach(function(s,i){if(Math.abs(s.offsetLeft-tr.offsetLeft-x)<Math.abs(sl[m].offsetLeft-tr.offsetLeft-x))m=i;});return m;}
+    function marcar(){var fim=tr.scrollLeft+tr.clientWidth>=tr.scrollWidth-4,a=fim?sl.length-1:atual();
+      pts.forEach(function(p,i){p.setAttribute('aria-current',i===a?'true':'false');});an.disabled=a===0&&tr.scrollLeft<4;px.disabled=fim;}
+    sl.forEach(function(s,i){var p=document.createElement('button');p.type='button';p.textContent='Item '+(i+1);
+      p.setAttribute('aria-label','Item '+(i+1)+' de '+sl.length);p.addEventListener('click',function(){ir(i);});po.appendChild(p);pts.push(p);});
+    an.addEventListener('click',function(){ir(atual()-1);});
+    px.addEventListener('click',function(){ir(atual()+1);});
+    tr.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();ir(atual()+1);}if(e.key==='ArrowLeft'){e.preventDefault();ir(atual()-1);}});
+    var t;tr.addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(marcar,80);});
+    window.addEventListener('resize',marcar);marcar();
+  }
+  })(document.getElementById('carrossel'));
 })();
