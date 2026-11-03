@@ -4,7 +4,8 @@
 
 - Página do projeto: https://rbeninca.github.io/tvbox/
 - Documentação técnica: [docs/](docs/README.md)
-- Instalador (zip para o cartão): https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.44
+- Instalador do TX9 (zip para o cartão): https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.45
+- Instalador do MXQ Pro (imagem para o cartão microSD): https://github.com/rbeninca/tvbox/releases/tag/instalador-mxq-1.2.45
 - Projetos anteriores (oficina e slides): [anteriores.html](anteriores.html)
 
 ---
