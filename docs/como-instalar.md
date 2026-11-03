@@ -1,6 +1,6 @@
 # Como instalar um sistema CompSTEAM num TX9
 
-Instalador público, versão **1.2.44** (release [`instalador-tx9-1.2.44`](https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.44)).
+Instalador público, versão **1.2.45** (release [`instalador-tx9-1.2.45`](https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.45)).
 Serve para o **TX9 com SoC Amlogic S905W (placa P281)**. Você não baixa as imagens dos sistemas à mão: o instalador baixa
 sozinho a que você escolher.
 
@@ -14,7 +14,7 @@ sozinho a que você escolher.
 
 ## Passo a passo
 
-1. **Baixe o zip** `instalador-publico-tx9-1.2.44.zip` na página da release acima.
+1. **Baixe o zip** `instalador-publico-tx9-1.2.45.zip` na página da release acima.
    SHA-256: `c36acc1dc37b0d23e8eb46833b297816f708ba7d1ac4f6e464db979f6ce838a6` (confira, se quiser).
 2. **Descompacte TODOS os arquivos na raiz** do cartão/pendrive (sem criar pasta). Não deixe nele os arquivos `aml_autoscript`
    nem `aml_sdc_burn.ini`.
@@ -84,4 +84,4 @@ Telemetria: o botão **Telemetria**, no rodapé do instalador, explica o que ser
 ## MXQ Pro
 
 As imagens do MXQ Pro estão listadas em [sistemas.md](sistemas.md). Esta página descreve o cartão do **TX9**; o zip público
-`instalador-publico-tx9-1.2.44.zip` é só para o TX9.
+`instalador-publico-tx9-1.2.45.zip` é só para o TX9.

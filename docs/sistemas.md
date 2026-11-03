@@ -8,8 +8,8 @@ Os arquivos das releases de sistema são baixados pelo instalador, **não à mã
 
 | Sistema (nome na lista) | Para quê | Release |
 |---|---|---|
-| **Instalador** 1.2.44 (zip para o cartão) | programa que instala os demais | [`instalador-tx9-1.2.44`](https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.44) (Latest) |
-| **CompSTEAM Educação** 1.3.11 (Debian 13) | blocos/TurboWarp, GeoGebra offline, Arduino IDE, Thonny, LibreOffice, GCompris; **precisa do instalador 1.2.44 ou mais novo** (usa a memória toda do box) | [`debian-educacao-gui-1.3.11`](https://github.com/rbeninca/tvbox/releases/tag/debian-educacao-gui-1.3.11) |
+| **Instalador** 1.2.45 (zip para o cartão) | programa que instala os demais | [`instalador-tx9-1.2.45`](https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.45) (Latest) |
+| **CompSTEAM Educação** 1.3.12 (Debian 13) | blocos/TurboWarp, GeoGebra offline, Arduino IDE, Thonny, LibreOffice, GCompris; **precisa do instalador 1.2.44 ou mais novo** (usa a memória toda do box) | [`debian-educacao-gui-1.3.12`](https://github.com/rbeninca/tvbox/releases/tag/debian-educacao-gui-1.3.12) |
 | **Área de Trabalho** 1.2.67 (Debian 13, labwc) | área de trabalho leve, com painel, navegador e gerenciador de arquivos | [`debian-labwc-gui-1.2.67`](https://github.com/rbeninca/tvbox/releases/tag/debian-labwc-gui-1.2.67) |
 | **Linux Gráfico** 1.2.67 (Debian 13, Weston) | Chromium e terminal | [`debian-gui-1.2.67`](https://github.com/rbeninca/tvbox/releases/tag/debian-gui-1.2.67) |
 | **Linux** 1.2.67 (Debian 13) | linha de comando, com Docker | [`debian-1.2.67`](https://github.com/rbeninca/tvbox/releases/tag/debian-1.2.67) |
