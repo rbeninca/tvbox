@@ -23,9 +23,10 @@ O Android CompSTEAM TV (LineageOS 22.2) não consta como release pública nesta 
 | Sistema | Release |
 |---|---|
 | **Instalador** 1.2.45 (imagem para o cartão microSD) | [`instalador-mxq-1.2.45`](https://github.com/rbeninca/tvbox/releases/tag/instalador-mxq-1.2.45) |
-| Debian com área de trabalho | [`mxqpro-debian-gui-0.2.20`](https://github.com/rbeninca/tvbox/releases/tag/mxqpro-debian-gui-0.2.20) |
-| Debian (linha de comando) | [`mxqpro-debian-0.2.20`](https://github.com/rbeninca/tvbox/releases/tag/mxqpro-debian-0.2.20) |
-| Alpine (mínimo) | [`mxqpro-alpine-0.2.20`](https://github.com/rbeninca/tvbox/releases/tag/mxqpro-alpine-0.2.20) |
+| Área de trabalho leve (labwc) | [`mxqpro-debian-labwc-gui-0.2.39`](https://github.com/rbeninca/tvbox/releases/tag/mxqpro-debian-labwc-gui-0.2.39) |
+| Debian com área de trabalho | [`mxqpro-debian-gui-0.2.39`](https://github.com/rbeninca/tvbox/releases/tag/mxqpro-debian-gui-0.2.39) |
+| Debian (linha de comando) | [`mxqpro-debian-0.2.39`](https://github.com/rbeninca/tvbox/releases/tag/mxqpro-debian-0.2.39) |
+| Alpine (mínimo) | [`mxqpro-alpine-0.2.39`](https://github.com/rbeninca/tvbox/releases/tag/mxqpro-alpine-0.2.39) |
 | Ubuntu com interface gráfica | [`mxqpro-ubuntu-gui-0.2.20`](https://github.com/rbeninca/tvbox/releases/tag/mxqpro-ubuntu-gui-0.2.20) |
 
 ## Canais usados pelo instalador
