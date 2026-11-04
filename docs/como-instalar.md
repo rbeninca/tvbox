@@ -95,3 +95,13 @@ o MXQ tem o seu: [instalador-mxq-1.2.45](https://github.com/rbeninca/tvbox/relea
 5. No fim, tire o cartão e ligue o box de novo.
 
 O Wi-Fi do instalador não vem configurado: use o cabo de rede.
+
+## BTV11
+
+O zip do TX9 não serve para o BTV11. O BTV11 tem o seu: [instalador-btv11-1.2.45](https://github.com/rbeninca/tvbox/releases/tag/instalador-btv11-1.2.45)
+(`instalador-publico-btv11-1.2.45.zip`), para pendrive USB.
+
+1. Pendrive em FAT32. Descompacte todos os arquivos do zip na raiz, sem pasta. Não deixe `aml_autoscript` nem `emmc_autoscript` no pendrive.
+2. Box desligado, cabo de rede com internet, TV no HDMI, pendrive numa porta USB. Ligue o box: ele sobe pelo pendrive.
+3. Escolha o sistema na TV e confirme. Há 10 s para desistir; depois a instalação grava a memória (eMMC) do box.
+4. No fim, tire o pendrive e reinicie o box.

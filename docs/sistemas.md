@@ -29,6 +29,19 @@ O Android CompSTEAM TV (LineageOS 22.2) não consta como release pública nesta 
 | Alpine (mínimo) | [`mxqpro-alpine-0.2.39`](https://github.com/rbeninca/tvbox/releases/tag/mxqpro-alpine-0.2.39) |
 | Ubuntu com interface gráfica | [`mxqpro-ubuntu-gui-0.2.20`](https://github.com/rbeninca/tvbox/releases/tag/mxqpro-ubuntu-gui-0.2.20) |
 
+## BTV11 (Amlogic S905X3)
+
+| Sistema | Release |
+|---|---|
+| **Instalador** 1.2.45 (zip para o pendrive) | [`instalador-btv11-1.2.45`](https://github.com/rbeninca/tvbox/releases/tag/instalador-btv11-1.2.45) |
+| Área de trabalho leve (labwc) | [`btv11-debian-labwc-gui-0.1.8`](https://github.com/rbeninca/tvbox/releases/tag/btv11-debian-labwc-gui-0.1.8) |
+| Debian com Weston | [`btv11-debian-gui-0.1.8`](https://github.com/rbeninca/tvbox/releases/tag/btv11-debian-gui-0.1.8) |
+| Debian (linha de comando) | [`btv11-debian-0.1.8`](https://github.com/rbeninca/tvbox/releases/tag/btv11-debian-0.1.8) |
+| Alpine (mínimo) | [`btv11-alpine-0.1.8`](https://github.com/rbeninca/tvbox/releases/tag/btv11-alpine-0.1.8) |
+| CompSTEAM Educação | [`btv11-debian-educacao-gui-0.1.8`](https://github.com/rbeninca/tvbox/releases/tag/btv11-debian-educacao-gui-0.1.8) |
+
+O Android do BTV11 ainda não é público.
+
 ## Canais usados pelo instalador
 
 Não são para baixar à mão; o instalador os lê sozinho.
