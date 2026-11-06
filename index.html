@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PK40E3PBF2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PK40E3PBF2');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CompSTEAM — TV boxes na escola</title>
+<meta name="description" content="CompSTEAM transforma TV boxes reaproveitadas em computadores para a escola: Android TV e Linux (Debian 13), instalados pela própria TV, sem abrir o aparelho. Três aparelhos: TX9, MXQ Pro e BTV11. Projeto do IFSC.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CompSTEAM — TV boxes na escola">
+<meta property="og:description" content="TV boxes reaproveitadas viram computadores para a escola. Sistemas livres, instalação pela TV, sem abrir o aparelho.">
+<meta property="og:image" content="https://rbeninca.github.io/tvbox/imgs/compsteam/educacao-area-de-trabalho.png">
+<meta property="og:url" content="https://rbeninca.github.io/tvbox/">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="imgs/compsteam/icone.png" type="image/png">
+<link rel="stylesheet" href="assets/estilo.css">
+</head>
+<body>
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+<div class="progresso" aria-hidden="true"><i></i></div>
+<nav class="nav" aria-label="Seções da página">
+<div class="wrap">
+<a class="brand" href="#topo"><img src="imgs/compsteam/logo-boxsteam-p.png" width="180" height="119" alt=""><span>Comp<b>STEAM</b></span></a>
+<button class="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
+<ul id="menu">
+<li><a href="#aparelhos">Aparelhos</a></li>
+<li><a href="#por-que">Por quê</a></li>
+<li><a href="#em-uso">Em uso</a></li>
+<li><a href="#apresentacao">Apresentação</a></li>
+<li><a href="#sistemas">Sistemas</a></li>
+<li><a href="#como-instalar">Instalar</a></li>
+<li><a href="#hardware">Hardware</a></li>
+<li><a href="#termica">Térmica</a></li>
+<li><a href="#particoes">Partições</a></li>
+<li><a href="#boot">Boot</a></li>
+<li><a href="#documentacao">Documentação</a></li>
+</ul>
+<a class="btn pri cta" href="#aparelhos">Baixar</a>
+</div>
+</nav>
+
+<header class="hero" id="topo">
+<div class="wrap hero-g">
+<div class="hero-txt">
+<p class="kicker">IFSC · Software livre para a escola</p>
+<h1>CompSTEAM</h1>
+<p class="frase-h">De aparelho de streaming a <strong>plataforma aberta de computação</strong></p>
+<p class="lead">Três caixinhas, três chips, um só jeito de instalar: pela própria TV. TV boxes que iriam para o lixo viram computadores para a escola.</p>
+<p class="baixar-t">Baixar o instalador</p>
+<div class="btns baixar"><a class="btn pri" href="https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.45">TX9</a><a class="btn pri" href="https://github.com/rbeninca/tvbox/releases/tag/instalador-mxq-1.2.46">MXQ Pro</a><a class="btn pri" href="https://github.com/rbeninca/tvbox/releases/tag/instalador-btv11-1.2.45">BTV11</a></div>
+<p class="apoio-links"><a href="#como-instalar">Como instalar</a> · <a href="#aparelhos">Comparar os aparelhos</a> · <a href="#apresentacao">Ver a apresentação</a></p>
+<ul class="pills"><li>Android TV</li><li>Debian 13</li><li>Funciona sem internet</li><li>Imagens assinadas</li></ul>
+</div>
+<div class="tv">
+<div class="tela"><img src="imgs/compsteam/logo-boxsteam.png" width="900" height="593" alt="Logo do projeto BoxSteam, do IFSC Câmpus Gaspar com a Receita Federal"></div>
+<span class="tv-marca" aria-hidden="true">TV BOX</span><i class="led" aria-hidden="true"></i>
+</div>
+</div>
+</header>
+
+<main id="conteudo">
+<section id="aparelhos">
+<div class="wrap">
+<h2>Escolha o seu aparelho</h2>
+<p class="lead">Cada aparelho tem o seu instalador. Grave no cartão ou pendrive, ligue o box e escolha o sistema na TV.</p>
+<div class="aparelhos tres">
+<article class="aparelho" data-estado="publicado">
+<header><span class="tag">Amlogic S905W</span><h2>TX9</h2></header>
+<figure class="foto"><img src="imgs/compsteam/tx9-caixa.png" width="700" height="700" alt="A TV box TX9, caixa preta com display frontal, vista em perspectiva"></figure>
+<p class="chip-linha">Placa P281 · 4 núcleos Cortex-A53 · 1 GB de RAM · eMMC de 8 GB</p>
+<p><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Instalador publicado</span></p>
+<div class="btns"><a class="btn pri" href="https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.45">Baixar o instalador do TX9</a></div>
+<p class="hint login">Usuário e senha padrão dos sistemas Linux: <code>compsteam</code> / <code>compsteam</code>. Troque a senha no primeiro acesso.</p>
+<p class="links"><a href="#sistemas-tx9">Sistemas do TX9</a><a href="#como-instalar">Como instalar</a></p>
+</article>
+<article class="aparelho" data-estado="publicado">
+<header><span class="tag g">Rockchip RK3229</span><h2>MXQ Pro</h2></header>
+<figure class="foto"><img src="imgs/compsteam/mxq-caixa.jpg" width="727" height="410" alt="A TV box MXQ Pro vista de lado, caixa preta com portas USB, leitor de cartão e saídas de áudio" loading="lazy"></figure>
+<p class="chip-linha">Placa R329Q V8.0 · 4 núcleos Cortex-A7 · 1 GB de RAM · NAND de 8 GB</p>
+<p><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Instalador publicado</span></p>
+<div class="btns"><a class="btn pri" href="https://github.com/rbeninca/tvbox/releases/tag/instalador-mxq-1.2.46">Baixar o instalador do MXQ</a></div>
+<p class="hint login">Usuário e senha padrão dos sistemas Linux: <code>compsteam</code> / <code>compsteam</code>. Troque a senha no primeiro acesso.</p>
+<p class="links"><a href="#sistemas-mxq">Sistemas do MXQ Pro</a><a href="https://github.com/rbeninca/tvbox/releases">Imagens publicadas</a></p>
+</article>
+<article class="aparelho" data-estado="publicado">
+<header><span class="tag g">Amlogic S905X3</span><h2>BTV11</h2></header>
+<figure class="foto"><img src="imgs/compsteam/btv11-caixa.jpg" width="600" height="600" alt="A TV box BTV11, caixa branca de topo quadrado, com o controle remoto ao lado" loading="lazy"></figure>
+<p class="cred">Foto de divulgação do aparelho.</p>
+<p class="chip-linha">Placa X3BL46_V2.0 · 4 núcleos Cortex-A55 · 2 GB de RAM · eMMC de 16 GB</p>
+<p><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Instalador publicado</span></p>
+<div class="btns"><a class="btn pri" href="https://github.com/rbeninca/tvbox/releases/tag/instalador-btv11-1.2.45">Baixar o instalador do BTV11</a></div>
+<p class="hint login">Usuário e senha padrão dos sistemas Linux: <code>compsteam</code> / <code>compsteam</code>. Troque a senha no primeiro acesso.</p>
+<p class="links"><a href="#sistemas-btv">Sistemas do BTV11</a></p>
+</article>
+</div>
+</div>
+</section>
+
+<section id="o-que-e">
+<div class="wrap">
+<h2>Um computador novo dentro de uma caixa velha</h2>
+<p class="lead">TV boxes baratas viram computadores para laboratórios de escolas. Há um Android TV e várias variações de Linux, todas instaláveis pela própria TV.</p>
+<div class="grid c4" style="margin-top:28px">
+<div class="card"><h3>Reaproveitamento</h3><p>Hardware que já existe ganha segunda vida na sala de aula.</p></div>
+<div class="card"><h3>Para a escola</h3><p>Para professores e técnicos: blocos, GeoGebra, Arduino, Python e escritório.</p></div>
+<div class="card"><h3>Sem internet obrigatória</h3><p>Blocos e GeoGebra funcionam offline. A rede é usada na instalação e quando você quiser.</p></div>
+<div class="card"><h3>Software livre</h3><p>Android (LineageOS) e Linux Debian. O bootloader de fábrica nunca é trocado.</p></div>
+</div>
+<figure class="shot" style="margin-top:32px">
+<img src="imgs/compsteam/educacao-area-de-trabalho.png" width="1280" height="720" loading="lazy" alt="Área de trabalho do CompSTEAM Educação em uma TV, com painel e ícones dos programas">
+<figcaption>A área de trabalho do CompSTEAM Educação (clique para ampliar).</figcaption>
+</figure>
+</div>
+</section>
+
+<section id="por-que" class="alt">
+<div class="wrap">
+<h2>Por que não basta instalar outro sistema?</h2>
+<p class="lead">Uma imagem genérica até liga na TV box, mas componentes essenciais ficam pelo caminho: o kernel não sabe o que existe na placa.</p>
+<div class="grid" style="margin-top:28px">
+<div class="card"><h3>No computador, o hardware se apresenta</h3><p>Os dispositivos se anunciam e o kernel liga o driver certo.</p></div>
+<div class="card"><h3>Na TV box, cada peça precisa ser descrita</h3><p>Os periféricos do SoC não se anunciam: precisam estar descritos no Device Tree. Sem isso, o kernel não os enxerga.</p></div>
+</div>
+<h3 class="sub-h">O resultado típico de uma imagem genérica</h3>
+<ul class="generica">
+<li class="sim"><span>CPU e núcleos</span><em><i aria-hidden="true">✔</i> funciona</em></li>
+<li class="sim"><span>Memória RAM</span><em><i aria-hidden="true">✔</i> funciona</em></li>
+<li class="sim"><span>USB básico</span><em><i aria-hidden="true">✔</i> funciona</em></li>
+<li class="nao"><span>Wi-Fi</span><em><i aria-hidden="true">✘</i> não sobe</em></li>
+<li class="nao"><span>Vídeo e GPU</span><em><i aria-hidden="true">✘</i> sem imagem</em></li>
+<li class="nao"><span>Áudio</span><em><i aria-hidden="true">✘</i> mudo</em></li>
+<li class="nao"><span>Armazenamento</span><em><i aria-hidden="true">✘</i> eMMC não detectada</em></li>
+<li class="nao"><span>Display frontal</span><em><i aria-hidden="true">✘</i> apagado</em></li>
+<li class="nao"><span>Receptor IR</span><em><i aria-hidden="true">✘</i> sem controle</em></li>
+</ul>
+<h3 class="sub-h">O papel do DTB: escolha um nó e veja a peça na placa</h3>
+<p class="lead">O Device Tree é a descrição do hardware que o kernel lê.</p>
+<div class="dtb" id="dtb">
+<div class="dts" role="group" aria-label="Nós da árvore de dispositivos">
+<p>Nós da descrição</p>
+<button type="button" data-hot="soc" aria-pressed="true" data-txt="SoC: o chip central, Amlogic S905W no TX9."><b>soc</b></button>
+<button type="button" data-hot="emmc" aria-pressed="false" data-txt="eMMC: a memória interna."><b>emmc</b></button>
+<button type="button" data-hot="gpu" aria-pressed="false" data-txt="GPU: a Mali-450 do S905W."><b>gpu</b></button>
+<button type="button" data-hot="ir" aria-pressed="false" data-txt="Receptor IR: liga o controle remoto às teclas."><b>ir</b></button>
+<button type="button" data-hot="disp" aria-pressed="false" data-txt="Display frontal: controlador FD6551, fora do padrão."><b>display</b></button>
+<button type="button" data-hot="wifi" aria-pressed="false" data-txt="Wi-Fi: o SSV6051 é externo ao SoC e precisa de driver e firmware próprios."><b>wifi</b></button>
+</div>
+<figure class="placa-dtb">
+<svg viewBox="0 0 320 240" role="img" aria-label="Desenho da placa com SoC, eMMC, GPU, receptor IR, display e Wi-Fi">
+<rect x="6" y="6" width="308" height="228" rx="14" fill="#123d1f"/><rect x="14" y="14" width="292" height="212" rx="10" fill="#15532a"/>
+<rect x="120" y="90" width="80" height="70" rx="6" fill="#20272b" stroke="#3a4a40"/><text x="160" y="130" text-anchor="middle" fill="#8fe0a0" font-size="11" font-weight="700">SoC</text>
+<rect x="40" y="40" width="60" height="38" rx="5" fill="#2a3338"/><text x="70" y="63" text-anchor="middle" fill="#cfe9d3" font-size="9">eMMC</text>
+<rect x="215" y="40" width="64" height="38" rx="5" fill="#2a3338"/><text x="247" y="63" text-anchor="middle" fill="#cfe9d3" font-size="9">GPU</text>
+<circle cx="60" cy="185" r="20" fill="#2a3338"/><text x="60" y="189" text-anchor="middle" fill="#cfe9d3" font-size="8">IR</text>
+<rect x="120" y="185" width="80" height="26" rx="5" fill="#2a3338"/><text x="160" y="202" text-anchor="middle" fill="#5fd6ff" font-size="11" font-family="monospace">88:88</text>
+<rect x="228" y="150" width="64" height="40" rx="5" fill="#2a3338"/><text x="260" y="168" text-anchor="middle" fill="#cfe9d3" font-size="8">Wi-Fi</text><text x="260" y="180" text-anchor="middle" fill="#cfe9d3" font-size="7">SSV6051</text>
+<rect class="hot on" data-hot="soc" x="116" y="86" width="88" height="78" rx="8"/><rect class="hot" data-hot="emmc" x="36" y="36" width="68" height="46" rx="7"/><rect class="hot" data-hot="gpu" x="211" y="36" width="72" height="46" rx="7"/><circle class="hot" data-hot="ir" cx="60" cy="185" r="25"/><rect class="hot" data-hot="disp" x="116" y="181" width="88" height="34" rx="7"/><rect class="hot" data-hot="wifi" x="224" y="146" width="72" height="48" rx="7"/>
+</svg>
+<figcaption id="dtb-leg" aria-live="polite">SoC: o chip central, Amlogic S905W no TX9.</figcaption>
+</figure>
+</div>
+<h3 class="sub-h">O DTB não é driver</h3>
+<p>Ele só descreve o hardware. Um componente externo, como o Wi-Fi, ainda precisa de driver, firmware e alimentação corretos.</p>
+<div class="grid dois-fig">
+<figure class="shot"><img src="apresentacao/imgs/tx9-visao-explodida.jpg" width="1448" height="1086" loading="lazy" alt="TX9 em visão explodida: tampa, placa vermelha com SoC, memórias, Wi-Fi e base"><figcaption>O TX9 por dentro, peça por peça.</figcaption></figure>
+<figure class="shot"><img src="apresentacao/imgs/placa-p281-anotada.jpg" width="1200" height="815" loading="lazy" alt="Placa P281 do TX9 com SoC, RAM, eMMC, Wi-Fi, display e conectores marcados"><figcaption>A placa real do TX9, com cada componente marcado.</figcaption></figure>
+</div>
+<p style="margin-top:16px"><a href="explodeview/">Explorar o TX9 em 3D</a>: modelo aproximado que mostra as peças.</p>
+</div>
+</section>
+
+<section id="em-uso">
+<div class="wrap">
+<h2>O projeto em uso</h2>
+<p class="lead">Boxes com CompSTEAM no laboratório controlam impressoras 3D com Klipper, medem o empuxo de motores de foguete, mostram avisos nas TVs do câmpus e servem de computador na bancada.</p>
+<div class="carrossel" id="carrossel" role="region" aria-roledescription="carrossel" aria-label="Fotos e vídeos do projeto em uso">
+<ul class="trilho" tabindex="0">
+<li class="slide"><figure class="shot"><img src="imgs/uso/uso-laboratorio.jpg" width="1240" height="930" loading="lazy" alt="Bancada do laboratório com uma impressora 3D e um monitor ligado a um TV box"><figcaption>Bancada do laboratório: impressora 3D e um box ligado ao monitor.</figcaption></figure></li>
+<li class="slide"><figure class="shot"><img src="imgs/uso/uso-klipper-impressora.jpg" width="1240" height="930" loading="lazy" alt="TX9 sobre a impressora 3D, ao lado do visor da impressora, controlando a impressão"><figcaption>Um TX9 controla a impressora 3D com Klipper.</figcaption></figure></li>
+<li class="slide"><figure class="vid"><video controls muted playsinline preload="none" poster="imgs/uso/uso-impressao-3d-capa.jpg" width="960" height="540"><source src="imgs/uso/uso-impressao-3d.mp4" type="video/mp4"></video><figcaption>Impressão 3D acompanhada pela câmera do Klipper, no box.</figcaption></figure></li>
+<li class="slide"><figure class="shot"><img src="imgs/uso/uso-klipper-pecas.jpg" width="697" height="930" loading="lazy" alt="Peças impressas em 3D ao lado do TX9 que comandou a impressora"><figcaption>Peças impressas com o box no comando.</figcaption></figure></li>
+<li class="slide"><figure class="shot"><img src="imgs/uso/uso-tx9-controle.jpg" width="697" height="930" loading="lazy" alt="Mão segurando o controle remoto apontado para o TX9 sobre a mesa"><figcaption>O TX9 usado com o controle remoto, como na instalação.</figcaption></figure></li>
+<li class="slide"><figure class="vid"><video controls muted playsinline preload="none" poster="imgs/uso/uso-balanca-capa.jpg" width="540" height="406"><source src="imgs/uso/uso-balanca.mp4" type="video/mp4"></video><figcaption>Projeto de balança com sensor de carga na bancada.</figcaption></figure></li>
+<li class="slide"><figure class="vid"><video controls muted playsinline preload="none" poster="apresentacao/imgs/uso/medicao-motor-foguete-poster.jpg" width="1280" height="720"><source src="apresentacao/imgs/uso/medicao-motor-foguete.mp4" type="video/mp4"></video><figcaption>Medição real do empuxo de um motor de foguete no banco de testes.</figcaption></figure></li>
+<li class="slide"><figure class="shot"><img src="apresentacao/imgs/uso/balanca-gfig.png" width="1437" height="910" loading="lazy" alt="Tela do programa GFIG no box com a curva de empuxo de um motor"><figcaption>GFIG no box: 1329 leituras e a curva de empuxo do motor.</figcaption></figure></li>
+<li class="slide"><figure class="shot"><img src="apresentacao/imgs/uso/balanca-relatorio.png" width="1437" height="910" loading="lazy" alt="Relatório com curva de propulsão, impulso total e classe do motor"><figcaption>Relatório gerado pelo sistema: curva de propulsão, impulso e classe do motor.</figcaption></figure></li>
+<li class="slide"><figure class="shot"><img src="apresentacao/imgs/uso/mural-recepcao.jpg" width="900" height="1600" loading="lazy" alt="TV na recepção do câmpus mostrando uma publicação do mural"><figcaption>Mural digital na recepção do câmpus.</figcaption></figure></li>
+<li class="slide"><a class="artigo" href="docs/artigo-sepei-2026-tv-box-tx9.pdf"><img src="imgs/uso/artigo-sepei-2026-capa.jpg" width="497" height="702" loading="lazy" alt="Primeira página do artigo científico sobre o TX9 com Armbian Linux"><span><strong>Artigo científico</strong>Descaracterização de TV Box TX9 para Armbian Linux: para uso como plataforma de computação embarcada educacional. SEPEI 2026, IFSC. Abrir o PDF.</span></a></li>
+</ul>
+<div class="ctl"><button type="button" class="ant" aria-label="Anterior">‹</button><div class="pontos" role="group" aria-label="Escolher o item"></div><button type="button" class="prox" aria-label="Próximo">›</button></div>
+</div>
+<div class="grid c4" style="margin-top:28px">
+<div class="card"><h3>Balança e aquisição de dados</h3><p>Célula de carga e TV box: o GFIG mede o empuxo de motores de foguete e gera a curva.</p></div>
+<div class="card"><h3>Servidor de baixo custo</h3><p>Serviços em contêineres Docker: web, banco de dados, painéis e arquivos para a rede.</p></div>
+<div class="card"><h3>Impressão 3D</h3><p>Klipper, Moonraker e Mainsail no box: a impressora é controlada pela rede.</p></div>
+<div class="card"><h3>Mural digital</h3><p>O box mostra avisos e campanhas do câmpus nas TVs.</p></div>
+</div>
+</div>
+</section>
+
+<section id="apresentacao" class="alt">
+<div class="wrap">
+<h2>De TV Box a plataforma computacional</h2>
+<p class="lead">Os slides mostram o que há dentro do aparelho e as aplicações. Clique para abrir e use as setas.</p>
+<div class="palco" id="palco">
+<a class="capa" href="apresentacao/"><img src="imgs/compsteam/apresentacao-capa.jpg" width="1280" height="720" loading="lazy" alt="Slide de abertura: Descaracterização de TV Boxes"><span>Abrir a apresentação</span></a>
+</div>
+<p style="margin-top:14px"><a href="apresentacao/">Abrir em página inteira</a> · <a href="docs/artigo-sepei-2026-tv-box-tx9.pdf">Ler o artigo (PDF)</a></p>
+</div>
+</section>
+
+<section id="sistemas">
+<div class="wrap">
+<h2>O que já construímos para cada caixa</h2>
+<p class="lead">O instalador mostra a lista na TV e baixa a imagem escolhida; não baixe à mão. Abaixo, o que existe para cada aparelho, com versão e estado.</p>
+<ul class="legenda-estados" aria-label="Estados dos sistemas">
+<li><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Publicado</span> está no GitHub e o instalador público oferece</li>
+<li><span class="sel parc"><span class="ic" aria-hidden="true">½</span>Em teste</span> funciona nos boxes de teste, ainda sem publicação</li>
+<li><span class="sel nt"><span class="ic" aria-hidden="true">⏲</span>Só na bancada</span> existe, mas não foi publicado</li>
+</ul>
+
+<div class="tbl" id="sistemas-tx9">
+<table class="cartoes">
+<caption>TX9 (Amlogic S905W)</caption>
+<thead><tr><th scope="col">Sistema</th><th scope="col">Família</th><th scope="col">O que traz</th><th scope="col">No GitHub</th><th scope="col">Mais nova na bancada</th><th scope="col">Estado</th></tr></thead>
+<tbody>
+<tr><td data-label="Sistema"><strong>CompSTEAM Educação</strong></td><td data-label="Família">Linux</td><td data-label="O que traz">Debian 13 com blocos (TurboWarp), GeoGebra offline, Arduino IDE, Thonny, LibreOffice e GCompris. Requer o instalador 1.2.44 ou mais novo.<small><a href="https://github.com/rbeninca/tvbox/releases/tag/debian-educacao-gui-1.3.12">Ver a release</a></small></td><td data-label="No GitHub">1.3.12</td><td data-label="Mais nova na bancada">1.3.12</td><td data-label="Estado"><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Publicado</span></td></tr>
+<tr><td data-label="Sistema"><strong>CompSTEAM Linux Área de Trabalho</strong></td><td data-label="Família">Linux</td><td data-label="O que traz">Debian 13 com labwc: área de trabalho leve, painel, navegador e arquivos.<small><a href="https://github.com/rbeninca/tvbox/releases/tag/debian-labwc-gui-1.2.69">Ver a release</a></small></td><td data-label="No GitHub">1.2.69</td><td data-label="Mais nova na bancada">1.2.69</td><td data-label="Estado"><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Publicado</span></td></tr>
+<tr><td data-label="Sistema"><strong>CompSTEAM Linux Gráfico</strong></td><td data-label="Família">Linux</td><td data-label="O que traz">Debian 13 com Weston: Chromium e terminal.<small><a href="https://github.com/rbeninca/tvbox/releases/tag/debian-gui-1.2.69">Ver a release</a></small></td><td data-label="No GitHub">1.2.69</td><td data-label="Mais nova na bancada">1.2.69</td><td data-label="Estado"><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Publicado</span></td></tr>
+<tr><td data-label="Sistema"><strong>CompSTEAM Linux</strong></td><td data-label="Família">Linux</td><td data-label="O que traz">Debian 13 em linha de comando, com Docker.<small><a href="https://github.com/rbeninca/tvbox/releases/tag/debian-1.2.69">Ver a release</a></small></td><td data-label="No GitHub">1.2.69</td><td data-label="Mais nova na bancada">1.2.69</td><td data-label="Estado"><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Publicado</span></td></tr>
+<tr><td data-label="Sistema"><strong>CompSTEAM Mínimo</strong></td><td data-label="Família">Linux</td><td data-label="O que traz">Alpine Linux mínimo, linha de comando, com Docker.<small><a href="https://github.com/rbeninca/tvbox/releases/tag/alpine-1.2.70">Ver a release</a></small></td><td data-label="No GitHub">1.2.70</td><td data-label="Mais nova na bancada">1.2.70</td><td data-label="Estado"><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Publicado</span></td></tr>
+<tr><td data-label="Sistema"><strong>CompSTEAM TV</strong></td><td data-label="Família">Android TV</td><td data-label="O que traz">Android 15 (LineageOS 22.2, não oficial) com interface de TV e os apps do CompSTEAM.<small><a href="https://github.com/rbeninca/tvbox/releases/tag/compsteam-tv-1.1.64">Ver a release</a></small></td><td data-label="No GitHub">1.1.64</td><td data-label="Mais nova na bancada">1.1.64</td><td data-label="Estado"><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Publicado</span></td></tr>
+</tbody></table></div>
+
+<div class="tbl" id="sistemas-mxq">
+<table class="cartoes">
+<caption>MXQ Pro (Rockchip RK3229)</caption>
+<thead><tr><th scope="col">Sistema</th><th scope="col">Família</th><th scope="col">O que traz</th><th scope="col">No GitHub</th><th scope="col">Mais nova na bancada</th><th scope="col">Estado</th></tr></thead>
+<tbody>
+<tr><td data-label="Sistema"><strong>CompSTEAM Educação</strong></td><td data-label="Família">Linux</td><td data-label="O que traz">Debian com os programas da aula.<small><a href="https://github.com/rbeninca/tvbox/releases/tag/mxqpro-debian-educacao-gui-0.2.43">Ver a release</a></small></td><td data-label="No GitHub">0.2.43</td><td data-label="Mais nova na bancada">0.2.43</td><td data-label="Estado"><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Publicado</span></td></tr>
+<tr><td data-label="Sistema"><strong>CompSTEAM Linux Área de Trabalho</strong></td><td data-label="Família">Linux</td><td data-label="O que traz">Debian com labwc: painel, arquivos e navegador.<small><a href="https://github.com/rbeninca/tvbox/releases/tag/mxqpro-debian-labwc-gui-0.2.43">Ver a release</a></small></td><td data-label="No GitHub">0.2.43</td><td data-label="Mais nova na bancada">0.2.43</td><td data-label="Estado"><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Publicado</span></td></tr>
+<tr><td data-label="Sistema"><strong>CompSTEAM Linux Gráfico</strong></td><td data-label="Família">Linux</td><td data-label="O que traz">Debian com interface gráfica.<small><a href="https://github.com/rbeninca/tvbox/releases/tag/mxqpro-debian-gui-0.2.43">Ver a release</a></small></td><td data-label="No GitHub">0.2.43</td><td data-label="Mais nova na bancada">0.2.43</td><td data-label="Estado"><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Publicado</span></td></tr>
+<tr><td data-label="Sistema"><strong>CompSTEAM Linux</strong></td><td data-label="Família">Linux</td><td data-label="O que traz">Debian em linha de comando.<small><a href="https://github.com/rbeninca/tvbox/releases/tag/mxqpro-debian-0.2.43">Ver a release</a></small></td><td data-label="No GitHub">0.2.43</td><td data-label="Mais nova na bancada">0.2.43</td><td data-label="Estado"><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Publicado</span></td></tr>
+<tr><td data-label="Sistema"><strong>CompSTEAM Mínimo</strong></td><td data-label="Família">Linux</td><td data-label="O que traz">Alpine Linux, o mínimo possível.<small><a href="https://github.com/rbeninca/tvbox/releases/tag/mxqpro-alpine-0.2.43">Ver a release</a></small></td><td data-label="No GitHub">0.2.43</td><td data-label="Mais nova na bancada">0.2.43</td><td data-label="Estado"><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Publicado</span></td></tr>
+</tbody></table></div>
+<p class="hint">O MXQ Pro não tem Android do CompSTEAM.</p>
+
+<div class="tbl" id="sistemas-btv">
+<table class="cartoes">
+<caption>BTV11 (Amlogic S905X3)</caption>
+<thead><tr><th scope="col">Sistema</th><th scope="col">Família</th><th scope="col">O que traz</th><th scope="col">No GitHub</th><th scope="col">Mais nova na bancada</th><th scope="col">Estado</th></tr></thead>
+<tbody>
+<tr><td data-label="Sistema"><strong>CompSTEAM TV</strong></td><td data-label="Família">Android TV</td><td data-label="O que traz">Android 15 (LineageOS 22.2, não oficial), instalado pelo instalador de rede. Candidata à primeira versão.</td><td data-label="No GitHub">ainda não</td><td data-label="Mais nova na bancada">0.1.18</td><td data-label="Estado"><span class="sel parc"><span class="ic" aria-hidden="true">½</span>Em teste</span></td></tr>
+<tr><td data-label="Sistema"><strong>CompSTEAM Educação</strong></td><td data-label="Família">Linux</td><td data-label="O que traz">Debian 13 com blocos, GeoGebra, Arduino, Thonny, LibreOffice e GCompris.<small><a href="https://github.com/rbeninca/tvbox/releases/tag/btv11-debian-educacao-gui-0.1.8">Ver a release</a></small></td><td data-label="No GitHub">0.1.8</td><td data-label="Mais nova na bancada">0.1.8</td><td data-label="Estado"><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Publicado</span></td></tr>
+<tr><td data-label="Sistema"><strong>CompSTEAM Linux Área de Trabalho</strong></td><td data-label="Família">Linux</td><td data-label="O que traz">Debian 13 com labwc: painel, arquivos, Chromium, Docker e Wi-Fi.<small><a href="https://github.com/rbeninca/tvbox/releases/tag/btv11-debian-labwc-gui-0.1.8">Ver a release</a></small></td><td data-label="No GitHub">0.1.8</td><td data-label="Mais nova na bancada">0.1.8</td><td data-label="Estado"><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Publicado</span></td></tr>
+<tr><td data-label="Sistema"><strong>CompSTEAM Linux Gráfico</strong></td><td data-label="Família">Linux</td><td data-label="O que traz">Debian 13 com Weston, Chromium, Docker e Wi-Fi.<small><a href="https://github.com/rbeninca/tvbox/releases/tag/btv11-debian-gui-0.1.8">Ver a release</a></small></td><td data-label="No GitHub">0.1.8</td><td data-label="Mais nova na bancada">0.1.8</td><td data-label="Estado"><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Publicado</span></td></tr>
+<tr><td data-label="Sistema"><strong>CompSTEAM Linux</strong></td><td data-label="Família">Linux</td><td data-label="O que traz">Debian 13 em linha de comando, com Wi-Fi e Ethernet.<small><a href="https://github.com/rbeninca/tvbox/releases/tag/btv11-debian-0.1.8">Ver a release</a></small></td><td data-label="No GitHub">0.1.8</td><td data-label="Mais nova na bancada">0.1.8</td><td data-label="Estado"><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Publicado</span></td></tr>
+<tr><td data-label="Sistema"><strong>CompSTEAM Mínimo</strong></td><td data-label="Família">Linux</td><td data-label="O que traz">Alpine Linux mínimo, com Wi-Fi e Ethernet.<small><a href="https://github.com/rbeninca/tvbox/releases/tag/btv11-alpine-0.1.8">Ver a release</a></small></td><td data-label="No GitHub">0.1.8</td><td data-label="Mais nova na bancada">0.1.8</td><td data-label="Estado"><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Publicado</span></td></tr>
+</tbody></table></div>
+<p class="hint"><a href="https://github.com/rbeninca/tvbox/releases">Todas as releases</a> · <a href="https://github.com/rbeninca/tvbox/blob/main/docs/sistemas.md">detalhes dos sistemas</a>. Todas as variações de Linux trazem Docker, Wi-Fi, git, vim e htop.</p>
+</div>
+</section>
+
+<section id="como-instalar" class="alt">
+<div class="wrap">
+<h2>Do cartão à TV em poucos passos</h2>
+<p class="lead">Você precisa de um aparelho, cartão microSD ou pendrive FAT32, cabo de rede com internet, TV no HDMI, um palito para o reset e o controle remoto (ou teclado e mouse USB).</p>
+<div id="abas-instalar" class="abas"></div>
+
+<div class="painel" id="pn-tx9" data-aba="TX9">
+<h3 class="visually-hidden">Instalação no TX9</h3>
+<div class="trilha" id="trilha" role="group" aria-label="Escolher o passo"></div>
+<ol class="passos stepper">
+<li class="passo"><div><h3>Baixe o zip do instalador</h3><p>Na <a href="https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.45">página da release</a>, baixe <code>instalador-publico-tx9-1.2.45.zip</code>.</p></div>
+<div class="figs"><svg class="dia" viewBox="0 0 400 240" role="img" aria-label="Desenho: janela do navegador com um arquivo zip sendo baixado"><rect class="f" x="40" y="30" width="320" height="180" rx="12"/><line class="l" x1="40" y1="64" x2="360" y2="64"/><circle class="a" cx="64" cy="47" r="6"/><rect class="f" x="90" y="38" width="180" height="18" rx="9"/><rect class="a" x="150" y="100" width="100" height="80" rx="8"/><text x="200" y="148" text-anchor="middle">.zip</text><path class="l" d="M200 76 V96 M190 88 L200 98 L210 88"/></svg></div></li>
+<li class="passo"><div><h3>Copie para o cartão FAT32</h3><p>Descompacte tudo na <strong>raiz</strong> do cartão, sem criar pasta. Não deixe nele os arquivos <code>aml_autoscript</code> nem <code>aml_sdc_burn.ini</code>.</p></div>
+<div class="figs"><svg class="dia" viewBox="0 0 400 240" role="img" aria-label="Desenho: um cartão microSD ao lado de uma pasta com arquivos"><path class="a" d="M230 50 H310 V190 H210 V70 Z"/><rect class="f" x="236" y="62" width="10" height="22"/><rect class="f" x="254" y="62" width="10" height="22"/><rect class="f" x="272" y="62" width="10" height="22"/><text x="262" y="150" text-anchor="middle">FAT32</text><path class="f" d="M50 80 H110 L124 98 H180 V190 H50 Z"/><path class="l" d="M184 140 H204 M196 132 L206 140 L196 148"/></svg></div></li>
+<li class="passo"><div><h3>Ligue os cabos, com o box desligado</h3><p>Cabo de rede, TV no HDMI e o cartão no leitor. Só depois a fonte.</p></div>
+<div class="figs"><svg class="dia" viewBox="0 0 400 240" role="img" aria-label="Desenho: a parte de trás de um box com as entradas de rede, HDMI, USB e fonte"><rect class="f" x="50" y="70" width="300" height="110" rx="12"/><rect class="a" x="70" y="100" width="46" height="40" rx="4"/><text x="93" y="165" text-anchor="middle">rede</text><rect class="a" x="140" y="108" width="62" height="24" rx="4"/><text x="171" y="165" text-anchor="middle">HDMI</text><rect class="a" x="228" y="104" width="34" height="30" rx="4"/><text x="245" y="165" text-anchor="middle">USB</text><circle class="a" cx="312" cy="119" r="14"/><text x="312" y="165" text-anchor="middle">fonte</text></svg></div></li>
+<li class="passo"><div><h3>Segure o botão reset e ligue</h3><p>O botão fica num furo no fundo do box. Segure com o palito e ligue a fonte. Solte após cerca de 5 segundos.</p></div>
+<div class="figs"><svg class="dia" viewBox="0 0 400 240" role="img" aria-label="Desenho: o fundo do box com um furo pequeno e um palito apertando o botão reset"><rect class="f" x="60" y="50" width="280" height="150" rx="16"/><circle class="a" cx="200" cy="125" r="12"/><circle class="f" cx="200" cy="125" r="4"/><path class="l" d="M200 125 L300 40"/><text x="200" y="185" text-anchor="middle">reset</text></svg></div></li>
+<li class="passo"><div><h3>Escolha o sistema na TV</h3><p>A lista mostra os sistemas disponíveis no GitHub. Use as setas e OK.</p></div>
+<div class="figs"><figure class="shot"><img src="imgs/compsteam/instalador-lista-de-sistemas.png" width="1280" height="720" loading="lazy" alt="Tela do instalador na TV com a lista de sistemas: Alpine, Android TV, Debian, Educação e Debian gráfico. Use as setas e OK para escolher."><figcaption>Lista de sistemas do instalador.</figcaption></figure></div></li>
+<li class="passo"><div><h3>Atualizar ou instalação limpa</h3><p>Se o box já tem um CompSTEAM, escolha <em>Atualizar</em> (guarda a pasta de dados) ou <em>Instalação limpa</em> (apaga tudo).</p></div>
+<div class="figs"><figure class="shot"><img src="imgs/compsteam/instalador-atualizar-ou-limpa.png" width="1280" height="720" loading="lazy" alt="Tela do instalador perguntando se atualiza ou faz instalação limpa"><figcaption>A pergunta que o instalador faz.</figcaption></figure></div></li>
+<li class="passo"><div><h3>Dez segundos para desistir, depois a gravação</h3><p>Você tem 10 segundos para cancelar. Depois o instalador grava a memória do box, de 2 a cerca de 20 minutos. <strong>Não desligue.</strong></p></div>
+<div class="figs dois"><figure class="shot"><img src="imgs/compsteam/instalador-contagem-antes-de-gravar.png" width="1280" height="720" loading="lazy" alt="Tela do instalador com a contagem regressiva de 10 segundos antes de gravar"><figcaption>Antes: a contagem.</figcaption></figure><figure class="shot"><img src="imgs/compsteam/instalador-progresso-gravacao.png" width="1280" height="720" loading="lazy" alt="Tela do instalador mostrando o progresso da gravação partição por partição"><figcaption>Durante: o progresso.</figcaption></figure></div></li>
+<li class="passo"><div><h3>Pronto: tire o cartão</h3><p>Tudo gravado e conferido, o box reinicia no sistema novo. Tire o cartão: com ele no box, o instalador do cartão sempre abre.</p></div>
+<div class="figs dois"><figure class="shot"><img src="imgs/compsteam/instalador-fim.png" width="1280" height="720" loading="lazy" alt="Tela do instalador com tudo gravado e conferido, reiniciando no sistema novo"><figcaption>Fim da instalação.</figcaption></figure><figure class="shot"><img src="imgs/compsteam/educacao-area-de-trabalho.png" width="1280" height="720" loading="lazy" alt="Primeira tela do sistema novo: a área de trabalho do CompSTEAM Educação"><figcaption>O sistema novo (Educação).</figcaption></figure></div></li>
+</ol>
+<div class="ctl" id="ctl-passos"><button type="button" id="p-ant">Anterior</button><button type="button" id="p-prox">Próximo</button><button type="button" id="p-auto" aria-pressed="false">Passar sozinho</button><span class="visually-hidden" id="passo-vivo" aria-live="polite"></span></div>
+<div class="note"><strong>Box de fábrica: guarde a pasta <code>compsteam-reserved</code>.</strong> Antes de gravar, o instalador copia para o cartão a identidade única do aparelho (a partição <code>reserved</code>). Guarde essa pasta. Sem proteção contra escrita no cartão; sem a cópia, nada é gravado.</div>
+<div class="note ok"><strong>Depois de instalar:</strong> o reset sem cartão abre o instalador guardado no box, que baixa as imagens do GitHub; assim se troca de sistema sem cartão. Guia completo e solução de problemas em <a href="https://github.com/rbeninca/tvbox/blob/main/docs/como-instalar.md">docs/como-instalar.md</a>.</div>
+</div>
+
+<div class="painel" id="pn-mxq" data-aba="MXQ Pro">
+<h3>Instalação no MXQ Pro</h3>
+<div><p>Mesmo programa do TX9, com os sistemas desta placa. O MXQ sobe pelo cartão microSD. A versão 0.2.43 muda as partições e apaga o <code>/home</code>: guarde seus arquivos antes e use o instalador 1.2.46.</p>
+<ol>
+<li>Baixe o <a href="https://github.com/rbeninca/tvbox/releases/tag/instalador-mxq-1.2.46">instalador do MXQ</a>, confira o <code>SHA256SUMS</code> e grave o arquivo <code>.img</code> num cartão microSD de 1 GB ou mais (balenaEtcher, Raspberry Pi Imager ou <code>dd</code>). O cartão é apagado.</li>
+<li>Box desligado, cabo de rede com internet, TV no HDMI. Ponha o cartão no box e ligue a fonte.</li>
+<li>Escolha o sistema e confirme. Há 10 s para desistir; depois a instalação grava a memória do box. Não tire da tomada.</li>
+<li>No fim, tire o cartão e ligue o box de novo.</li>
+</ol>
+<p>O Wi-Fi do instalador não vem configurado: use o cabo de rede.</p>
+<figure class="shot" style="max-width:640px"><img src="imgs/compsteam/instalador-mxq-lista.png" width="1600" height="900" loading="lazy" alt="Tela do instalador do MXQ Pro na TV com a lista de sistemas desta placa: Alpine, Debian, Debian gráfico e Ubuntu gráfico (a lista de uma versão antiga)"><figcaption>Lista de sistemas do instalador do MXQ Pro (versão antiga: o Ubuntu saiu da lista atual).</figcaption></figure></div>
+</div>
+
+<div class="painel" id="pn-btv" data-aba="BTV11">
+<h3>Instalação no BTV11</h3>
+<div><p>Mesmo programa do TX9, com os sistemas desta placa. O BTV11 sobe por um pendrive USB:</p>
+<ol>
+<li>Baixe o <a href="https://github.com/rbeninca/tvbox/releases/tag/instalador-btv11-1.2.45">instalador do BTV11</a> e descompacte todos os arquivos na raiz de um pendrive em FAT32, sem pasta.</li>
+<li>Box desligado, cabo de rede com internet, TV no HDMI, pendrive numa porta USB. Ligue o box.</li>
+<li>Escolha o sistema e confirme. Há 10 s para desistir; depois a instalação grava a memória do box. Não desligue durante a gravação.</li>
+<li>No fim, tire o pendrive e reinicie o box.</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+
+<section id="hardware">
+<div class="wrap">
+<h2>O que funciona em cada aparelho</h2>
+<p class="lead">O que está resolvido, parcial ou ainda não testado em cada aparelho. Cada célula traz o componente e o estado, com ícone e palavra.</p>
+<ul class="legenda-estados" aria-label="Legenda dos estados">
+<li><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span> funciona e foi provado</li>
+<li><span class="sel parc"><span class="ic" aria-hidden="true">½</span>Parcial</span> funciona em parte ou há ressalva</li>
+<li><span class="sel nao"><span class="ic" aria-hidden="true">✖</span>Não resolvido</span> não funciona</li>
+<li><span class="sel nt"><span class="ic" aria-hidden="true">?</span>Não testado</span> sem prova registrada</li>
+</ul>
+<div class="tbl">
+<table class="matriz">
+<caption class="visually-hidden">Componentes de cada aparelho e o estado do suporte</caption>
+<thead><tr><th scope="col">Aparelho</th><th scope="col">Chip (SoC)</th><th scope="col">RAM</th><th scope="col">GPU</th><th scope="col">Rede cabeada</th><th scope="col">Wi-Fi</th><th scope="col">Controle IR</th><th scope="col">Vídeo HDMI</th><th scope="col">Áudio</th></tr></thead>
+<tbody>
+<tr><th scope="row" class="linha"><span class="box-id c-tx9"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="currentColor"/></svg>TX9</span></th>
+<td data-label="Chip (SoC)"><span class="nome">Amlogic S905W, 4× Cortex-A53</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span></td>
+<td data-label="RAM"><span class="nome">1 GB DDR3</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span><small>A fábrica anuncia 4 GB; o real é 1 GB.</small></td>
+<td data-label="GPU"><span class="nome">Mali-450, driver livre (lima), OpenGL ES 2.0</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span></td>
+<td data-label="Rede cabeada"><span class="nome">Ethernet 10/100</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span></td>
+<td data-label="Wi-Fi"><span class="nome">SSV6051 (iComm), 2,4 GHz</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span></td>
+<td data-label="Controle IR"><span class="nome">Receptor NEC estendido, 13 teclas</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span></td>
+<td data-label="Vídeo HDMI"><span class="nome">HDMI</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span></td>
+<td data-label="Áudio"><span class="nome">Saída de áudio</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span></td></tr>
+<tr><th scope="row" class="linha"><span class="box-id c-mxq"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="2" width="12" height="12" fill="currentColor"/></svg>MXQ Pro</span></th>
+<td data-label="Chip (SoC)"><span class="nome">Rockchip RK3229, 4× Cortex-A7</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span></td>
+<td data-label="RAM"><span class="nome">1 GB DDR3</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span><small>A fábrica anuncia 4 GB; o real é 1 GB.</small></td>
+<td data-label="GPU"><span class="nome">Mali-400, driver livre (lima)</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span><small>3D a cerca de 40 quadros por segundo em teste.</small></td>
+<td data-label="Rede cabeada"><span class="nome">Ethernet (controlador do chip, PHY de 100 Mbit)</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span></td>
+<td data-label="Wi-Fi"><span class="nome">SSV6006C, 2,4 GHz</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span><small>Associa e recebe endereço.</small></td>
+<td data-label="Controle IR"><span class="nome">Receptor NEC</span><span class="sel parc"><span class="ic" aria-hidden="true">½</span>Parcial</span><small>Funciona; falta conferir o mapa de teclas.</small></td>
+<td data-label="Vídeo HDMI"><span class="nome">HDMI</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span></td>
+<td data-label="Áudio"><span class="nome">HDMI e saída analógica (AV)</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span></td></tr>
+<tr><th scope="row" class="linha"><span class="box-id c-btv"><svg viewBox="0 0 16 16" aria-hidden="true"><polygon points="8,1 15,14 1,14" fill="currentColor"/></svg>BTV11</span></th>
+<td data-label="Chip (SoC)"><span class="nome">Amlogic S905X3, 4× Cortex-A55</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span></td>
+<td data-label="RAM"><span class="nome">2 GB</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span></td>
+<td data-label="GPU"><span class="nome">Mali-G31, driver livre (Panfrost)</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span><small>glmark2 entre 124 e 167 pontos.</small></td>
+<td data-label="Rede cabeada"><span class="nome">Ethernet 100 Mbit (PHY interno)</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span><small>94 Mbit/s medidos.</small></td>
+<td data-label="Wi-Fi"><span class="nome">AP6212 (BCM43430), SDIO, 2,4 GHz</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span><small>O Bluetooth é do mesmo chip.</small></td>
+<td data-label="Controle IR"><span class="nome">Receptor IR</span><span class="sel nt"><span class="ic" aria-hidden="true">?</span>Não testado</span><small>O LED pisca com o controle; teclas não testadas.</small></td>
+<td data-label="Vídeo HDMI"><span class="nome">HDMI</span><span class="sel ok"><span class="ic" aria-hidden="true">✔</span>Resolvido</span><small>No Android, a TV filtra o modo de vídeo; ressalva entre 720p e 1080p.</small></td>
+<td data-label="Áudio"><span class="nome">Som pelo HDMI</span><span class="sel nt"><span class="ic" aria-hidden="true">?</span>Não testado</span></td></tr>
+</tbody></table></div>
+<p class="hint"><strong>“Parcial”:</strong> no MXQ, o IR responde mas o mapa de teclas não foi conferido. No BTV11, IR e som pelo HDMI não foram testados. Só o TX9 tem display frontal (FD6551); o MXQ não tem e o BTV11 tem só LEDs.</p>
+
+<h3 class="sub-h">As placas por dentro</h3>
+<div class="placas tres-p">
+<figure class="shot"><img src="imgs/compsteam/placa-tx9-componentes.jpg" width="1200" height="815" loading="lazy" alt="Placa do TX9 com os componentes identificados: SoC S905W, RAM DDR3, eMMC 8 GB, Wi-Fi SSV6051P, display frontal FD6551, transformador Ethernet e conectores"><figcaption>TX9 (placa P281): SoC S905W, RAM DDR3, eMMC 8 GB, Wi-Fi SSV6051P, controlador do display FD6551 e conectores.</figcaption></figure>
+<figure class="shot"><img src="imgs/compsteam/placa-mxq-componentes.jpg" width="780" height="722" loading="lazy" alt="Placa do MXQ Pro com os componentes identificados: SoC RK3229 sob o dissipador, RAM DDR3, NAND 8 GB, transformador Ethernet e conectores"><figcaption>MXQ Pro (placa R329Q V8.0): SoC RK3229 sob o dissipador, RAM DDR3, NAND MLC 8 GB e conectores.</figcaption></figure>
+<figure class="shot"><img src="imgs/compsteam/placa-mxq-fundo.jpg" width="1000" height="698" loading="lazy" alt="Face de baixo da placa do MXQ Pro, com dois chips de memória e componentes de alimentação"><figcaption>MXQ Pro, face de baixo da placa: chips de memória e reguladores de tensão.</figcaption></figure>
+<figure class="shot"><img src="imgs/compsteam/placa-btv11-componentes.jpg" width="984" height="1050" loading="lazy" alt="Placa do BTV11 com os conectores identificados: Ethernet, HDMI, áudio, duas USB, microSD, módulo Wi-Fi e Bluetooth e, no centro, SoC, RAM e eMMC"><figcaption>BTV11 (placa X3BL46 V2.0): SoC S905X3, RAM 2 GB, eMMC 16 GB, módulo Wi-Fi/Bluetooth AP6212 e conectores.</figcaption></figure>
+<figure class="shot"><img src="imgs/compsteam/placa-btv11-fundo.jpg" width="960" height="1080" loading="lazy" alt="Face de baixo da placa do BTV11, com a antena do Wi-Fi colada na caixa; a etiqueta com o endereço do aparelho está coberta"><figcaption>BTV11, face de baixo: antena do Wi-Fi e a etiqueta do aparelho coberta.</figcaption></figure>
+</div>
+<p class="hint">Fotos do acervo do projeto; etiquetas com endereço cobertas. <a href="https://github.com/rbeninca/tvbox/blob/main/docs/hardware.md">Ver docs/hardware.md</a>.</p>
+</div>
+</section>
+
+<section id="termica" class="alt">
+<div class="wrap">
+<h2>Análise térmica dos boxes</h2>
+<p class="lead">Caixa fechada, chip pequeno, sem ventilador. Sob carga máxima nenhum box chegou perto de queimar: o sistema se protege reduzindo o clock quando passa do limite.</p>
+<ul class="leg-g" id="leg1" aria-label="Legenda do gráfico 1"></ul>
+
+<div class="graf" id="graf1">
+<h3>1. Só o TX9 empilhado passou do limite</h3>
+<p class="manchete">Mesma carga (4 núcleos a 100 %). O TX9 empilhado, sem ventilação, chegou a 89 °C e o clock caiu para 250 MHz; os demais ficaram abaixo do limite.</p>
+<div id="g1" role="group" aria-label="Gráfico 1"></div>
+<noscript><p>O gráfico precisa de JavaScript. Os mesmos números estão nos textos e na documentação.</p></noscript>
+<details id="t1"><summary>Ver a tabela</summary><div class="tbl"></div></details>
+</div>
+
+<div class="graf" id="graf2">
+<h3>2. Parado e sob carga</h3>
+<p class="manchete">O BTV11 é o mais folgado: de 45 °C parado a cerca de 74 °C sob carga. TX9 e MXQ Pro chegam perto de 80 °C.</p>
+<ul class="leg-g" id="leg2" aria-label="Cores e formas por aparelho"></ul>
+<p class="hint">Barra clara e tracejada: parado (mediana). Barra cheia: sob carga (máximo).</p>
+<div id="g2" role="group" aria-label="Gráfico 2"></div>
+<details id="t2"><summary>Ver a tabela</summary><div class="tbl"></div></details>
+</div>
+
+<div class="graf" id="graf3">
+<h3>3. Ajustes de software que esfriam</h3>
+<p class="hint">Todas as barras são do MXQ Pro: claro e tracejado é antes, cheio é depois. As duas primeiras são com o box parado.</p>
+<p class="manchete">Apagar a tela tira de 6 a 10 °C do MXQ Pro parado. A forma de tocar vídeo pesa mais que o vídeo: o mesmo arquivo perdeu 41 % dos quadros no Chromium e 0,05 % no GStreamer, 6 °C mais frio.</p>
+<div id="g3" role="group" aria-label="Gráfico 3"></div>
+<details id="t3"><summary>Ver a tabela</summary><div class="tbl"></div></details>
+</div>
+
+<div class="graf" id="graf4">
+<h3>4. Mais calor, mais trabalho</h3>
+<p class="manchete">O MXQ Pro de fábrica reduzia o clock já a 70 °C. Com o ponto de redução em 85 °C, rendeu 27 % mais trabalho em 5 minutos (até 50 % em outra unidade), cerca de 12 °C mais quente, sem travar.</p>
+<p class="manchete">Perfil atual do MXQ Pro (0.2.43): até 1392 MHz, com redução a partir de 90 °C. Em 30 minutos de carga numa unidade, a média foi 90,7 °C e o máximo 94,0 °C, sem erro e sem desligamento por calor.</p>
+<ul class="leg-g" id="leg4" aria-label="Legenda do gráfico 4"></ul>
+<div class="dois-g"><div id="g4a" role="group" aria-label="Gráfico 4, temperatura"></div><div id="g4b" role="group" aria-label="Gráfico 4, trabalho feito"></div></div>
+<details id="t4"><summary>Ver a tabela</summary><div class="tbl"></div></details>
+</div>
+
+</div>
+</section>
+
+<section id="particoes">
+<div class="wrap">
+<h2>O mapa da memória de cada aparelho</h2>
+<p class="lead">A memória interna é como um armário com gavetas; algumas nunca abrimos. Cada barra tem escala própria: não compare comprimentos.</p>
+<ul class="legend">
+<li><i style="background:var(--fab)"></i>Protegida / de fábrica (nunca gravada)</li>
+<li><i style="background:var(--box)"></i>Identidade e dados do box</li>
+<li><i style="background:var(--ins)"></i>Instalador de rede</li>
+<li><i style="background:var(--sys)"></i>Sistema</li>
+<li><i style="background:var(--dat)"></i>Dados do usuário</li>
+<li><i style="background:var(--free)"></i>Livre ou reservada</li>
+</ul>
+
+<div class="barra-t"><h3><span class="box-id c-tx9"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="currentColor"/></svg>TX9</span> · eMMC de 8 GB</h3><span class="tot">espaço usado até 7456 MiB</span></div>
+<div class="barra" id="b-tx9" role="img" aria-label="Barra proporcional das partições da eMMC do TX9: bootloader, reserved, cache, env, logo, recovery, rsv, tee, crypt, misc, boot, system, vendor, odm, dtbo, metadata e data"></div>
+<ul class="lista-p" id="l-tx9"></ul>
+
+<div class="barra-t"><h3><span class="box-id c-btv"><svg viewBox="0 0 16 16" aria-hidden="true"><polygon points="8,1 15,14 1,14" fill="currentColor"/></svg>BTV11</span> · eMMC de 16 GB (14,6 GiB)</h3><span class="tot">partições de fábrica, depois p1 e p2 (e p3, decidida)</span></div>
+<div class="barra" id="b-btv" role="img" aria-label="Barra proporcional da eMMC do BTV11: bootloader, reserved e env de fábrica, p1 de boot em FAT, p2 raiz ext4 e p3 pequena para identidade e agente"></div>
+<ul class="lista-p" id="l-btv"></ul>
+
+<div class="barra-t"><h3><span class="box-id c-mxq"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="2" width="12" height="12" fill="currentColor"/></svg>MXQ Pro</span> · NAND de 8 GB (novo desenho)</h3><span class="tot">escala aproximada · /home de 1536 MiB, raiz = o resto</span></div>
+<div class="barra" id="b-mxq" role="img" aria-label="Barra proporcional da NAND do MXQ Pro: partições de fábrica e do projeto até 304 MiB, depois home de 1536 MiB e a raiz ocupando o resto"></div>
+<ul class="lista-p" id="l-mxq"></ul>
+
+<div class="comp">
+<div class="card"><h3>Em comum</h3><p>O bootloader de fábrica nunca é gravado. O instalador tem partição própria. Identidade e agente ficam em partições que nenhuma instalação apaga.</p></div>
+<div class="card"><h3>TX9</h3><p>A raiz Linux pode juntar até seis partições do Android (perfis 5a, 5b e 5c); o volume 5b soma 6988 MiB.</p></div>
+<div class="card"><h3>BTV11</h3><p>Depois das áreas de fábrica, o Linux usa duas partições comuns: uma pequena em FAT32 para o boot (p1) e uma ext4 com a raiz (p2). Uma p3 de 40 MiB para identidade e agente entra com a próxima versão.</p></div>
+<div class="card"><h3>MXQ Pro</h3><p>A tabela vem de fábrica e nunca é gravada. No novo desenho, o <code>/home</code> tem 1536 MiB e a raiz fica com o restante. A Educação do MXQ precisa dele.</p></div>
+</div>
+<div class="caixa-cuidado"><strong>Cuidado:</strong> estas barras são esquemas. Nada aqui é para gravar à mão.</div>
+
+<details>
+<summary>Tabela de partições do TX9 (valores em MiB)</summary>
+<div class="tbl"><table>
+<thead><tr><th>Partição</th><th class="n">Tamanho</th><th>Para que serve</th></tr></thead>
+<tbody>
+<tr><td><code>bootloader</code></td><td class="n">4</td><td>U-Boot de fábrica (nunca gravado)</td></tr>
+<tr><td><code>reserved</code></td><td class="n">64</td><td>tabela de partições, chaves e DTB; identidade do box</td></tr>
+<tr><td><code>cache</code></td><td class="n">64</td><td>logs e atualizações</td></tr>
+<tr><td><code>env</code></td><td class="n">8</td><td>variáveis do U-Boot</td></tr>
+<tr><td><code>logo</code></td><td class="n">32</td><td>imagem de abertura</td></tr>
+<tr><td><code>recovery</code></td><td class="n">32</td><td>instalador de rede</td></tr>
+<tr><td><code>rsv</code></td><td class="n">8</td><td>configuração e redes Wi-Fi</td></tr>
+<tr><td><code>tee</code></td><td class="n">8</td><td>ambiente seguro de fábrica</td></tr>
+<tr><td><code>crypt</code></td><td class="n">32</td><td>agente do inventário</td></tr>
+<tr><td><code>misc</code></td><td class="n">32</td><td>comando de boot</td></tr>
+<tr><td><code>boot</code></td><td class="n">32</td><td>kernel e DTB</td></tr>
+<tr><td><code>system</code></td><td class="n">1580</td><td>raiz do sistema</td></tr>
+<tr><td><code>vendor</code></td><td class="n">320</td><td>Android: /vendor</td></tr>
+<tr><td><code>odm</code></td><td class="n">128</td><td>Android: /odm</td></tr>
+<tr><td><code>dtbo</code></td><td class="n">8</td><td>Android: DTB extra</td></tr>
+<tr><td><code>metadata</code></td><td class="n">16</td><td>Android: metadados</td></tr>
+<tr><td><code>data</code></td><td class="n">4936</td><td>dados / parte da raiz Linux</td></tr>
+</tbody></table></div>
+<p>Mais detalhes e o MXQ Pro em <a href="https://github.com/rbeninca/tvbox/blob/main/docs/particoes.md">docs/particoes.md</a>.</p>
+</details>
+</div>
+</section>
+
+<section id="boot" class="alt">
+<div class="wrap">
+<h2>O que acontece nos segundos entre ligar e a imagem aparecer?</h2>
+<p class="lead">Um personagem leva um bilhete de etapa em etapa, do botão de ligar até o sistema. Escolha o chip e aperte Tocar, ou ande quadro a quadro. Cada quadro é <strong>visto no box</strong> ou <strong>deduzido</strong> (da documentação do fabricante).</p>
+<div class="boot-wrap">
+<div class="boot" id="boot-player" hidden>
+<div class="seg" role="group" aria-label="Escolher o chip"><button type="button" data-f="amlogic" aria-pressed="true">Amlogic (TX9 e BTV11)</button><button type="button" data-f="rockchip" aria-pressed="false">Rockchip (MXQ Pro)</button></div>
+<svg class="cena" viewBox="0 0 960 290" aria-hidden="true" focusable="false"></svg>
+<div class="legenda-q"><h3 class="q-titulo"></h3><p class="q-texto"></p><span class="selo"></span></div>
+<div class="logq" aria-label="Linha de log"></div>
+<div class="ctl" style="display:flex">
+<button type="button" class="b-play" aria-pressed="false">Tocar</button>
+<button type="button" class="b-ant">◀ Quadro anterior</button>
+<button type="button" class="b-prox">Próximo quadro ▶</button>
+<button type="button" class="b-rein">↺ Reiniciar</button>
+<label>Velocidade <select class="s-vel"><option value="0.5">0,5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
+<label><input type="checkbox" class="c-log" checked> Mostrar logs</label>
+<span class="cont" aria-hidden="true"></span>
+</div>
+<p class="visually-hidden q-vivo" aria-live="polite"></p>
+</div>
+
+<details id="boot-lista-d" open>
+<summary>Todos os quadros, em lista</summary>
+<h3 class="sub-h">Amlogic (TX9 e BTV11)</h3>
+<ol class="boot-lista" data-familia="amlogic">
+<li data-est="0" data-seg="4" data-selo="visto"><h4>Aperta ligar</h4><p>A energia chega ao chip. No TX9 o display frontal acende.</p></li>
+<li data-est="1" data-seg="5" data-selo="deduzido"><h4>A BootROM acorda</h4><p>O “porteiro” gravado no chip só sabe onde procurar o próximo bilhete (cartão, USB ou memória interna).</p></li>
+<li data-est="2" data-seg="5" data-selo="deduzido"><h4>O primeiro estágio vai para a SRAM</h4><p>A SRAM é uma mesinha minúscula dentro do chip; por isso o primeiro estágio é pequeno.</p></li>
+<li data-est="3" data-seg="7" data-selo="deduzido"><h4>Afinar o galpão: a RAM</h4><p>A RAM é um chip à parte e precisa ser configurada antes de caber um bilhete grande. O TX9 tem 1 GB.</p></li>
+<li data-est="4" data-seg="5" data-selo="deduzido"><h4>Segurança e U-Boot chegam</h4><p>Entram o código de segurança e o U-Boot de fábrica.</p></li>
+<li data-est="5" data-seg="6" data-selo="visto" data-log="start_autoscript"><h4>O U-Boot decide o caminho</h4><p>Com o reset apertado ou um cartão com instalador, entra no instalador do CompSTEAM; senão, lê o sistema. O U-Boot de fábrica fica como está.</p></li>
+<li data-est="6" data-seg="6" data-selo="visto" data-log="Starting kernel ..."><h4>Kernel e DTB são entregues</h4><p>O U-Boot coloca o kernel e a “planta da casa” (o DTB) na RAM e passa o comando ao kernel.</p></li>
+<li data-est="6" data-seg="6" data-selo="visto"><h4>O kernel acorda os funcionários</h4><p>Os drivers acendem as luzes: rede cabeada, Wi-Fi, GPU Mali.</p></li>
+<li data-est="7" data-seg="4" data-selo="visto"><h4>O sistema abre a porta</h4><p>O logo do CompSTEAM aparece na TV com uma barra de progresso, e depois o sistema ou a tela de login.</p></li>
+<li data-est="1" data-seg="7" data-selo="visto" data-ramo><h4>Atalho: o cabo USB no PC</h4><p>Com o cabo no PC, o box entra em modo de gravação: pela USB da BootROM (gravação de fábrica, deduzida) ou pelo “modo USB” do U-Boot, que vimos funcionar.</p></li>
+</ol>
+<h3 class="sub-h">Rockchip (MXQ Pro)</h3>
+<ol class="boot-lista" data-familia="rockchip">
+<li data-est="0" data-seg="4" data-selo="visto"><h4>Aperta ligar</h4><p>A energia chega ao chip RK3229.</p></li>
+<li data-est="1" data-seg="5" data-selo="deduzido"><h4>A BootROM procura o idbloader</h4><p>O porteiro do chip procura o primeiro estágio na memória interna ou no cartão SD. Nunca vimos a BootROM; só o que veio depois.</p></li>
+<li data-est="3" data-seg="6" data-selo="visto" data-log="DDR Version V1.09 ... OUT"><h4>Afinar o galpão: a RAM</h4><p>Um programa da Rockchip configura a RAM.</p></li>
+<li data-est="4" data-seg="6" data-selo="visto"><h4>Miniloader e trust (OP-TEE)</h4><p>O miniloader carrega o código de segurança e o U-Boot.</p></li>
+<li data-est="5" data-seg="6" data-selo="visto"><h4>O U-Boot lê a memória interna</h4><p>Ele busca o DTB, o logo, o kernel e o initramfs na memória interna.</p></li>
+<li data-est="6" data-seg="6" data-selo="visto" data-log="Starting kernel ..."><h4>O kernel 6.12 sobe</h4><p>O U-Boot entrega o kernel e o DTB.</p></li>
+<li data-est="6" data-seg="6" data-selo="visto" data-log="switch_root"><h4>O initramfs troca a raiz</h4><p>Ele passa para a raiz Debian ou Alpine.</p></li>
+<li data-est="7" data-seg="4" data-selo="visto"><h4>O sistema abre a porta</h4><p>Logo do CompSTEAM, depois o sistema ou a tela de login.</p></li>
+<li data-est="1" data-seg="8" data-selo="visto" data-ramo><h4>Atalho: MaskROM pelo USB</h4><p>Se o PC manda sinal pelo USB, a BootROM não lê o disco e passa a receber o programa pelo cabo. Serve para testar um Linux só na RAM, sem gravar nada.</p></li>
+</ol>
+</details>
+</div>
+<p class="fonte-p">Modelo didático: “visto no box” foi observado; “deduzido” vem da documentação do fabricante.</p>
+
+</div>
+</section>
+
+<section id="como-foi-feito">
+<div class="wrap">
+<h2>Do Android ao instalador de rede</h2>
+<div class="flow">
+<div class="card"><h3>Android TV</h3><p>Android 15 (LineageOS 22.2) para TV.</p></div>
+<div class="card"><h3>Linux Debian 13</h3><p>Variações com kernel 6.12 e GPU Mali com driver livre.</p></div>
+<div class="card"><h3>Instalador de rede</h3><p>Instalador único, em partição própria, que baixa as imagens do GitHub.</p></div>
+<div class="card"><h3>Assinatura e conferência</h3><p>Imagens assinadas e conferidas por SHA-256 em cada partição. Arquivo alterado é recusado.</p></div>
+<div class="card"><h3>Privacidade</h3><p>A telemetria vem desligada e só liga com consentimento. Sem ele, nada é enviado.</p></div>
+<div class="card"><h3>Segurança de gravação</h3><p>Nunca grava o bootloader nem a área de chaves. O modo USB do fabricante segue como rede de segurança.</p></div>
+</div>
+<p style="margin-top:20px"><a href="https://github.com/rbeninca/tvbox/blob/main/docs/como-foi-construido.md">Ler docs/como-foi-construido.md</a> · <a href="https://github.com/rbeninca/tvbox/blob/main/docs/dtb-e-drivers.md">Kernels e drivers</a></p>
+</div>
+</section>
+
+<section id="documentacao" class="alt">
+<div class="wrap">
+<h2>Leia os detalhes técnicos</h2>
+<ul class="docs">
+<li><a href="https://github.com/rbeninca/tvbox/blob/main/docs/README.md"><strong>Visão geral</strong><span>Índice da documentação.</span></a></li>
+<li><a href="https://github.com/rbeninca/tvbox/blob/main/docs/sistemas.md"><strong>Sistemas</strong><span>Releases publicadas e conteúdo.</span></a></li>
+<li><a href="https://github.com/rbeninca/tvbox/blob/main/docs/como-instalar.md"><strong>Como instalar</strong><span>Passo a passo e problemas comuns.</span></a></li>
+<li><a href="https://github.com/rbeninca/tvbox/blob/main/docs/particoes.md"><strong>Partições</strong><span>Memória de cada aparelho.</span></a></li>
+<li><a href="https://github.com/rbeninca/tvbox/blob/main/docs/dtb-e-drivers.md"><strong>Kernels e drivers</strong><span>Kernels, Wi-Fi, display.</span></a></li>
+<li><a href="https://github.com/rbeninca/tvbox/blob/main/docs/hardware.md"><strong>Hardware</strong><span>Os aparelhos.</span></a></li>
+<li><a href="https://github.com/rbeninca/tvbox/blob/main/docs/como-foi-construido.md"><strong>Como é composto</strong><span>Android, Linux, instalador e segurança.</span></a></li>
+</ul>
+<h3 class="sub-h">Créditos das imagens</h3>
+<ul class="creditos">
+<li>Fotos das caixas e das placas do TX9 e do MXQ Pro, e telas do instalador: acervo do projeto (autor: Romulo de Aguiar Beninca). Nas telas, o endereço de rede foi coberto por uma tarja.</li>
+<li>Fotos da placa do BTV11: acervo do projeto (etiqueta coberta, imagem tratada).</li>
+<li>Foto da caixa do BTV11: imagem de divulgação do aparelho.</li>
+<li>Logos do IFSC, do GFIG e da Receita Federal: pertencem às instituições.</li>
+</ul>
+</div>
+</section>
+
+<section id="agradecimentos">
+<div class="wrap">
+<h2>Agradecimentos</h2>
+<p class="lead">Trabalho possível graças a instituições e pessoas que cederam tempo, espaço, equipamentos e conhecimento.</p>
+<div class="grid ag">
+<div class="card apoio"><img src="apresentacao/imgs/logo-ifsc.png" width="900" height="773" loading="lazy" alt="Logo do IFSC"><div><h3>IFSC · Câmpus Gaspar</h3><p>À direção (Dra. Glaucia Marian Tenfen) e à chefia do DEPE (Geannine Martins), pela disponibilização de tempo e espaço para o desenvolvimento.</p></div></div>
+<div class="card apoio"><img src="apresentacao/imgs/logo-receita.png" width="1341" height="1150" loading="lazy" alt="Logo da Receita Federal"><div><h3>Receita Federal</h3><p>Pela disponibilização dos dispositivos usados nos testes do projeto.</p></div></div>
+</div>
+<div class="card colegas"><h3>Colegas que apoiaram o desenvolvimento</h3><ul class="pills"><li>Leonardo Rauta · Professor de Informática</li><li>Kélcio César Goedert · Servidor da Receita Federal</li></ul><p>Pelo apoio técnico e pela colaboração ao longo do desenvolvimento do projeto.</p></div>
+</div>
+</section>
+
+<section id="encerramento">
+<div class="wrap">
+<blockquote>Não estamos apenas instalando outro sistema operacional. Estamos <em>recuperando o controle do hardware</em> para transformá-lo em uma <strong>plataforma aberta</strong> de computação, ensino e desenvolvimento tecnológico.</blockquote>
+<div class="apoios">
+<figure><span><img src="apresentacao/imgs/logo-ifsc.png" width="900" height="773" loading="lazy" alt="Logo do IFSC"></span><figcaption>IFSC · Câmpus Gaspar</figcaption></figure>
+<figure><span><img src="apresentacao/imgs/logo-gfig.png" width="399" height="525" loading="lazy" alt="Logo do GFIG"></span><figcaption>GFIG</figcaption></figure>
+<figure><span><img src="apresentacao/imgs/logo-receita.png" width="1341" height="1150" loading="lazy" alt="Logo da Receita Federal"></span><figcaption>Receita Federal</figcaption></figure>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="wrap">
+<p><strong>CompSTEAM — IFSC</strong> · Desenvolvido por Professor Romulo Beninca, IFSC Câmpus Gaspar.</p>
+<p>Uso acadêmico e não comercial. Imagens de sistema para uso educacional. Amlogic, Rockchip, Mali, SSV, Broadcom e as demais marcas pertencem aos seus donos; este projeto não é afiliado ao Debian, ao Android nem ao GeoGebra.</p>
+<p><a href="https://github.com/rbeninca/tvbox">Repositório no GitHub</a> · <a href="https://github.com/rbeninca/tvbox/releases">Releases</a> · <a href="apresentacao/">Apresentação</a></p>
+</div>
+</footer>
+
+<dialog id="zoom" aria-label="Imagem ampliada"><button type="button">Fechar</button><img alt=""></dialog>
+<script type="application/json" id="dados-termica">{"g1":{"xmax":600,"ymin":40,"ymax":95,"lim":[[80,"TX9 reduz o clock (80 °C)"],[85,"BTV11 e MXQ reduzem (85 °C)"]],"series":[{"box":"tx9","nome":"TX9, unidade K (isolada)","dash":"","pts":[[0,57],[10,69],[20,70],[30,71],[40,72],[50,73],[60,73],[70,74],[80,73],[90,73],[100,74],[110,74],[120,74],[130,74],[140,75],[150,75],[160,75],[170,75],[180,75],[190,75],[200,76],[210,75],[220,75],[230,75],[240,76],[250,76],[260,76],[270,76],[280,76],[290,76],[300,77],[310,77],[320,77],[330,77],[340,77],[350,77],[360,77],[370,77],[380,77],[390,77],[400,77],[410,77],[420,77],[430,77],[440,77],[450,78],[460,77],[470,78],[480,78],[490,78],[500,77],[510,78],[520,78],[530,78],[540,77],[550,78],[560,78],[570,78],[580,78],[590,78]],"nota":"clock máximo o tempo todo"},{"box":"tx9","nome":"TX9, unidade D (empilhada, sem ventilação)","dash":"7 4","pts":[[0,83],[10,87],[20,88],[30,87],[40,88],[50,87],[60,88],[70,87],[80,88],[90,88],[100,87],[110,88],[120,88],[130,88],[140,88],[150,88],[160,88],[170,88],[180,88],[190,88],[200,88],[210,88],[220,88],[230,88],[240,89],[250,88],[260,89],[270,87],[280,89],[290,88],[300,89],[310,88],[320,88],[330,88],[340,89],[350,89],[360,88],[370,89],[380,88],[390,89],[400,89],[410,88],[420,88],[430,89],[440,88],[450,88],[460,88],[470,89],[480,88],[490,88],[500,89],[510,88],[520,89],[530,88],[540,88],[550,88],[560,88],[570,89],[580,89],[590,88]],"nota":"clock caiu para 250–667 MHz"},{"box":"mxq","nome":"MXQ Pro, unidade A2","dash":"","pts":[[0,58.0],[10,69.2],[20,70.0],[30,71.0],[40,72.0],[50,73.0],[60,74.0],[70,74.0],[80,75.0],[90,75.0],[100,75.0],[110,76.0],[120,76.0],[130,76.0],[140,77.0],[150,77.0],[160,77.0],[170,77.0],[180,77.0],[190,77.0],[200,78.0],[210,77.0],[220,78.0],[230,78.0],[240,78.0],[250,78.0],[260,78.0],[270,78.0],[280,78.0],[290,79.0]],"nota":"1200 MHz o tempo todo, 300 s"},{"box":"btv","nome":"BTV11, unidade 1","dash":"","pts":[[0,51.4],[30,65.1],[60,66.7],[90,67.7],[120,68.7],[150,68.9],[180,69.5],[210,70.0],[240,70.3],[270,71.0],[300,71.3],[330,72.0],[360,72.0],[390,72.2],[420,72.4],[450,72.8],[480,73.1],[510,73.6]],"nota":"2100 MHz o tempo todo, 510 s"}]},"g2":{"unit":"°C","ymax":100,"names":["Parado (mediana)","Sob carga (máximo)"],"groups":[{"label":"TX9","box":"tx9","vals":[56.0,78]},{"label":"MXQ Pro","box":"mxq","vals":[55.0,79.0]},{"label":"BTV11","box":"btv","vals":[44.8,73.6]}]},"g3":{"unit":"°C","ymax":90,"names":["Antes","Depois"],"groups":[{"label":"Tela HDMI|ligada → apagada","box":"mxq","vals":[58.0,51.7]},{"label":"Tela acesa|→ apaga em 60 s","box":"mxq","vals":[65.0,55.0]},{"label":"Vídeo 720p|Chromium|→ GStreamer","box":"mxq","vals":[76.3,70.1]}]},"g4":{"xmax":300,"ymin":50,"ymax":90,"series":[{"box":"mxq","nome":"Redução de clock a 70 °C (de fábrica)","dash":"2 5","pts":[[0,62.0],[5,68.3],[10,67.5],[15,69.2],[20,69.2],[25,70.0],[30,69.2],[35,70.0],[40,70.0],[45,69.2],[50,69.2],[55,69.2],[60,69.2],[65,70.0],[70,70.0],[75,68.3],[80,68.3],[85,70.0],[90,70.0],[95,70.0],[100,69.2],[105,70.0],[110,69.2],[115,69.2],[120,70.0],[125,70.0],[130,69.2],[135,70.0],[140,70.0],[145,70.0],[150,70.0],[155,69.2],[160,70.0],[165,70.0],[170,71.0],[175,70.0],[180,69.2],[185,71.0],[190,71.0],[195,70.0],[200,71.0],[205,70.0],[210,70.0],[215,71.0],[220,70.0],[225,71.0],[230,70.0],[235,70.0],[240,70.0],[245,71.0],[250,71.0],[255,71.0],[260,70.0],[265,71.0],[270,70.0],[275,72.0],[280,70.0],[285,70.0],[290,71.0]],"ops":418.4},{"box":"mxq","nome":"Redução a 80 °C","dash":"8 4","pts":[[0,61.0],[5,72.0],[10,74.0],[15,75.0],[20,76.0],[25,77.0],[30,77.0],[35,78.0],[40,78.0],[45,79.0],[50,79.0],[55,79.0],[60,79.0],[65,79.0],[70,78.0],[75,78.0],[80,79.0],[85,79.0],[90,78.0],[95,79.0],[100,78.0],[105,79.0],[110,77.0],[115,78.0],[120,78.0],[125,78.0],[130,79.0],[135,78.0],[140,77.0],[145,78.0],[150,78.0],[155,79.0],[160,80.0],[165,77.0],[170,77.0],[175,77.0],[180,77.0],[185,77.0],[190,77.0],[195,77.0],[200,78.0],[205,77.0],[210,78.0],[215,78.0],[220,78.0],[225,78.0],[230,78.0],[235,77.0],[240,77.0],[245,77.0],[250,79.0],[255,77.0],[260,79.0],[265,77.0],[270,79.0],[275,78.0],[280,78.0],[285,77.0],[290,79.0]],"ops":496.5},{"box":"mxq","nome":"Redução a 85 °C","dash":"","pts":[[0,63.0],[5,74.0],[10,75.0],[15,76.0],[20,77.0],[25,78.0],[30,78.0],[35,79.0],[40,79.0],[45,80.0],[50,80.0],[55,81.0],[60,81.0],[65,81.0],[70,82.0],[75,82.0],[80,82.0],[85,83.0],[90,83.0],[95,83.0],[100,84.0],[105,83.0],[110,83.0],[115,84.0],[120,84.0],[125,84.0],[130,83.0],[135,84.0],[140,84.0],[145,84.0],[150,84.0],[155,84.0],[160,84.0],[165,84.0],[170,83.0],[175,84.0],[180,84.0],[185,84.0],[190,84.0],[195,84.0],[200,84.0],[205,84.0],[210,84.0],[215,83.0],[220,84.0],[225,84.0],[230,84.0],[235,84.0],[240,84.0],[245,84.0],[250,82.0],[255,84.0],[260,84.0],[265,84.0],[270,84.0],[275,84.0],[280,84.0],[285,84.0],[290,84.0]],"ops":532.2}]}}</script>
+<script src="assets/pagina.js" defer></script>
+<script src="assets/graficos.js" defer></script>
+<script src="assets/barras.js" defer></script>
+<script src="assets/boot.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PK40E3PBF2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PK40E3PBF2');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>De TV Box a plataforma computacional — CompSTEAM OS</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/css/print/pdf.css" media="print">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/monokai.css">
+
+<style>
+:root{
+  --ifsc-green:#2e7d32; --ifsc-dark:#1b5e20; --ifsc-light:#66bb6a;
+  --accent-red:#c0392b; --accent-gold:#f39c12; --accent-blue:#2980b9;
+  --accent-purple:#8e44ad; --ink:#1f2a24; --muted:#6b7a70;
+  --card:#ffffff; --line:#e3ece4;
+}
+.reveal{ font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif; color:var(--ink); }
+.reveal h1,.reveal h2{ color:var(--ifsc-green); font-weight:800; }
+.reveal h2{ text-transform:uppercase; letter-spacing:.3px; border-bottom:3px solid var(--ifsc-green); display:inline-block; padding-bottom:3px; margin:0 0 6px; font-size:1.25em; line-height:1.05;}
+.reveal h3{ color:var(--ifsc-dark); margin:4px 0; }
+.reveal section{ text-align:left; }
+.reveal .slides > section, .reveal .slides > section > section{ padding:8px 6px; }
+.reveal p{ margin:6px 0; }
+.reveal h2 + .lead, .reveal h2 + p{ margin-top:2px; }
+.reveal .lead{ line-height:1.32; }
+.reveal section.center{ text-align:center; }
+.reveal .slide-number{ background:var(--ifsc-green); }
+
+/* pills, badges, boxes */
+.pill{ display:inline-block; background:var(--ifsc-green); color:#fff; border-radius:999px; padding:4px 14px; font-size:.5em; font-weight:700; margin:3px; letter-spacing:.4px; }
+.pill.ghost{ background:#eef5ef; color:var(--ifsc-dark); border:1px solid var(--line);}
+.step-badge{ display:inline-grid; place-items:center; width:1.5em; height:1.5em; border-radius:50%; background:var(--ifsc-green); color:#fff; font-size:.7em; margin-right:12px; vertical-align:middle;}
+.tip-box{ background:#fff8e8; border-left:4px solid var(--accent-gold); padding:7px 11px; border-radius:6px; font-size:.5em; }
+.warn-box{ background:#fdf3f2; border-left:4px solid var(--accent-red); padding:7px 11px; border-radius:6px; font-size:.5em; }
+.ok-box{ background:#f3faf4; border-left:4px solid var(--ifsc-green); padding:7px 11px; border-radius:6px; font-size:.5em; }
+.highlight{ color:var(--ifsc-green); font-weight:700; }
+.small-text{ font-size:.48em; color:var(--muted); }
+.lead{ font-size:.64em; color:#33413a; }
+code.inl{ background:#eef5ef; color:var(--ifsc-dark); padding:1px 7px; border-radius:5px; font-size:.85em; }
+
+.grid2{ display:grid; grid-template-columns:1fr 1fr; gap:22px; align-items:center; }
+.grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.card{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px; box-shadow:0 6px 20px rgba(27,94,32,.07); }
+.card h4{ margin:0 0 5px; color:var(--ifsc-dark); font-size:.66em; }
+.card p,.card li{ font-size:.5em; color:#39463f; }
+figure{ margin:0; }
+figure img{ width:100%; border-radius:12px; box-shadow:0 8px 26px rgba(0,0,0,.18); }
+figcaption{ font-size:.42em; color:var(--muted); margin-top:4px; }
+
+/* ===== rodapé de crédito fixo em todos os slides ===== */
+.site-footer{ position:fixed; bottom:8px; left:16px; z-index:40;
+  font-size:13px; line-height:1; color:var(--muted); opacity:.8; pointer-events:none;
+  font-family:"Segoe UI",system-ui,-apple-system,sans-serif; }
+.site-footer b{ color:var(--ifsc-green); font-weight:700; }
+@media print{ .site-footer{ position:fixed; bottom:6px; left:12px; opacity:.85; } }
+
+/* ===== marca institucional fixa (IFSC) no topo-direito de todos os slides ===== */
+.brand-logo{ position:fixed; top:14px; right:18px; z-index:40;
+  pointer-events:none; opacity:.9; transition:opacity .3s ease; }
+.brand-logo img{ height:52px; width:auto; display:block;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.12)); }
+.brand-logo.is-hidden{ opacity:0; }
+@media print{ .brand-logo{ position:fixed; top:10px; right:12px; opacity:.9; } }
+
+/* ===== reusable animation helper: run when slide is present ===== */
+.reveal section:not(.present) .play{ animation-play-state:paused !important; }
+
+/* ---------- SLIDE 1: cover morph ---------- */
+.cover-stage{ position:relative; height:330px; margin:10px auto 0; max-width:760px; }
+.tvbox-core{ position:absolute; left:50%; top:46%; transform:translate(-50%,-50%); width:190px; height:120px; border-radius:16px;
+  background:linear-gradient(145deg,#2b2f33,#14181b); border:2px solid #3a4046; box-shadow:0 14px 40px rgba(0,0,0,.4); z-index:5; display:grid; place-items:center;}
+.tvbox-core .led{ width:9px;height:9px;border-radius:50%;background:#ff5252; position:absolute; left:14px; bottom:12px; box-shadow:0 0 10px #ff5252; animation:blink 1.6s infinite; }
+.tvbox-core .fd{ font-family:"Courier New",monospace; color:#5fd6ff; font-weight:700; letter-spacing:3px; font-size:26px; text-shadow:0 0 12px rgba(95,214,255,.7);}
+@keyframes blink{ 0%,70%{opacity:1} 85%{opacity:.2} 100%{opacity:1} }
+.orbit{ position:absolute; left:50%; top:46%; width:58px; height:58px; margin:-29px 0 0 -29px; border-radius:14px; display:grid; place-items:center;
+  font-size:26px; background:#fff; border:2px solid var(--ifsc-light); box-shadow:0 8px 22px rgba(0,0,0,.18); opacity:0; }
+.present .orbit{ animation:fly 1.1s cubic-bezier(.2,.8,.2,1) forwards; }
+.present .orbit.o1{ animation-delay:.5s } .present .orbit.o2{ animation-delay:.75s }
+.present .orbit.o3{ animation-delay:1s } .present .orbit.o4{ animation-delay:1.25s } .present .orbit.o5{ animation-delay:1.5s }
+.orbit.o1{ --tx:-260px; --ty:-120px } .orbit.o2{ --tx:260px; --ty:-120px } .orbit.o3{ --tx:-300px; --ty:60px }
+.orbit.o4{ --tx:300px; --ty:60px } .orbit.o5{ --tx:0px; --ty:150px }
+@keyframes fly{ from{opacity:0; transform:translate(0,0) scale(.4)} to{opacity:1; transform:translate(var(--tx),var(--ty)) scale(1)} }
+.orbit .lbl{ position:absolute; bottom:-20px; font-size:11px; color:var(--ifsc-dark); font-weight:700; white-space:nowrap; }
+.beam{ position:absolute; left:50%; top:46%; height:2px; background:linear-gradient(90deg,var(--ifsc-green),transparent); transform-origin:left center; opacity:0; z-index:1;}
+.present .beam{ animation:beamin .6s ease forwards; }
+
+/* ---------- SLIDE 2: failing components ---------- */
+.comp-list{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:8px;}
+.comp{ border-radius:12px; padding:14px; text-align:center; border:2px solid var(--line); background:#fff; font-size:.7em; opacity:0; transform:translateY(10px);}
+.present .comp{ animation:rise .5s ease forwards; }
+.comp .ico{ font-size:30px; display:block; margin-bottom:6px; }
+.comp .st{ font-weight:800; font-size:.8em; margin-top:6px; }
+.comp.good{ border-color:var(--ifsc-light); } .comp.good .st{ color:var(--ifsc-green); }
+.comp.bad{ } .comp.bad .st{ color:var(--accent-red); }
+.present .comp.bad{ animation:rise .5s ease forwards, shake .5s ease .9s; border-color:var(--accent-red); background:#fdf3f2;}
+@keyframes rise{ to{opacity:1; transform:none} }
+@keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-7px)} 75%{transform:translateX(7px)} }
+
+/* ---------- generic flow pipeline (slides 3,6,8,9) ---------- */
+.flow{ display:flex; align-items:stretch; gap:0; flex-wrap:wrap; justify-content:center; margin-top:14px;}
+.flow .node{ background:#fff; border:2px solid var(--line); border-radius:12px; padding:12px 14px; min-width:120px; text-align:center; font-size:.62em;
+  opacity:0; transform:scale(.85); box-shadow:0 5px 16px rgba(0,0,0,.06); }
+.flow .node .t{ font-weight:800; color:var(--ifsc-dark); display:block; margin-bottom:3px; font-size:1.05em;}
+.present .flow .node{ animation:pop .5s ease forwards; }
+.flow .arrow{ align-self:center; color:var(--ifsc-green); font-size:1.4em; padding:0 6px; opacity:0;}
+.present .flow .arrow{ animation:fadein .4s ease forwards; }
+@keyframes pop{ to{opacity:1; transform:none} }
+@keyframes fadein{ to{opacity:1} }
+@keyframes beamin{ to{opacity:1} }
+
+/* ---------- SLIDE 4/5: SoC + peripherals + DTB ---------- */
+.soc-wrap{ position:relative; }
+.pin-line{ stroke:var(--ifsc-light); stroke-width:2; stroke-dasharray:4 4; opacity:0; }
+.present .pin-line{ animation:fadein .6s ease forwards; }
+.dts-code{ font-family:"Courier New",monospace; font-size:.6em; background:#0f1a12; color:#cfe9d3; border-radius:12px; padding:14px 16px; line-height:1.5; }
+.dts-code .node-line{ cursor:pointer; padding:2px 6px; border-radius:5px; transition:.2s; display:block; }
+.dts-code .node-line:hover{ background:#1d3322; }
+.dts-code .node-line.active{ background:var(--ifsc-green); color:#fff; }
+.dts-code .k{ color:#9cff8a;} .dts-code .a{ color:#ffd479;} .dts-code .c{ color:#6b8a74; }
+.board-svg .hot{ opacity:0; transition:.35s; }
+.board-svg .hot.active{ opacity:1; }
+
+/* ---------- SLIDE 7: layers ---------- */
+.layerstack{ display:flex; flex-direction:column; gap:8px; }
+.layer{ border-radius:10px; padding:10px 16px; font-size:.66em; font-weight:700; color:#fff; opacity:0; transform:translateX(-18px); }
+.present .layer{ animation:slidein .5s ease forwards; }
+@keyframes slidein{ to{opacity:1; transform:none} }
+
+/* ---------- SLIDE 7b: drivers resolvidos (fragments) ---------- */
+.drv-list{ display:flex; flex-direction:column; gap:6px; }
+.drv{ display:block; background:#fff; border:1px solid var(--line); border-left:5px solid var(--ifsc-green);
+  border-radius:8px; padding:6px 11px; font-size:.5em; box-shadow:0 3px 10px rgba(0,0,0,.05); }
+.drv.current-fragment{ box-shadow:0 0 0 2px var(--ifsc-green), 0 6px 16px rgba(27,94,32,.18); }
+.drv-head{ display:flex; justify-content:space-between; align-items:center; gap:8px; }
+.drv .cmp{ font-weight:800; color:var(--ifsc-dark); font-size:1.04em; }
+.drv .ok{ color:#fff; background:var(--ifsc-green); border-radius:999px; padding:2px 9px; font-weight:800; white-space:nowrap; }
+.drv-body{ margin-top:3px; line-height:1.3; }
+.drv .pb{ color:var(--accent-red); }
+.drv .sol{ color:#39463f; font-weight:600; }
+#drvImg{ width:100%; border-radius:12px; box-shadow:0 10px 28px rgba(0,0,0,.22); border:1px solid var(--line); }
+/* overlay: as animações 3D entram como JANELAS do próprio desktop da foto,
+   em cascata ao lado/encostando no navegador — dá a impressão de estarem juntas,
+   rodando no mesmo desktop gráfico do box. */
+.drv-video-wrap{ position:absolute; inset:0; z-index:3; pointer-events:none;
+  animation:drvVideoIn .4s ease both; }
+.drv-video-wrap[hidden]{ display:none; }
+.drv-win{ position:absolute; width:31%; border-radius:5px 5px 4px 4px; overflow:hidden;
+  background:#e7eaed; border:1px solid rgba(0,0,0,.4);
+  box-shadow:0 16px 36px rgba(0,0,0,.55), 0 2px 6px rgba(0,0,0,.4); }
+.drv-win.w1{ left:3%; top:19%; transform:rotate(-1deg); }
+.drv-win.w2{ left:9%; bottom:9%; width:34%; transform:rotate(1deg); }
+.drv-win .bar{ display:flex; align-items:center; gap:6px; height:15px; padding:0 6px;
+  background:linear-gradient(#f2f4f6,#d6dadf); border-bottom:1px solid rgba(0,0,0,.2);
+  font-size:.3em; font-weight:700; color:#2b3338; letter-spacing:.2px; }
+.drv-win .bar .ttl{ flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.drv-win .bar .wb{ letter-spacing:1px; color:#5a6468; font-weight:800; }
+.drv-video{ width:100%; aspect-ratio:16/9; object-fit:cover; background:#000; display:block; }
+.drv-video-tag{ position:absolute; left:3%; top:11%; z-index:4; background:var(--ifsc-green); color:#fff;
+  font-size:.4em; font-weight:800; letter-spacing:.3px; padding:3px 10px; border-radius:999px;
+  box-shadow:0 4px 12px rgba(0,0,0,.35); }
+@keyframes drvVideoIn{ from{ opacity:0; transform:translateY(12px) scale(.94);} to{ opacity:1; transform:none;} }
+.destaque-artigo{ display:flex; gap:12px; align-items:center; margin-top:10px; padding:9px 14px; border-radius:10px;
+  background:linear-gradient(90deg,#fff3e0,#fff8e8); border:1px solid #f0c674; border-left:6px solid var(--accent-gold);
+  font-size:.52em; box-shadow:0 4px 14px rgba(243,156,18,.15); }
+.destaque-artigo .dot{ font-size:1.9em; line-height:1; }
+.artigo-ref{ margin-top:3px; font-style:italic; color:#7a5a12; font-size:.92em; line-height:1.3; }
+.artigo-link{ display:inline-block; background:var(--ifsc-green); color:#fff; text-decoration:none;
+  padding:6px 13px; border-radius:999px; font-weight:800; white-space:nowrap; align-self:center; }
+.artigo-link:hover{ background:var(--ifsc-dark); }
+
+/* ---------- SLIDE 10 (drivers): compactar para caber em 720px ---------- */
+.slide-drivers .lead{ font-size:.5em; margin:1px 0 3px; line-height:1.22; }
+.slide-drivers .grid2{ gap:18px !important; }
+.slide-drivers figure{ display:flex; flex-direction:column; align-items:center; }
+.slide-drivers #drvImg{ max-height:340px; width:auto; max-width:100%; margin:0 auto; }
+.slide-drivers figcaption{ font-size:.48em; margin-top:3px; line-height:1.2; }
+.slide-drivers .drv-list{ gap:3px; }
+.slide-drivers .drv{ padding:3px 9px; font-size:.41em; }
+.slide-drivers .drv-body{ margin-top:2px; line-height:1.2; }
+.slide-drivers .destaque-artigo{ margin-top:6px; padding:6px 12px; font-size:.45em; }
+
+/* ---------- SLIDE 12: instalação passo a passo ---------- */
+.inst-steps{ display:flex; flex-direction:column; gap:5px; }
+.inst-step{ background:#fff; border:1px solid var(--line); border-left:5px solid var(--ifsc-green);
+  border-radius:8px; padding:5px 11px; font-size:.5em; box-shadow:0 3px 10px rgba(0,0,0,.05); }
+.inst-step.current-fragment{ box-shadow:0 0 0 2px var(--ifsc-green),0 6px 16px rgba(27,94,32,.18); }
+.inst-step .n{ font-weight:800; color:var(--ifsc-dark); font-size:1.03em; }
+.inst-step .d{ color:#39463f; margin-top:1px; }
+.inst-step.doc{ border-left-color:var(--accent-blue); }
+.inst-step.done{ border-left-color:var(--accent-gold); }
+#instStepImg{ width:100%; max-height:446px; object-fit:contain; background:#0f1a12; border-radius:12px;
+  border:1px solid var(--line); box-shadow:0 10px 28px rgba(0,0,0,.22); }
+
+/* ---------- SLIDE 11: vitrine de sistemas (ícone + print) ---------- */
+.sys-show{ text-align:center; }
+#sysImg{ width:100%; max-height:452px; object-fit:contain; background:#0f1a12; border-radius:12px;
+  border:1px solid var(--line); box-shadow:0 10px 28px rgba(0,0,0,.22); }
+.sys-chips{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:9px; }
+.sys-chip{ display:flex; align-items:center; gap:7px; background:#fff; border:2px solid var(--line);
+  border-radius:999px; padding:4px 14px 4px 6px; cursor:pointer; font-weight:800; color:var(--ifsc-dark); font-size:.5em; }
+.sys-chip img{ width:26px; height:26px; object-fit:contain; }
+.sys-chip .ci{ font-size:20px; line-height:1; width:26px; text-align:center; }
+.sys-chip:hover{ border-color:var(--ifsc-light); }
+.sys-chip.active{ border-color:var(--ifsc-green); background:#eef6ef; box-shadow:0 4px 12px rgba(27,94,32,.16); }
+.sys-show .sys-chip.fragment{ opacity:1 !important; visibility:visible !important; }
+.sys-chip:not(.active){ opacity:.6; }
+.sys-chip.active{ opacity:1 !important; }
+
+/* ---------- SLIDE 10: OS cards ---------- */
+.os-card{ text-align:center; } .os-card .logo{ font-size:40px; margin-bottom:6px; }
+.matrix{ width:100%; border-collapse:collapse; font-size:.6em; margin-top:14px;}
+.matrix th,.matrix td{ border:1px solid var(--line); padding:8px 10px; text-align:center;}
+.matrix th{ background:var(--ifsc-green); color:#fff;}
+.matrix td:first-child{ text-align:left; font-weight:700; color:var(--ifsc-dark);}
+.yes{ color:var(--ifsc-green); font-weight:800; } .part{ color:var(--accent-gold); font-weight:800; }
+
+/* ---------- SLIDE 11: application tabs ---------- */
+.tabs{ display:flex; gap:10px; margin-bottom:14px; }
+.tab{ flex:1; text-align:center; padding:10px; border-radius:10px 10px 0 0; background:#eef5ef; color:var(--ifsc-dark);
+  font-weight:800; font-size:.62em; cursor:pointer; border:2px solid transparent; border-bottom:none; transition:.2s;}
+.tab.active{ background:var(--ifsc-green); color:#fff; }
+.scene{ display:none; } .scene.active{ display:block; animation:fadein .4s ease; }
+.scene-adv, .balanca-adv{ position:absolute; width:0; height:0; opacity:0 !important; pointer-events:none; }
+.balanca-tabs{ display:flex; gap:8px; justify-content:center; margin:0 0 8px; }
+.balanca-tabs .bt{ background:#eef5ef; color:var(--ifsc-dark); border:2px solid transparent; border-radius:999px;
+  padding:5px 15px; font-weight:800; font-size:.5em; cursor:pointer; }
+.balanca-tabs .bt:hover{ border-color:var(--ifsc-light); }
+.balanca-tabs .bt.active{ background:var(--ifsc-green); color:#fff; }
+.balanca-panels{ text-align:center; }
+.bp{ display:none; } .bp.active{ display:block; animation:fadein .3s ease; }
+.bp img, .bp video{ max-height:402px; max-width:100%; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,.2);
+  border:1px solid var(--line); background:#0f1a12; }
+.mural{ text-align:center; }
+.mural img{ width:auto; max-width:100%; max-height:380px; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,.2); }
+.p3d{ text-align:center; margin:0; }
+.p3d img, .p3d video{ width:auto; max-width:100%; max-height:300px; border-radius:10px;
+  box-shadow:0 8px 24px rgba(0,0,0,.2); border:1px solid var(--line); background:#0f1a12; }
+.gauge{ font-family:"Courier New",monospace; font-weight:800; color:var(--ifsc-green); }
+.bars{ display:flex; align-items:flex-end; gap:5px; height:90px; }
+.bars .bar{ width:16px; background:var(--ifsc-light); border-radius:4px 4px 0 0; transition:height .25s; }
+.container-box{ background:#0f1a12; border-radius:12px; padding:14px; display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+.ctn{ background:#17341f; border:1px solid #2e7d32; border-radius:8px; padding:10px; text-align:center; color:#cfe9d3; font-size:.55em;}
+.ctn .d{ font-size:20px;}
+.tele{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+.tele .t{ background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px; text-align:center; font-size:.6em;}
+.tele .t b{ display:block; font-size:1.6em; color:var(--ifsc-green); }
+.ai-track{ display:flex; gap:10px; margin-top:12px;}
+.ai-pill{ flex:1; border-radius:10px; padding:10px; font-size:.56em; text-align:center; font-weight:700; color:#fff;}
+
+/* ---------- SLIDE 16b: gargalo de infraestrutura (compilar + testar) ---------- */
+.gargalo-media{ display:flex; flex-direction:column; gap:8px; min-width:0; }
+.gargalo-media figure{ margin:0; }
+.gargalo-media video, .gargalo-media figure img{ width:100%; max-height:280px; object-fit:contain;
+  border-radius:12px; box-shadow:0 8px 26px rgba(0,0,0,.18); display:block; background:#0d1510; }
+.gargalo-media .gm-small img{ max-height:150px; }
+.g-stats{ display:flex; flex-direction:column; gap:10px; justify-content:center; min-width:0; }
+.g-stat{ display:flex; align-items:center; gap:14px; background:#fff; border:1px solid var(--line);
+  border-left:5px solid var(--accent-red); border-radius:12px; padding:10px 14px;
+  box-shadow:0 6px 18px rgba(0,0,0,.07); opacity:0; transform:translateX(18px); }
+.present .g-stat{ animation:rise .55s cubic-bezier(.2,.8,.2,1) forwards; }
+.present .g-stat:nth-child(1){ animation-delay:.15s } .present .g-stat:nth-child(2){ animation-delay:.35s }
+.present .g-stat:nth-child(3){ animation-delay:.55s }
+.g-stat .g-ico{ font-size:30px; flex:none; width:38px; text-align:center; }
+.g-stat .g-num{ font-size:1.05em; font-weight:800; color:var(--accent-red); line-height:1; display:inline-block; }
+.present .g-stat .g-num{ animation:gpulse 2.6s ease-in-out 1s infinite; }
+.g-stat .g-lbl{ font-size:.46em; color:#39463f; margin-top:4px; line-height:1.25; }
+.g-stat.warn{ border-left-color:var(--accent-gold); }
+.g-stat.warn .g-num{ color:#b9770b; }
+@keyframes gpulse{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.07)} }
+
+/* ---------- SLIDE 12: hub ---------- */
+.hub{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; min-height:300px; }
+.hub .center{ position:static; left:auto; top:auto; transform:none; text-align:center; order:-1; }
+.hub .spokes{ display:flex; flex-wrap:wrap; justify-content:center; align-items:stretch; gap:14px; width:100%; max-width:1120px; }
+.hub .spoke{ position:static; width:180px; background:#fff; border:2px solid var(--ifsc-light); border-radius:12px;
+  padding:10px; font-size:.56em; text-align:center; box-shadow:0 6px 18px rgba(0,0,0,.1);
+  opacity:0; transform:translateY(12px); display:flex; align-items:center; justify-content:center; }
+.present .hub .spoke{ animation:pop .6s ease forwards; }
+
+/* ---------- SLIDE ARQUITETURA DO SoC ---------- */
+.arch{ width:100%; max-width:1180px; display:block; margin:2px auto 0; }
+.arch .g{ opacity:0; }
+.reveal section.present .arch .g{ animation:archpop .55s ease forwards; }
+@keyframes archpop{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
+.arch .lead-line{ stroke:#9ccfa8; stroke-width:2; stroke-dasharray:5 4; opacity:0; }
+.reveal section.present .arch .lead-line{ animation:fadein .7s ease forwards; }
+.arch text{ font-family:"Segoe UI",system-ui,sans-serif; }
+.arch .busbar{ fill:#1b5e20; }
+.arch .busbar-t{ fill:#eafaec; font-weight:800; }
+.arch .die{ fill:#0f1a12; stroke:#2e7d32; stroke-width:2.5; }
+.arch .cu{ fill:#17341f; stroke:#43a047; stroke-width:1.5; }
+.arch .ct{ fill:#13281b; stroke:#3a6b46; stroke-width:1.2; }
+.arch .ext{ fill:#ffffff; stroke:#9fb8a6; stroke-width:1.3; }
+.arch .tt{ fill:#eafaec; font-weight:800; }
+.arch .ts{ fill:#9fc7a8; }
+.arch .te{ fill:#1b5e20; font-weight:700; }
+.arch .tes{ fill:#6b7a70; }
+
+/* zoom: placa real -> SoC -> diagrama */
+.soc-zoom{ position:relative; width:1120px; max-width:100%; aspect-ratio:112/46; margin:4px auto 0; border-radius:14px;
+  overflow:hidden; background:#0f1a12; box-shadow:0 12px 32px rgba(0,0,0,.28); border:1px solid #1f4a30; }
+.zoom-frame{ position:absolute; inset:0; }
+.zoom-frame img{ width:100%; height:100%; object-fit:cover; object-position:40% 58%; display:block; transform-origin:40% 58%; }
+.reveal section.present .soc-zoom .zoom-frame img{ animation:socZoomIn 4.4s cubic-bezier(.5,0,.3,1) forwards; }
+@keyframes socZoomIn{ 0%,32%{ transform:scale(1);} 100%{ transform:scale(3.6);} }
+.diagram-layer{ position:absolute; inset:0; display:grid; place-items:center; padding:8px; background:#0f1a12; opacity:0; }
+.diagram-layer .arch{ margin:0; max-height:100%; }
+.reveal section.present .soc-zoom .diagram-layer{ animation:diagReveal 4.4s ease forwards; }
+@keyframes diagReveal{ 0%,70%{ opacity:0;} 88%,100%{ opacity:1;} }
+.zoom-steps{ position:absolute; left:0; right:0; bottom:0; padding:8px 14px; background:linear-gradient(transparent,rgba(0,0,0,.72));
+  color:#eafaec; font-size:.56em; font-weight:800; min-height:30px; pointer-events:none; z-index:3; }
+.zoom-steps .zs{ position:absolute; left:14px; bottom:8px; opacity:0; }
+.reveal section.present .soc-zoom .zs1{ animation:zsShow 4.4s ease forwards; }
+.reveal section.present .soc-zoom .zs2{ animation:zs2Show 4.4s ease forwards; }
+.reveal section.present .soc-zoom .zs3{ animation:zs3Show 4.4s ease forwards; }
+@keyframes zsShow{ 0%,30%{opacity:1;} 40%,100%{opacity:0;} }
+@keyframes zs2Show{ 0%,34%{opacity:0;} 42%,64%{opacity:1;} 72%,100%{opacity:0;} }
+@keyframes zs3Show{ 0%,70%{opacity:0;} 86%,100%{opacity:1;} }
+.soc-zoom.replay-reset .zoom-frame img,.soc-zoom.replay-reset .diagram-layer,.soc-zoom.replay-reset .zs{ animation:none !important; }
+.zoom-replay{ position:absolute; top:8px; right:8px; z-index:4; width:30px; height:30px; border-radius:50%; border:none;
+  background:rgba(27,94,32,.85); color:#fff; font-size:16px; cursor:pointer; line-height:1; }
+.zoom-replay:hover{ background:var(--ifsc-green); }
+
+/* ---------- SLIDE 3: boot realista (UEFI + PCIe + terminal) ---------- */
+.boot-stage{ display:grid; grid-template-columns:1.05fr .95fr; gap:18px; align-items:stretch; margin-top:6px;}
+.mb{ position:relative; background:#10231a; border:1px solid #1f4a30; border-radius:14px; padding:14px 14px 16px; }
+.mb-title{ font-size:.56em; color:#7fd49a; font-weight:800; letter-spacing:.5px; text-transform:uppercase; margin-bottom:10px; display:flex; justify-content:space-between;}
+.mb-cpu{ position:absolute; left:18px; top:40px; width:70px; height:70px; border-radius:8px; background:#14181b; border:2px solid #2e7d32; display:grid; place-items:center; color:#5fd6ff; font-size:.5em; font-weight:800; text-align:center;}
+.mb-cpu.on{ box-shadow:0 0 22px rgba(95,214,255,.5); animation:cpupulse 1.4s ease-in-out infinite;}
+@keyframes cpupulse{ 50%{ box-shadow:0 0 10px rgba(95,214,255,.25);} }
+.bus{ position:absolute; left:100px; right:16px; top:58px; height:4px; background:#1f4a30; border-radius:3px;}
+.bus::after{ content:''; position:absolute; left:0; top:-3px; width:10px; height:10px; border-radius:50%; background:#ffd479; box-shadow:0 0 12px #ffd479; opacity:0;}
+.scanning .bus::after{ animation:scan 3.2s linear forwards; opacity:1;}
+@keyframes scan{ from{left:0} to{left:100%} }
+.slot{ position:absolute; top:84px; width:118px; }
+.slot .card3{ background:#17341f; border:1px solid #295f38; border-radius:8px; padding:7px 8px; font-size:.46em; color:#cfe9d3; opacity:0; transform:translateY(-10px); }
+.slot .card3 .addr{ color:#ffd479; font-weight:800; font-family:"Courier New",monospace; display:block; }
+.slot .card3 .drv{ color:#7fd49a; font-size:.9em; }
+.slot.found .card3{ animation:slotpop .45s ease forwards; }
+@keyframes slotpop{ to{opacity:1; transform:none} }
+.slot .stem{ position:absolute; left:50%; top:-26px; width:2px; height:26px; background:#295f38; opacity:0;}
+.slot.found .stem{ opacity:1;}
+.term{ background:#0b140e; border:1px solid #1f4a30; border-radius:14px; padding:14px 16px; font-family:"Courier New",monospace; font-size:.52em; line-height:1.55; color:#b9e6c3; overflow:hidden; min-height:300px;}
+.term .ln{ white-space:pre-wrap; opacity:0;}
+.term .ln.show{ opacity:1;}
+.term .ln .ok{ color:#7CFF8A;} .term .ln .hw{ color:#ffd479;} .term .ln .dim{ color:#5d7d66;} .term .ln .acc{ color:#5fd6ff;}
+.term .cursor{ display:inline-block; width:8px; height:1em; background:#7fd49a; vertical-align:-2px; animation:blink 1s steps(1) infinite;}
+.stage-label{ display:inline-block; font-size:.5em; font-weight:800; color:#fff; background:var(--ifsc-green); border-radius:6px; padding:2px 9px; margin-top:8px;}
+
+.shot-gallery{ position:relative; }
+.shot-gallery img{ width:100%; border-radius:10px; box-shadow:0 10px 28px rgba(0,0,0,.28); border:1px solid var(--line);}
+.shot-thumbs{ display:flex; gap:7px; margin-top:8px; flex-wrap:wrap;}
+.shot-thumbs img{ width:78px; height:44px; object-fit:cover; border-radius:6px; cursor:pointer; opacity:.55; border:2px solid transparent; transition:.2s;}
+.shot-thumbs img.active{ opacity:1; border-color:var(--ifsc-green);}
+
+.btn-top{ position:fixed; top:12px; right:14px; z-index:40; background:var(--ifsc-green); color:#fff; border:none; border-radius:8px; padding:8px 14px; font-weight:700; cursor:pointer; font-size:14px;}
+
+/* ---------- SLIDE 0: capa — logo dentro da TV Box ---------- */
+.tvbox-frame{ position:relative; width:760px; max-width:92%; margin:14px auto 0; aspect-ratio:16/10;
+  border-radius:26px; padding:34px 34px 46px;
+  background:linear-gradient(150deg,#2b2f33,#14181b); border:2px solid #3a4046;
+  box-shadow:0 26px 70px rgba(0,0,0,.45), inset 0 2px 0 rgba(255,255,255,.06);
+  display:grid; place-items:center;}
+.tvbox-frame .screen{ width:100%; height:100%; border-radius:16px; background:#fafdfb;
+  border:1px solid #0a0d0b; box-shadow:inset 0 0 0 6px #0a0d0b, 0 10px 30px rgba(0,0,0,.35);
+  display:grid; place-items:center; overflow:hidden;}
+.tvbox-frame .screen img{ width:88%; max-height:88%; object-fit:contain; }
+.tvbox-frame .led{ position:absolute; right:22px; bottom:18px; width:10px; height:10px; border-radius:50%;
+  background:#52ff8a; box-shadow:0 0 12px #52ff8a; animation:blink 1.6s infinite;}
+.tvbox-frame .brandbar{ position:absolute; left:0; right:0; bottom:14px; text-align:center;
+  font-size:12px; letter-spacing:4px; color:#8a949b; font-weight:700;}
+
+/* ---------- ENCERRAMENTO: citação + logo do projeto ---------- */
+.encerra{ display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:12px; color:#eafaec; position:relative; z-index:1;
+  text-shadow:0 1px 3px rgba(0,0,0,.6), 0 0 14px rgba(0,0,0,.35); }
+/* logo do projeto em grande, ao fundo do encerramento (o preto da arte some no blend) */
+.encerra-bg{ position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:url('imgs/logo-boxsteam.png') center/contain no-repeat;
+  background-size:min(1200px,96%) auto;
+  opacity:.32; }
+/* scrim escuro no centro para separar o texto do logo de fundo */
+.encerra-bg::after{ content:""; position:absolute; inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 45%,
+    rgba(4,18,8,.72) 0%, rgba(4,18,8,.5) 42%, rgba(4,18,8,0) 78%); }
+@media print{ .encerra-bg{ opacity:.28; } }
+.encerra-emoji{ font-size:34px; line-height:1; text-shadow:0 2px 6px rgba(0,0,0,.6); }
+.encerra-quote{ font-size:1.14em; line-height:1.48; max-width:960px; margin:0; padding:0;
+  border:none; color:#ffffff; font-style:normal; font-weight:500; letter-spacing:.2px;
+  text-shadow:0 2px 8px rgba(0,0,0,.85), 0 0 22px rgba(0,0,0,.6); }
+.encerra-quote .hl{ color:#ffd479; font-weight:800; }
+.encerra-quote strong{ color:#eafaec; font-weight:800; }
+.encerra-logo img{ height:84px; max-width:92%; object-fit:contain; border-radius:16px;
+  box-shadow:0 14px 40px rgba(0,0,0,.5); border:1px solid rgba(255,255,255,.14); }
+/* faixa de realização e parceria: logos institucionais em chips claros */
+.encerra-apoio{ display:flex; align-items:flex-start; justify-content:center;
+  gap:24px; flex-wrap:wrap; margin-top:2px; }
+.apoio-item{ display:flex; flex-direction:column; align-items:center; gap:6px; margin:0; }
+.apoio-chip{ display:flex; align-items:center; justify-content:center; background:#ffffff;
+  border-radius:12px; padding:8px 15px; height:54px;
+  box-shadow:0 8px 22px rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.18); }
+.apoio-chip img{ height:100%; width:auto; object-fit:contain; display:block; }
+.apoio-item figcaption{ font-size:.66em; color:#e4f3e7; letter-spacing:.3px; font-weight:600;
+  text-shadow:0 1px 4px rgba(0,0,0,.7); }
+.encerra-foot{ display:flex; flex-direction:column; align-items:center; gap:6px; }
+.encerra-autor{ margin:4px 0 0; font-size:.9em; color:#e4f3e7; text-shadow:0 1px 4px rgba(0,0,0,.7); }
+.encerra-autor strong{ color:#ffd479; }
+/* link do repositório do projeto (capa e encerramento) */
+.repo-link{ display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+  font-weight:700; font-size:.92em; letter-spacing:.2px; line-height:1;
+  padding:8px 16px; border-radius:999px; transition:background .15s, transform .15s; }
+.repo-link .ic{ font-size:1.05em; }
+.repo-link:hover{ transform:translateY(-1px); }
+.repo-link.on-light{ color:#0d5a1f; background:rgba(27,94,32,.10); border:1px solid rgba(27,94,32,.30); }
+.repo-link.on-light:hover{ background:rgba(27,94,32,.17); }
+.repo-link.on-dark{ color:#eafaec; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.32); }
+.repo-link.on-dark:hover{ background:rgba(255,255,255,.22); }
+
+/* Modo embutido (palco do site, ?embedded=true): o deck vive dentro de um iframe
+   16:9. Garante que preencha o iframe e esconde o botão "Voltar ao site", que só
+   faz sentido na página inteira. */
+html.embutida, html.embutida body{ width:100%; height:100%; margin:0; background:transparent; overflow:hidden; }
+html.embutida .reveal{ width:100%; height:100%; }
+html.embutida #voltar-site{ display:none; }
+</style>
+</head>
+<body>
+<a id="voltar-site" href="../" target="_top" style="position:fixed;top:10px;left:12px;z-index:60;background:#1b5e20;color:#fff;font:600 14px/1 system-ui,sans-serif;padding:9px 12px;border-radius:8px;text-decoration:none">← Voltar ao site</a>
+<button class="btn-top" onclick="window.print()" title="Gerar PDF (imprimir)">📄 PDF</button>
+<div class="reveal"><div class="slides">
+
+<!-- ============ 0. LOGO DENTRO DA TV BOX ============ -->
+<section class="center" data-no-brand data-background-gradient="radial-gradient(circle at 50% 35%, #ffffff, #e7efe9)">
+  <div class="tvbox-frame">
+    <div class="screen">
+      <img src="imgs/logo-boxsteam.png"
+           alt="Logo BoxSteam — IFSC Câmpus Gaspar e Receita Federal"
+           onerror="this.style.display='none'">
+    </div>
+    <span class="led"></span>
+    <span class="brandbar">TV BOX</span>
+  </div>
+  <a class="repo-link on-light" style="margin-top:26px;" href="https://rbeninca.github.io/tvbox/" target="_blank" rel="noopener"><span class="ic">🔗</span> rbeninca.github.io/tvbox</a>
+</section>
+
+<!-- ============ 1. CAPA ============ -->
+<section class="center" data-background-gradient="radial-gradient(circle at 50% 30%, #ffffff, #eef5ef)">
+  <h1 style="font-size:1.9em; margin-bottom:4px;">Descaracterização de TV Boxes</h1>
+  <p class="lead" style="font-size:1.05em; color:#49584f;">De aparelho de streaming a <span class="highlight">plataforma aberta de computação</span></p>
+  <div class="cover-stage">
+    <div class="beam" style="width:300px; transform:rotate(-155deg)"></div>
+    <div class="beam" style="width:300px; transform:rotate(-25deg)"></div>
+    <div class="beam" style="width:320px; transform:rotate(168deg)"></div>
+    <div class="beam" style="width:320px; transform:rotate(12deg)"></div>
+    <div class="beam" style="width:150px; transform:rotate(90deg)"></div>
+    <div class="tvbox-core"><span class="fd">LINUX</span><span class="led"></span></div>
+    <div class="orbit o1">💻<span class="lbl">Computador</span></div>
+    <div class="orbit o2">🖥️<span class="lbl">Servidor</span></div>
+    <div class="orbit o3">⚖️<span class="lbl">Balança</span></div>
+    <div class="orbit o4">🖨️<span class="lbl">Impressão 3D</span></div>
+    <div class="orbit o5">🔬<span class="lbl">Dispositivo especializado</span></div>
+  </div>
+  <p style="margin-top:28px;">
+    <span class="pill">TX9 Pro</span><span class="pill">MXQ Pro</span><span class="pill">BTV11</span>
+    <span class="pill ghost">Projeto CompSTEAM OS · IFSC</span>
+  </p>
+  <p class="small-text">Apresentação técnica — recuperação do controle do hardware</p>
+</section>
+
+<!-- ============ O APARELHO POR DENTRO (visão explodida) ============ -->
+<section class="center" style="padding-top:4px;">
+  <h2 style="display:block;border:none;margin:0 0 4px;font-size:1.05em;">O aparelho por dentro
+    <span style="text-transform:none;color:var(--muted);font-weight:600;font-size:.72em;letter-spacing:0;">— TX9 · visão explodida dos componentes</span></h2>
+  <img src="imgs/tx9-visao-explodida.jpg"
+       alt="Visão explodida do TX9: tampa superior, janela/display frontal, placa principal, SoC Amlogic S905W (GPU Mali-450 integrada), memória RAM, eMMC 8 GB, Wi-Fi SSV6051, HDMI, Ethernet RJ45, USB, alimentação/AV e base inferior"
+       style="max-height:600px; max-width:96%; border-radius:12px; box-shadow:0 12px 34px rgba(0,0,0,.20);"
+       onerror="this.style.display='none'">
+  <p class="small-text" style="margin-top:6px;">A seguir, entramos no coração da placa: o <span class="highlight">SoC Amlogic S905W</span> — e o que ele carrega por dentro.</p>
+</section>
+
+<!-- ============ ARQUITETURA DE UM SoC (S905W) ============ -->
+<section>
+  <h2 style="display:block;border:none;margin-bottom:4px;"><span style="border-bottom:3px solid var(--ifsc-green);padding-bottom:3px;">Dentro do SoC</span> <span style="text-transform:none;font-weight:600;font-size:.62em;color:var(--muted);letter-spacing:0;">System on a Chip — da placa real ao silício do Amlogic S905W</span></h2>
+  <div class="soc-zoom" id="socZoom">
+    <div class="zoom-frame"><img src="imgs/placa-p281-anotada.jpg" alt="Placa P281 / TX9 anotada, com o SoC S905W no centro"></div>
+    <div class="diagram-layer">
+  <svg class="arch" viewBox="0 0 980 470" role="img" aria-label="Diagrama de blocos do SoC Amlogic S905W">
+    <!-- die do SoC -->
+    <rect class="die" x="12" y="30" width="700" height="428" rx="16"/>
+    <text class="tt" x="30" y="56" font-size="15">SoC Amlogic S905W</text>
+    <text class="ts" x="215" y="56" font-size="11">· família GXL (meson-gxl) · ARM 64-bit</text>
+
+    <!-- linha superior: CPU / GPU / VPU -->
+    <g class="g" style="animation-delay:.15s">
+      <rect class="cu" x="30" y="72" width="210" height="92" rx="9"/>
+      <text class="tt" x="45" y="98" font-size="13">CPU</text>
+      <text class="ts" x="45" y="118" font-size="10.5">4× ARM Cortex-A53</text>
+      <text class="ts" x="45" y="134" font-size="10.5">64-bit · até ~1,2 GHz</text>
+      <text class="ts" x="45" y="150" font-size="10.5">+ cache L2 compartilhada</text>
+    </g>
+    <g class="g" style="animation-delay:.3s">
+      <rect class="cu" x="256" y="72" width="190" height="92" rx="9"/>
+      <text class="tt" x="271" y="98" font-size="13">GPU</text>
+      <text class="ts" x="271" y="118" font-size="10.5">Mali-450 MP</text>
+      <text class="ts" x="271" y="134" font-size="10.5">OpenGL ES 2.0</text>
+    </g>
+    <g class="g" style="animation-delay:.45s">
+      <rect class="cu" x="462" y="72" width="232" height="92" rx="9"/>
+      <text class="tt" x="477" y="98" font-size="13">VPU · Vídeo</text>
+      <text class="ts" x="477" y="118" font-size="10.5">Decodifica H.265 · VP9 · H.264</text>
+      <text class="ts" x="477" y="134" font-size="10.5">até 4K</text>
+      <text class="ts" x="477" y="150" font-size="10.5">+ HDMI 2.0 TX</text>
+    </g>
+
+    <!-- barramento interno -->
+    <g class="g" style="animation-delay:.6s">
+      <rect class="busbar" x="30" y="182" width="664" height="30" rx="8"/>
+      <text class="busbar-t" x="362" y="202" font-size="12.5" text-anchor="middle">Barramento interno / interconexão — AXI · AHB · APB</text>
+    </g>
+
+    <!-- controladores: linha A -->
+    <g class="g" style="animation-delay:.75s">
+      <rect class="ct" x="30" y="228" width="158" height="78" rx="8"/>
+      <text class="tt" x="44" y="252" font-size="11.5">Controlador DDR</text>
+      <text class="ts" x="44" y="270" font-size="10">DDR3 / DDR4</text>
+      <text class="ts" x="44" y="286" font-size="10">memória principal</text>
+    </g>
+    <g class="g" style="animation-delay:.85s">
+      <rect class="ct" x="200" y="228" width="158" height="78" rx="8"/>
+      <text class="tt" x="214" y="252" font-size="11.5">Armazenamento</text>
+      <text class="ts" x="214" y="270" font-size="10">eMMC · NAND</text>
+      <text class="ts" x="214" y="286" font-size="10">SDIO (cartão / Wi-Fi)</text>
+    </g>
+    <g class="g" style="animation-delay:.95s">
+      <rect class="ct" x="370" y="228" width="158" height="78" rx="8"/>
+      <text class="tt" x="384" y="252" font-size="11.5">Rede</text>
+      <text class="ts" x="384" y="270" font-size="10">Ethernet MAC</text>
+      <text class="ts" x="384" y="286" font-size="10">10/100</text>
+    </g>
+    <g class="g" style="animation-delay:1.05s">
+      <rect class="ct" x="540" y="228" width="154" height="78" rx="8"/>
+      <text class="tt" x="554" y="252" font-size="11.5">USB 2.0</text>
+      <text class="ts" x="554" y="270" font-size="10">host (×2)</text>
+      <text class="ts" x="554" y="286" font-size="10">+ OTG</text>
+    </g>
+
+    <!-- controladores: linha B -->
+    <g class="g" style="animation-delay:1.15s">
+      <rect class="ct" x="30" y="316" width="158" height="78" rx="8"/>
+      <text class="tt" x="44" y="340" font-size="11.5">Áudio</text>
+      <text class="ts" x="44" y="358" font-size="10">I2S / PCM</text>
+      <text class="ts" x="44" y="374" font-size="10">SPDIF</text>
+    </g>
+    <g class="g" style="animation-delay:1.25s">
+      <rect class="ct" x="200" y="316" width="220" height="78" rx="8"/>
+      <text class="tt" x="214" y="340" font-size="11.5">Periféricos de I/O</text>
+      <text class="ts" x="214" y="358" font-size="10">UART · I2C · SPI · GPIO</text>
+      <text class="ts" x="214" y="374" font-size="10">PWM · IR · SARADC</text>
+    </g>
+    <g class="g" style="animation-delay:1.35s">
+      <rect class="ct" x="432" y="316" width="140" height="78" rx="8"/>
+      <text class="tt" x="446" y="340" font-size="11.5">Segurança</text>
+      <text class="ts" x="446" y="358" font-size="10">Secure Boot</text>
+      <text class="ts" x="446" y="374" font-size="10">Crypto · eFuse</text>
+    </g>
+    <g class="g" style="animation-delay:1.45s">
+      <rect class="ct" x="584" y="316" width="110" height="78" rx="8"/>
+      <text class="tt" x="598" y="340" font-size="11.5">BootROM</text>
+      <text class="ts" x="598" y="358" font-size="10">+ SRAM</text>
+      <text class="ts" x="598" y="374" font-size="10">interna</text>
+    </g>
+    <text class="ts" x="30" y="432" font-size="10">PLLs · clocks · reguladores de energia (PMU) · gerenciamento térmico</text>
+
+    <!-- componentes externos à direita (dashed) -->
+    <line class="lead-line" x1="712" y1="267" x2="760" y2="100" style="animation-delay:1.5s"/>
+    <line class="lead-line" x1="712" y1="267" x2="760" y2="185" style="animation-delay:1.6s"/>
+    <line class="lead-line" x1="712" y1="267" x2="760" y2="270" style="animation-delay:1.7s"/>
+    <line class="lead-line" x1="712" y1="355" x2="760" y2="355" style="animation-delay:1.8s"/>
+    <line class="lead-line" x1="712" y1="355" x2="760" y2="430" style="animation-delay:1.9s"/>
+    <g class="g" style="animation-delay:1.55s"><rect class="ext" x="760" y="74" width="210" height="52" rx="8"/><text class="te" x="774" y="96" font-size="11">RAM DDR (externa)</text><text class="tes" x="774" y="113" font-size="9.5">chips ao lado do SoC</text></g>
+    <g class="g" style="animation-delay:1.65s"><rect class="ext" x="760" y="160" width="210" height="52" rx="8"/><text class="te" x="774" y="182" font-size="11">eMMC + Wi-Fi SSV6051</text><text class="tes" x="774" y="199" font-size="9.5">via SDIO · firmware próprio</text></g>
+    <g class="g" style="animation-delay:1.75s"><rect class="ext" x="760" y="245" width="210" height="52" rx="8"/><text class="te" x="774" y="267" font-size="11">PHY Ethernet + RJ45</text><text class="tes" x="774" y="284" font-size="9.5">XTop XS1601 (magnéticos)</text></g>
+    <g class="g" style="animation-delay:1.85s"><rect class="ext" x="760" y="330" width="210" height="52" rx="8"/><text class="te" x="774" y="352" font-size="11">HDMI → TV</text><text class="tes" x="774" y="369" font-size="9.5">saída de vídeo/áudio</text></g>
+    <g class="g" style="animation-delay:1.95s"><rect class="ext" x="760" y="406" width="210" height="52" rx="8"/><text class="te" x="774" y="428" font-size="11">Display FD6551 · IR</text><text class="tes" x="774" y="445" font-size="9.5">GPIO / receptor do controle</text></g>
+  </svg>
+    </div><!-- /diagram-layer -->
+    <div class="zoom-steps">
+      <span class="zs zs1">1 · A placa real — P281 / TX9 (Amlogic S905W)</span>
+      <span class="zs zs2">2 · Ampliando o SoC Amlogic S905W…</span>
+      <span class="zs zs3">3 · Por dentro do chip — o diagrama de blocos</span>
+    </div>
+    <button class="zoom-replay" onclick="replaySocZoom()" title="Repetir a animação">↻</button>
+  </div><!-- /soc-zoom -->
+  <div class="tip-box" style="margin-top:6px;">No PC, muitos desses blocos são placas que <strong>se anunciam sozinhas</strong>. No SoC, estão fixos no silício e <strong>precisam ser descritos</strong> um a um — é o problema central desta apresentação.</div>
+</section>
+
+<!-- ============ 2. POR QUE AS SOLUÇÕES EXISTENTES FALHAM ============ -->
+<section>
+  <h2>Por que as soluções existentes falham?</h2>
+  <p class="lead">Instalar uma imagem genérica (Android, Armbian ou Linux "universal") <strong>não basta</strong>. Alguns componentes sobem; os essenciais ficam pelo caminho.</p>
+  <div class="comp-list">
+    <div class="comp good" style="animation-delay:.1s"><span class="ico">🧠</span>CPU / núcleos<div class="st">✔ funciona</div></div>
+    <div class="comp good" style="animation-delay:.25s"><span class="ico">🧮</span>Memória RAM<div class="st">✔ funciona</div></div>
+    <div class="comp good" style="animation-delay:.4s"><span class="ico">🔌</span>USB básico<div class="st">✔ funciona</div></div>
+    <div class="comp bad" style="animation-delay:.55s"><span class="ico">📶</span>Wi-Fi<div class="st">✘ não sobe</div></div>
+    <div class="comp bad" style="animation-delay:.7s"><span class="ico">🎞️</span>Vídeo / GPU<div class="st">✘ sem imagem</div></div>
+    <div class="comp bad" style="animation-delay:.85s"><span class="ico">🔊</span>Áudio<div class="st">✘ mudo</div></div>
+    <div class="comp bad" style="animation-delay:1s"><span class="ico">💾</span>Armazenamento<div class="st">✘ eMMC não detectada</div></div>
+    <div class="comp bad" style="animation-delay:1.15s"><span class="ico">🔆</span>Display frontal<div class="st">✘ apagado</div></div>
+    <div class="comp bad" style="animation-delay:1.3s"><span class="ico">📡</span>Receptor IR<div class="st">✘ sem controle</div></div>
+  </div>
+  <div class="warn-box" style="margin-top:16px;">O kernel <em>genérico</em> não sabe <strong>o que existe</strong> na placa nem <strong>como</strong> está ligado. Falta a descrição do hardware — é aí que entra o nosso trabalho.</div>
+</section>
+
+<!-- ============ 2b. POR QUE OS PROJETOS DE DESCARACTERIZAÇÃO PARAM PELA METADE ============ -->
+<section>
+  <h2>Os projetos que tentam… param pela metade</h2>
+  <p class="lead">Existem ports da comunidade e imagens "genéricas" — Armbian, LibreELEC, AOSP, Linux "universal". Muitos até <strong>dão boot</strong>, mas entregam o aparelho <strong>incompleto</strong>: <span class="highlight">rede, som e HDMI</span> quase sempre ficam de fora e nunca voltam.</p>
+  <div class="grid2" style="align-items:start; gap:26px;">
+
+    <!-- resultado típico desses projetos -->
+    <div>
+      <div style="font-size:.5em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:.4px; margin-bottom:9px;">Resultado típico que sobra</div>
+      <div style="display:flex; align-items:center; gap:10px; padding:8px 12px; border:1px solid var(--ifsc-light); border-radius:10px; margin-bottom:7px; background:#f3faf4; font-size:.56em;">
+        <span style="font-size:1.4em;">🖥️</span><span style="flex:1; font-weight:700;">Console / boot</span><span style="font-weight:800; color:var(--ifsc-green); white-space:nowrap;">✔ geralmente sobe</span></div>
+      <div style="display:flex; align-items:center; gap:10px; padding:8px 12px; border:1px solid var(--line); border-radius:10px; margin-bottom:7px; background:#fff; font-size:.56em;">
+        <span style="font-size:1.4em;">📺</span><span style="flex:1; font-weight:700;">HDMI · vídeo</span><span style="font-weight:800; color:var(--accent-gold); white-space:nowrap;">◑ parcial / sem aceleração</span></div>
+      <div style="display:flex; align-items:center; gap:10px; padding:8px 12px; border:1px solid var(--accent-red); border-radius:10px; margin-bottom:7px; background:#fdf3f2; font-size:.56em;">
+        <span style="font-size:1.4em;">📶</span><span style="flex:1; font-weight:700;">Rede · Wi-Fi</span><span style="font-weight:800; color:var(--accent-red); white-space:nowrap;">✘ sem firmware/driver</span></div>
+      <div style="display:flex; align-items:center; gap:10px; padding:8px 12px; border:1px solid var(--accent-red); border-radius:10px; margin-bottom:7px; background:#fdf3f2; font-size:.56em;">
+        <span style="font-size:1.4em;">🔊</span><span style="flex:1; font-weight:700;">Som · HDMI / I2S</span><span style="font-weight:800; color:var(--accent-red); white-space:nowrap;">✘ mudo</span></div>
+      <div style="display:flex; align-items:center; gap:10px; padding:8px 12px; border:1px solid var(--accent-red); border-radius:10px; margin-bottom:0; background:#fdf3f2; font-size:.56em;">
+        <span style="font-size:1.4em;">🔆</span><span style="flex:1; font-weight:700;">Display frontal · IR · eMMC</span><span style="font-weight:800; color:var(--accent-red); white-space:nowrap;">✘ apagado / risco de brick</span></div>
+    </div>
+
+    <!-- por que param no meio do caminho -->
+    <div>
+      <div style="font-size:.5em; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:.4px; margin-bottom:9px;">Por que param no meio do caminho</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:11px;">
+        <div class="card" style="padding:11px 13px;"><h4 style="font-size:.6em;">🧩 DTB "emprestado"</h4><p style="font-size:.46em; margin:0; line-height:1.3;">Reaproveitam o device tree de uma placa parecida; o que é específico — Wi-Fi, display, IR — não bate.</p></div>
+        <div class="card" style="padding:11px 13px;"><h4 style="font-size:.6em;">📦 Firmware externo ignorado</h4><p style="font-size:.46em; margin:0; line-height:1.3;">Wi-Fi SSV6051 e afins exigem firmware e driver próprios, fora do SoC — quase nunca portados.</p></div>
+        <div class="card" style="padding:11px 13px;"><h4 style="font-size:.6em;">🚦 Meta é só "dar boot"</h4><p style="font-size:.46em; margin:0; line-height:1.3;">Entregam console e talvez HDMI; rede, som e aceleração ficam "para depois" — e depois nunca chega.</p></div>
+        <div class="card" style="padding:11px 13px;"><h4 style="font-size:.6em;">🕰️ Kernel de fabricante travado</h4><p style="font-size:.46em; margin:0; line-height:1.3;">Presos a um BSP antigo e abandonado: sem atualização, sem segurança, sem suporte a software novo.</p></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="warn-box" style="margin-top:14px;">O problema não é "escolher outro sistema" — é que <strong>ninguém descreveu e dirigiu o hardware inteiro</strong>. Sem isso, a descaracterização fica pela metade. É exatamente esse trabalho — descrição completa, firmware, drivers e instalação/recuperação seguras — que o <span class="highlight">CompSTEAM OS</span> assume.</div>
+</section>
+
+<!-- ============ 3. COMO UM PC RECONHECE O HARDWARE ============ -->
+<section>
+  <h2>Como um computador reconhece seu hardware?</h2>
+  <p class="lead">No PC a inicialização é, em boa parte, <strong>automática e descobrível</strong>. Acompanhe o boot: <span class="stage-label" id="bootStage">POST</span></p>
+  <div class="boot-stage">
+    <!-- placa + enumeração PCIe -->
+    <div class="mb" id="mb">
+      <div class="mb-title"><span>Placa-mãe · barramento PCIe</span><span id="busName">bus 0000:00</span></div>
+      <div class="mb-cpu" id="cpu">CPU<br>+ UEFI</div>
+      <div class="bus" id="bus"></div>
+      <div class="slot" id="slot0" style="left:108px">
+        <div class="stem"></div>
+        <div class="card3"><span class="addr">00:02.0</span>VGA · GPU<span class="drv">↳ driver i915</span></div>
+      </div>
+      <div class="slot" id="slot1" style="left:228px">
+        <div class="stem"></div>
+        <div class="card3"><span class="addr">00:1f.2</span>SATA/NVMe<span class="drv">↳ driver nvme</span></div>
+      </div>
+      <div class="slot" id="slot2" style="left:348px">
+        <div class="stem"></div>
+        <div class="card3"><span class="addr">00:14.0</span>USB xHCI<span class="drv">↳ driver xhci_hcd</span></div>
+      </div>
+      <div class="slot" id="slot3" style="left:468px">
+        <div class="stem"></div>
+        <div class="card3"><span class="addr">02:00.0</span>Ethernet<span class="drv">↳ driver e1000e</span></div>
+      </div>
+    </div>
+    <!-- terminal de boot -->
+    <div class="term" id="bootTerm"><span class="cursor"></span></div>
+  </div>
+  <div class="ok-box" style="margin-top:12px;">
+    <strong>Chave:</strong> barramentos como <span class="highlight">PCIe</span> fazem <strong>descoberta dinâmica</strong> — cada dispositivo <em>se anuncia</em> com um endereço e um ID. A <strong>ACPI</strong> descreve os recursos da plataforma. O kernel só precisa <em>"perguntar e ouvir"</em> e então liga cada driver.
+  </div>
+</section>
+
+<!-- ============ 4. POR QUE UM SoC É DIFERENTE ============ -->
+<section>
+  <h2>Por que um SoC é diferente?</h2>
+  <p class="lead">No <strong>SoC</strong> da TV Box, muitos periféricos são <em>integrados</em> e <strong>não se anunciam</strong>. Precisam ser <span class="highlight">descritos explicitamente</span> — endereço, interrupção, clock e conexões.</p>
+  <div class="grid2" style="align-items:center;">
+   <div class="soc-wrap">
+    <svg viewBox="0 0 720 320" style="width:100%;">
+      <!-- peripherals -->
+      <g font-size="12" font-weight="700" fill="#1b5e20">
+        <line class="pin-line" x1="360" y1="160" x2="150" y2="70" style="animation-delay:.3s"/>
+        <line class="pin-line" x1="360" y1="160" x2="570" y2="70" style="animation-delay:.5s"/>
+        <line class="pin-line" x1="360" y1="160" x2="110" y2="200" style="animation-delay:.7s"/>
+        <line class="pin-line" x1="360" y1="160" x2="610" y2="200" style="animation-delay:.9s"/>
+        <line class="pin-line" x1="360" y1="160" x2="250" y2="285" style="animation-delay:1.1s"/>
+        <line class="pin-line" x1="360" y1="160" x2="470" y2="285" style="animation-delay:1.3s"/>
+      </g>
+      <!-- SoC center -->
+      <rect x="300" y="110" width="120" height="100" rx="12" fill="#14181b" stroke="#2e7d32" stroke-width="3"/>
+      <text x="360" y="150" text-anchor="middle" fill="#5fd6ff" font-size="15" font-weight="800">SoC</text>
+      <text x="360" y="172" text-anchor="middle" fill="#9fb3a6" font-size="10">Amlogic</text>
+      <text x="360" y="188" text-anchor="middle" fill="#9fb3a6" font-size="10">S905W</text>
+      <g font-size="11" text-anchor="middle">
+        <g class="node" style="animation-delay:.3s"><rect x="90" y="48" width="120" height="44" rx="9" fill="#fff" stroke="#66bb6a"/><text x="150" y="66">GPU Mali-450</text><text x="150" y="82" fill="#6b7a70" font-size="9">clock + irq</text></g>
+        <g class="node" style="animation-delay:.5s"><rect x="510" y="48" width="120" height="44" rx="9" fill="#fff" stroke="#66bb6a"/><text x="570" y="66">Controlador eMMC</text><text x="570" y="82" fill="#6b7a70" font-size="9">endereço base</text></g>
+        <g class="node" style="animation-delay:.7s"><rect x="50" y="180" width="120" height="44" rx="9" fill="#fff" stroke="#66bb6a"/><text x="110" y="198">Display GPIO</text><text x="110" y="214" fill="#6b7a70" font-size="9">pinmux</text></g>
+        <g class="node" style="animation-delay:.9s"><rect x="550" y="180" width="130" height="44" rx="9" fill="#fff" stroke="#66bb6a"/><text x="615" y="198">Receptor IR</text><text x="615" y="214" fill="#6b7a70" font-size="9">GPIOAO_7 + irq</text></g>
+        <g class="node" style="animation-delay:1.1s"><rect x="190" y="268" width="120" height="44" rx="9" fill="#fff" stroke="#66bb6a"/><text x="250" y="286">UART / I2C</text><text x="250" y="302" fill="#6b7a70" font-size="9">endereço + clock</text></g>
+        <g class="node" style="animation-delay:1.3s"><rect x="410" y="268" width="120" height="44" rx="9" fill="#fff" stroke="#66bb6a"/><text x="470" y="286">Rede / SDIO</text><text x="470" y="302" fill="#6b7a70" font-size="9">alimentação</text></g>
+      </g>
+    </svg>
+   </div>
+   <figure>
+     <img src="imgs/placa-tx9-soc-emmc.jpg" alt="Placa do TX9 com o SoC Amlogic S905W e a eMMC"
+          onerror="this.closest('figure').style.display='none'">
+     <figcaption>Placa real do TX9: ao centro o SoC <strong>Amlogic S905W</strong>, à esquerda a <strong>eMMC</strong> (Samsung KLM8G1GETF), abaixo a RAM DDR e, à direita, os pads <strong>JTAG</strong> (TDI/TDO/TCK/TMS/GND).</figcaption>
+   </figure>
+  </div>
+  <div class="tip-box" style="margin-top:8px;">Não há "perguntar e ouvir": sem a descrição correta, o kernel simplesmente <strong>não enxerga</strong> o periférico. Esse mapa é o <strong>Device Tree</strong>.</div>
+</section>
+
+<!-- ============ 5. O PAPEL DO DTB (interativo) ============ -->
+<section>
+  <h2>O papel do DTB</h2>
+  <p class="lead">O <span class="highlight">DTS</span> (texto) descreve o hardware em uma árvore hierárquica — parecida, conceitualmente, com um XML, mas com sintaxe própria. Ele é compilado no <span class="highlight">DTB</span> (binário) que o kernel lê. <strong>Clique num nó</strong> e veja o componente acender na placa.</p>
+  <div class="grid2" style="align-items:flex-start;">
+    <div class="dts-code" id="dts">
+      <span class="c">/* arvore de dispositivos (DTS) */</span>
+      <span class="node-line active" data-hot="soc"><span class="k">soc</span> { <span class="a">compatible</span> = "amlogic,meson-gxl"; }</span>
+      <span class="node-line" data-hot="emmc"><span class="k">mmc@d0074000</span> { <span class="a">reg</span>=&lt;0xd0074000&gt;; <span class="a">bus-width</span>=&lt;8&gt;; }</span>
+      <span class="node-line" data-hot="gpu"><span class="k">gpu@c0000</span> { <span class="a">compatible</span>="arm,mali-450"; <span class="a">interrupts</span>=&lt;...&gt;; }</span>
+      <span class="node-line" data-hot="ir"><span class="k">ir@c8100480</span> { <span class="a">linux,rc-map</span>; <span class="a">pinctrl</span>=&lt;&amp;remote_pins&gt;; }</span>
+      <span class="node-line" data-hot="disp"><span class="k">vfd-display</span> { <span class="a">gpios</span>=&lt;&amp;gpio ...&gt;; <span class="c">/* FD6551 */</span> }</span>
+      <span class="node-line" data-hot="wifi"><span class="k">sdio-wifi</span> { <span class="a">compatible</span>="ssv,ssv6051"; <span class="a">vmmc-supply</span>; }</span>
+    </div>
+    <div class="board-svg">
+      <svg viewBox="0 0 320 240" style="width:100%;">
+        <rect x="6" y="6" width="308" height="228" rx="14" fill="#123d1f"/>
+        <rect x="14" y="14" width="292" height="212" rx="10" fill="#15532a"/>
+        <!-- components -->
+        <g>
+          <rect id="b-soc" x="120" y="90" width="80" height="70" rx="6" fill="#20272b" stroke="#3a4a40"/>
+          <text x="160" y="130" text-anchor="middle" fill="#8fe0a0" font-size="11" font-weight="700">SoC</text>
+          <rect id="b-emmc" x="40" y="40" width="60" height="38" rx="5" fill="#2a3338"/>
+          <text x="70" y="63" text-anchor="middle" fill="#cfe9d3" font-size="9">eMMC</text>
+          <rect id="b-gpu" x="215" y="40" width="64" height="38" rx="5" fill="#2a3338"/>
+          <text x="247" y="63" text-anchor="middle" fill="#cfe9d3" font-size="9">GPU</text>
+          <circle id="b-ir" cx="60" cy="185" r="20" fill="#2a3338"/>
+          <text x="60" y="189" text-anchor="middle" fill="#cfe9d3" font-size="8">IR</text>
+          <rect id="b-disp" x="120" y="185" width="80" height="26" rx="5" fill="#2a3338"/>
+          <text x="160" y="202" text-anchor="middle" fill="#5fd6ff" font-size="11" font-family="monospace">88:88</text>
+          <rect id="b-wifi" x="228" y="150" width="64" height="40" rx="5" fill="#2a3338"/>
+          <text x="260" y="168" text-anchor="middle" fill="#cfe9d3" font-size="8">Wi-Fi</text>
+          <text x="260" y="180" text-anchor="middle" fill="#cfe9d3" font-size="7">SSV6051</text>
+          <!-- highlight halos -->
+          <rect class="hot" id="h-soc" x="116" y="86" width="88" height="78" rx="8" fill="none" stroke="#ffd479" stroke-width="4"/>
+          <rect class="hot" id="h-emmc" x="36" y="36" width="68" height="46" rx="7" fill="none" stroke="#ffd479" stroke-width="4"/>
+          <rect class="hot" id="h-gpu" x="211" y="36" width="72" height="46" rx="7" fill="none" stroke="#ffd479" stroke-width="4"/>
+          <circle class="hot" id="h-ir" cx="60" cy="185" r="25" fill="none" stroke="#ffd479" stroke-width="4"/>
+          <rect class="hot" id="h-disp" x="116" y="181" width="88" height="34" rx="7" fill="none" stroke="#ffd479" stroke-width="4"/>
+          <rect class="hot" id="h-wifi" x="224" y="146" width="72" height="48" rx="7" fill="none" stroke="#ffd479" stroke-width="4"/>
+        </g>
+      </svg>
+      <figcaption style="text-align:center">Nó selecionado ⟶ componente destacado</figcaption>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. NOSSA ENGENHARIA REVERSA ============ -->
+<section>
+  <h2>Nossa engenharia reversa</h2>
+  <div class="grid2" style="align-items:center;">
+    <div class="shot-gallery" id="revGallery">
+      <img id="revMain" src="imgs/etiquetas-tres-boxes.jpg" alt="As três TV Boxes estudadas">
+      <figcaption id="revCap">As três plataformas estudadas: <strong>TX9</strong>, <strong>MXQ Pro</strong> e <strong>BTV11</strong>.</figcaption>
+      <div class="shot-thumbs">
+        <img class="active" src="imgs/etiquetas-tres-boxes.jpg" data-cap="As três plataformas estudadas: TX9, MXQ Pro e BTV11.">
+        <img src="imgs/placa-tx9-jtag.jpg"      data-cap="Close do SoC S905W e dos pads JTAG (TDI/TDO/TCK/TMS/GND) usados no diagnóstico.">
+        <img src="imgs/placa-outro-box-nand.jpg" data-cap="Outra plataforma (R329Q): placa, NAND e Wi-Fi diferentes — cada uma exige seu próprio Device Tree.">
+      </div>
+    </div>
+    <div>
+      <p class="lead">Partimos do Android <em>em funcionamento</em> para extrair o DTB <strong>pelo espaço de usuário</strong> — sem abrir a caixa nem arriscar a memória:</p>
+      <div class="flow" style="justify-content:flex-start;">
+        <div class="node" style="animation-delay:.2s;min-width:96px;"><span class="t">Android rodando</span>acesso via ADB</div>
+        <div class="arrow" style="animation-delay:.45s">→</div>
+        <div class="node" style="animation-delay:.6s;min-width:96px;"><span class="t">Espaço de usuário</span><code class="inl">/proc/device-tree</code> · partição <code class="inl">dtb</code></div>
+        <div class="arrow" style="animation-delay:.85s">→</div>
+        <div class="node" style="animation-delay:1s;min-width:96px;"><span class="t">.dtb → .dts</span>descompilar com <code class="inl">dtc</code></div>
+        <div class="arrow" style="animation-delay:1.25s">→</div>
+        <div class="node" style="animation-delay:1.4s;min-width:96px;"><span class="t">Análise</span>endereços, pinos, clocks</div>
+      </div>
+      <div class="warn-box" style="margin-top:14px;">⚠ O DTB lido do sistema <em>em execução</em> pode conter <strong>modificações feitas pelo bootloader</strong>. Serve de ponto de partida, não de verdade absoluta.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. O PROBLEMA NÃO TERMINA NO DTB ============ -->
+<section>
+  <h2>O problema não termina no DTB</h2>
+  <p class="lead"><strong>DTB não é driver.</strong> Ele apenas <em>descreve</em> o hardware para o kernel associar o driver certo. E componentes externos exigem muito mais do que uma descrição.</p>
+  <div class="grid2" style="align-items:flex-start;">
+    <div class="card">
+      <h4>🧩 Controladores internos do SoC</h4>
+      <p>Descritos no DTB e, em geral, já têm driver mantido no kernel. Ex.: controlador de eMMC, UART, GPIO.</p>
+      <p class="highlight" style="font-size:.66em;">DTB + driver do kernel ⟶ costuma funcionar.</p>
+    </div>
+    <div class="card" style="border-color:var(--accent-red);">
+      <h4 style="color:var(--accent-red)">📶 Componentes externos (ex.: Wi-Fi)</h4>
+      <p>Não basta descrever. É preciso reunir e alinhar <strong>cinco camadas</strong>:</p>
+      <div class="layerstack" style="margin-top:8px;">
+        <div class="layer" style="background:#2e7d32;animation-delay:.2s">1 · Driver específico do chip (SSV6051)</div>
+        <div class="layer" style="background:#388e3c;animation-delay:.4s">2 · Firmware carregado no boot</div>
+        <div class="layer" style="background:#43a047;animation-delay:.6s">3 · Pinmux correto (função dos pinos)</div>
+        <div class="layer" style="background:#4caf50;animation-delay:.8s">4 · Alimentação / regulador (power)</div>
+        <div class="layer" style="background:#66bb6a;animation-delay:1s">5 · Sequência de inicialização</div>
+      </div>
+    </div>
+  </div>
+  <div class="tip-box" style="margin-top:12px;">Ter o DTB original <strong>ajuda a identificar</strong> o hardware, mas <strong>não garante</strong> compatibilidade com um kernel mais recente. É preciso adaptar descrições, <strong>drivers</strong> e <strong>firmware</strong> — um a um.</div>
+</section>
+
+<!-- ============ 7b. DRIVERS QUE TIVEMOS QUE RESOLVER ============ -->
+<section class="slide-drivers">
+  <h2>Drivers: o que tivemos que resolver</h2>
+  <p class="lead">Começamos pelo <strong>driver de rede</strong>. A cada avançar, um novo periférico: o driver que <strong>portamos ou adaptamos</strong> — com a imagem correspondente.</p>
+  <div class="grid2" style="grid-template-columns:1.3fr 1fr; align-items:center;">
+    <figure style="margin:0; position:relative;">
+      <img id="drvImg" src="imgs/driver-wifi-sv6051.png" alt="Driver de rede Wi-Fi SSV6051 no Linux">
+      <div id="drvVideoWrap" class="drv-video-wrap" hidden>
+        <span class="drv-video-tag">▶ 3D ao vivo · GPU Mali-450</span>
+        <div class="drv-win w1">
+          <div class="bar"><span class="ttl">Demo 3D — cavalo (Mali-450)</span><span class="wb">_ ▢ ✕</span></div>
+          <video class="drv-video" muted loop playsinline preload="auto"
+                 aria-label="Demonstração 3D (cavalo) rodando no box com aceleração da GPU Mali-450">
+            <source src="video-3d-cavalo.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="drv-win w2">
+          <div class="bar"><span class="ttl">Demo 3D — planos (Mali-450)</span><span class="wb">_ ▢ ✕</span></div>
+          <video class="drv-video" muted loop playsinline preload="auto"
+                 aria-label="Demonstração 3D (planos) rodando no box com aceleração da GPU Mali-450">
+            <source src="video-3d-planos.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <figcaption id="drvCap">Driver de rede: o chip Wi-Fi <strong>SSV6051</strong> fala com o kernel (módulo <code class="inl">ssv6051.ko</code>) pelo barramento SDIO até a interface <code class="inl">wlan0</code>.</figcaption>
+    </figure>
+    <div class="drv-list">
+      <div class="drv fragment" data-img="imgs/driver-wifi-sv6051.png" data-cap="Driver de rede: o chip Wi-Fi SSV6051 fala com o kernel (ssv6051.ko) pelo SDIO até a interface wlan0.">
+        <div class="drv-head"><span class="cmp">📶 Wi-Fi SSV6051</span><span class="ok">resolvido</span></div>
+        <div class="drv-body"><span class="pb">driver proprietário · firmware ausente</span> → <span class="sol">driver portado + firmware empacotado</span></div>
+      </div>
+      <div class="drv fragment" data-img="imgs/display-ifsc.jpg" data-cap="Display frontal FD6551 exibindo texto ('IFSC') — driver próprio escrevendo nos dígitos via GPIO.">
+        <div class="drv-head"><span class="cmp">🔆 Display frontal FD6551</span><span class="ok">resolvido</span></div>
+        <div class="drv-body"><span class="pb">fora do padrão, via GPIO (bit-bang)</span> → <span class="sol">driver próprio p/ dígitos e relógio</span></div>
+      </div>
+      <div class="drv fragment" data-img="imgs/controle-display-crop.png" data-cap="Controle IR respondendo no kernel novo — o display frontal mostra 'UP' ao pressionar a tecla.">
+        <div class="drv-head"><span class="cmp">📡 Receptor IR</span><span class="ok">resolvido</span></div>
+        <div class="drv-body"><span class="pb">controle sem mapa de teclas</span> → <span class="sol">keymap do controle + meson-ir</span></div>
+      </div>
+      <div class="drv fragment" data-img="imgs/sistema/box-desktop-ifsc.jpg" data-video="1" data-cap="GPU em uso: duas janelas 3D (cavalo e planos) aceleradas pela Mali-450 rodando no mesmo desktop gráfico, lado a lado com o navegador aberto no portal do IFSC.">
+        <div class="drv-head"><span class="cmp">🎮 GPU Mali-450</span><span class="ok">resolvido</span></div>
+        <div class="drv-body"><span class="pb">sem aceleração gráfica</span> → <span class="sol">módulo mali / lima habilitado</span></div>
+      </div>
+      <div class="drv fragment" data-img="imgs/spin-debian-systemd.jpg" data-cap="Áudio e serviços: systemd iniciando o sound.target no boot do Debian.">
+        <div class="drv-head"><span class="cmp">🔊 Áudio HDMI/SPDIF</span><span class="ok">resolvido</span></div>
+        <div class="drv-body"><span class="pb">sem som</span> → <span class="sol">snd-soc-meson configurado</span></div>
+      </div>
+      <div class="drv fragment" data-img="imgs/rede-desempenho.png" data-cap="Limite de desempenho da rede alcançado no TX9: LAN eth0 (dwmac_meson8b sobre stmmac, PHY interno) chega a ~100 Mb/s full-duplex e a WLAN wlan0 (SSV6051, 2,4 GHz) a ~25 Mb/s — o teto real do hardware.">
+        <div class="drv-head"><span class="cmp">🌐 Ethernet · eMMC · USB</span><span class="ok">resolvido</span></div>
+        <div class="drv-body"><span class="pb">controladores internos do SoC</span> → <span class="sol">suportados no kernel 6.12 · chegamos ao limite da rede (LAN ~100 Mb/s)</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="destaque-artigo">
+    <span class="dot">⚠</span>
+    <div style="flex:1;">
+      <div><strong>Contribuição inédita:</strong> não encontramos <strong>nenhum port funcional</strong> do driver do Wi-Fi <strong>SSV6051</strong> para kernels modernos. Nós o <strong>adaptamos</strong>, colocamos em funcionamento e <strong>publicamos os resultados</strong>.</div>
+      <div class="artigo-ref">“Descaracterização de TV Box TX9 para Armbian Linux: para uso como plataforma de computação embarcada educacional” — Beninca, Rauta, Goulart, Klein & Santos · <strong>SEPEI 2026 · IFSC</strong></div>
+    </div>
+    <a class="artigo-link" href="../docs/artigo-sepei-2026-tv-box-tx9.pdf" target="_blank" rel="noopener">📄 Abrir artigo (PDF)</a>
+  </div>
+</section>
+
+<!-- ============ 8. CONSTRUÇÃO DO CompSTEAM OS ============ -->
+<section>
+  <h2>Construção do CompSTEAM OS</h2>
+  <p class="lead">Juntamos as peças sobre um kernel moderno, construindo a pilha de baixo para cima:</p>
+  <div class="grid2" style="align-items:center;">
+    <div class="layerstack">
+      <div class="layer" style="background:#14181b;animation-delay:.1s">🔩 Hardware da placa (SoC + periféricos)</div>
+      <div class="layer" style="background:#1b5e20;animation-delay:.3s">🗺️ Device Trees adaptados por plataforma</div>
+      <div class="layer" style="background:#2e7d32;animation-delay:.5s">🐧 Kernel Linux 6.12 (atual, mantido)</div>
+      <div class="layer" style="background:#388e3c;animation-delay:.7s">⚙️ Drivers + firmware + pinmux + power</div>
+      <div class="layer" style="background:#4caf50;animation-delay:.9s">📦 Espaço de usuário / aplicações</div>
+    </div>
+    <div>
+      <div class="ok-box"><strong>Por que kernel 6.12?</strong> O firmware de fábrica trava em kernels antigos (3.14) com Android mascarado. Um kernel atual traz segurança, correções e suporte da comunidade.</div>
+      <div class="tip-box" style="margin-top:12px;"><strong>Saída do Ubuntu:</strong> decisão de <em>reduzir manutenção</em> e duplicação, dada a proximidade técnica com o Debian — e observando as regras de marca ao distribuir versões modificadas.</div>
+      <figure style="margin-top:12px;">
+        <img src="imgs/sistema/boot-kernel612.jpg" alt="Boot real com kernel Linux 6.12 no box"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>Boot real: <strong>Linux 6.12</strong> subindo no box — <code class="inl">meson-gx-mmc</code>, eMMC de 14,6 GiB e módulos sendo carregados.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9. INICIALIZAÇÃO E GERENCIAMENTO AUTOMATIZADO ============ -->
+<section>
+  <h2>Instalação automatizada, passo a passo</h2>
+  <div class="grid2" style="grid-template-columns:1.25fr 1fr; align-items:center;">
+    <figure style="margin:0;">
+      <img id="instStepImg" src="imgs/sistema/inst-0-preparacao-sd.png" alt="Etapas da instalação CompSTEAM">
+      <figcaption id="instStepCap">① Prepare um cartão/pendrive <strong>FAT32</strong> com <code class="inl">recovery.img</code> e <code class="inl">dtb.img</code> e ligue pelo <strong>modo USB do bootloader de fábrica</strong> — sem abrir a caixa.</figcaption>
+    </figure>
+    <div class="inst-steps" id="instSteps">
+      <div class="inst-step" data-img="imgs/sistema/inst-0-preparacao-sd.png" data-cap="① Prepare um cartão/pendrive FAT32 com recovery.img e dtb.img e ligue pelo modo USB do bootloader de fábrica — sem abrir a caixa.">
+        <div class="n">① Bootloader de fábrica</div><div class="d">modo USB, sem abrir a caixa</div>
+      </div>
+      <div class="inst-step fragment" data-img="imgs/sistema/inst-1-inicio.png" data-cap="② O box sobe pela RAM e procura o servidor de imagens na rede — nada é gravado ainda.">
+        <div class="n">② Procura o servidor</div><div class="d">sobe pela RAM e busca as imagens na rede</div>
+      </div>
+      <div class="inst-step fragment" data-img="imgs/sistema/inst-2-catalogo.png" data-cap="③ Lista das imagens disponíveis para instalação, servidas pela rede.">
+        <div class="n">③ Lista de imagens</div><div class="d">escolha do sistema a instalar</div>
+      </div>
+      <div class="inst-step fragment" data-img="imgs/sistema/inst-4-confirmar.png" data-cap="④ O usuário confirma a instalação antes de gravar a eMMC.">
+        <div class="n">④ Confirmação</div><div class="d">usuário confirma a instalação</div>
+      </div>
+      <div class="inst-step fragment doc" data-img="imgs/sistema/inst-7-qr.png" data-cap="⑤ Identificação do usuário por QR — somente para documentação/registro da instalação.">
+        <div class="n">⑤ Identificação</div><div class="d">usuário se identifica (só para documentação)</div>
+      </div>
+      <div class="inst-step fragment" data-img="imgs/sistema/inst-7-instalando.png" data-cap="⑥ Gravação da imagem escolhida com verificação SHA-256 (boot/recovery/system/data).">
+        <div class="n">⑥ Gravação da imagem</div><div class="d">com verificação SHA-256</div>
+      </div>
+      <div class="inst-step fragment done" data-img="imgs/sistemas/sys-debian-educacao.jpg" data-cap="⑦ Pronto: o sistema CompSTEAM Educação iniciado no box.">
+        <div class="n">⑦ Sistema iniciado</div><div class="d">CompSTEAM Educação pronto para uso</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10. SISTEMAS OPERACIONAIS DISPONÍVEIS ============ -->
+<section>
+  <h2>Espaço do usuário: sistemas para a plataforma</h2>
+  <div class="sys-show" id="sysShow">
+    <div class="sys-chips">
+      <button class="sys-chip active" data-img="imgs/sistemas/sys-catalogo.jpg" data-cap="Nosso instalador da plataforma: escolhe entre os sistemas compilados — Alpine, Debian 13, Debian gráfico, Android 15 e Ubuntu 24.04 — todos sobre kernel 6.12.">
+        <span class="ci">📦</span>Instalador</button>
+      <button class="sys-chip fragment" data-img="imgs/sistemas/sys-debian-cli.jpg" data-cap="Debian 13 (servidor/CLI): boot do kernel 6.12 com todos os módulos — base para serviços, Docker e rede.">
+        <img src="imgs/sistemas/icones/debian.png" alt="">Debian · servidor</button>
+      <button class="sys-chip fragment" data-img="imgs/sistemas/sys-debian-educacao.jpg" data-cap="Debian 13 gráfico — ambiente educacional CompSTEAM: GeoGebra, Arduino IDE, GCompris, Tux Paint, Python, LibreOffice…">
+        <img src="imgs/sistemas/icones/debian-gui.png" alt="">Debian · educação</button>
+      <button class="sys-chip fragment" data-img="imgs/sistemas/sys-ubuntu.jpg" data-cap="Ubuntu 24.04 LTS — mesmo ambiente gráfico (labwc) do Debian, sobre kernel 6.12; imagem disponível no catálogo (print do spin gráfico, visualmente idêntico).">
+        <img src="imgs/sistemas/icones/ubuntu-gui.png" alt="">Ubuntu 24.04</button>
+      <button class="sys-chip fragment" data-img="imgs/sistemas/sys-android-tv.jpg" data-cap="Android 15 para TV (via LineageOS 22.2): launcher CompSTEAM, apps e mídia sobre base controlada e atualizada.">
+        <img src="imgs/sistemas/icones/android.png" alt="">Android TV</button>
+    </div>
+    <img id="sysImg" src="imgs/sistemas/sys-catalogo.jpg" alt="Instalador da plataforma com os sistemas compilados">
+    <figcaption id="sysCap">Nosso instalador da plataforma: escolhe entre os sistemas compilados — Alpine, Debian 13, Debian gráfico, Android 15 e Ubuntu 24.04 — todos sobre kernel 6.12.</figcaption>
+  </div>
+  <p class="small-text" style="text-align:center;margin-top:6px;">Validado nas três plataformas: <strong>TX9</strong> · <strong>MXQ Pro</strong> · <strong>BTV11</strong> — Alpine e Debian ✔ · Android ◐ em evolução.</p>
+</section>
+
+<!-- ============ 11. APLICAÇÕES PRÁTICAS (3 cenas) ============ -->
+<section>
+  <h2>Aplicações práticas desenvolvidas</h2>
+  <div class="tabs">
+    <div class="tab active" data-scene="A">⚖️ Balança digital</div>
+    <div class="tab" data-scene="B">🖥️ Docker + servidor web</div>
+    <div class="tab" data-scene="C">🖨️ Impressão 3D + IA</div>
+    <div class="tab" data-scene="D">📸 Mural Instagram</div>
+  </div>
+
+  <!-- Cena A -->
+  <div class="scene active" data-scene="A">
+    <p class="lead" style="margin:2px 0 6px; text-align:center;">Célula de carga → HX711 → TV Box → <strong>GFIG</strong>: medimos o <strong>empuxo de motores de foguete</strong> — curva de propulsão, impulso e classe NAR.</p>
+    <div class="balanca-tabs">
+      <button class="bt active" data-t="video">🎬 Vídeo da medição</button>
+      <button class="bt" data-t="gfig">📈 Curva (GFIG)</button>
+      <button class="bt" data-t="rel">📄 Relatório</button>
+    </div>
+    <div class="balanca-panels" id="balancaPanels">
+      <div class="bp active" data-t="video">
+        <video id="balancaVideo" src="imgs/uso/medicao-motor-foguete.mp4" poster="imgs/uso/medicao-motor-foguete-poster.jpg" controls preload="none" playsinline></video>
+        <figcaption>Vídeo real da medição do empuxo de um motor de foguete no banco de testes.</figcaption>
+      </div>
+      <div class="bp" data-t="gfig">
+        <img src="imgs/uso/balanca-gfig.png" alt="Interface GFIG analisando a curva de força do motor">
+        <figcaption>GFIG rodando no box: 1329 leituras, F pico 0,280 N, impulso total 0,733 N·s — curva de empuxo do motor.</figcaption>
+      </div>
+      <div class="bp" data-t="rel">
+        <img src="imgs/uso/balanca-relatorio.png" alt="Relatório da curva de propulsão">
+        <figcaption>Relatório gerado automaticamente: curva de propulsão, impulso 0,71 N·s, classe 1/2A e métricas de desempenho.</figcaption>
+      </div>
+    </div>
+    <!-- avançar na balança: vídeo -> curva -> relatório -->
+    <span class="fragment balanca-adv" data-t="gfig" aria-hidden="true"></span>
+    <span class="fragment balanca-adv" data-t="rel" aria-hidden="true"></span>
+  </div>
+
+  <!-- Cena B -->
+  <div class="scene" data-scene="B">
+    <div class="grid2" style="align-items:center;">
+      <div>
+        <p class="lead">A TV Box vira um <strong>pequeno servidor</strong>: serviços isolados em contêineres Docker, acessados por toda a rede.</p>
+        <div class="container-box">
+          <div class="ctn"><div class="d">🌐</div>Servidor web</div>
+          <div class="ctn"><div class="d">🗄️</div>Banco de dados</div>
+          <div class="ctn"><div class="d">📊</div>Dashboard</div>
+          <div class="ctn"><div class="d">🔐</div>Proxy / TLS</div>
+          <div class="ctn"><div class="d">📁</div>Arquivos</div>
+          <div class="ctn"><div class="d">🔁</div>Automação</div>
+        </div>
+      </div>
+      <figure>
+        <img src="imgs/sistema/box-desktop-ifsc.jpg" alt="Box rodando desktop gráfico Linux com navegador"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>O mesmo box rodando <strong>desktop gráfico real</strong> (Chromium no portal do IFSC) — CPU e memória monitorados na barra. Infraestrutura de baixo custo.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- Cena C -->
+  <div class="scene" data-scene="C">
+    <p class="lead" style="text-align:center; margin:2px 0 6px;">Impressora 3D ↔ <strong>Klipper / Moonraker / Mainsail</strong> na TV Box ↔ <strong>servidor MCP</strong> ↔ <strong>agente de IA</strong></p>
+    <div class="grid2" style="align-items:center;">
+      <figure class="p3d">
+        <img src="imgs/uso/impressora3d-tvbox.jpg" alt="TX9 rodando Klipper e controlando a impressora 3D" onerror="this.closest('figure').style.display='none'">
+        <figcaption>TX9 com Klipper/Moonraker/Mainsail controlando a impressora — LCD em 200°/60°, feed 100%.</figcaption>
+      </figure>
+      <figure class="p3d">
+        <video id="p3dVideo" src="imgs/uso/impressora3d-tvbox.mp4" poster="imgs/uso/impressora3d-tvbox-poster.jpg" controls preload="none" loop playsinline></video>
+        <figcaption>Impressão em andamento, comandada pela TV Box.</figcaption>
+      </figure>
+    </div>
+    <div class="ai-track" style="margin-top:8px;">
+      <div class="ai-pill" style="background:var(--accent-blue)">👁️ Monitoramento<br><span style="font-weight:400">lê a telemetria</span></div>
+      <div class="ai-pill" style="background:var(--accent-gold)">💡 Recomendação da IA<br><span style="font-weight:400">sugere ajuste</span></div>
+      <div class="ai-pill" style="background:var(--ifsc-green)">✅ Comando executado<br><span style="font-weight:400">dentro dos limites</span></div>
+    </div>
+    <div class="warn-box" style="margin-top:8px;">A IA <strong>analisa, identifica anomalias e sugere</strong> ajustes — mas <strong>não substitui</strong> as proteções de segurança do Klipper. Só executa o que está autorizado e dentro dos limites.</div>
+  </div>
+
+  <!-- Cena D -->
+  <div class="scene" data-scene="D">
+    <p class="lead" style="text-align:center; margin:2px 0 8px;">Mural de publicidade: a TV Box exibe o <strong>feed do Instagram</strong> (@ifsc.gaspar) como <strong>sinalização digital</strong> — campanhas, comunicados e avisos nas TVs do campus.</p>
+    <div class="grid2" style="align-items:center;">
+      <figure class="mural">
+        <img src="imgs/uso/mural-copa.jpg" alt="TV na copa exibindo post do Instagram do IFSC" onerror="this.closest('figure').style.display='none'">
+        <figcaption>Recepção da copa/servidores — post da Avaliação Docente (SAD) direto do Instagram.</figcaption>
+      </figure>
+      <figure class="mural">
+        <img src="imgs/uso/mural-recepcao.jpg" alt="TV na recepção exibindo post do Instagram do IFSC" onerror="this.closest('figure').style.display='none'">
+        <figcaption>Recepção do Bloco 1 — campanha de intercâmbio exibida no mural.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- marcadores: avançar troca de cena (A -> B -> C -> D) -->
+  <span class="fragment scene-adv" data-scene="B" aria-hidden="true"></span>
+  <span class="fragment scene-adv" data-scene="C" aria-hidden="true"></span>
+  <span class="fragment scene-adv" data-scene="D" aria-hidden="true"></span>
+</section>
+
+<!-- ============ 16b. O GARGALO: INFRAESTRUTURA DE COMPILAÇÃO E TESTES ============ -->
+<section>
+  <h2>O gargalo: infraestrutura para compilar e testar</h2>
+  <p class="lead" style="margin:2px 0 8px;">
+    Todo esse avanço depende hoje de <strong>um único computador pessoal</strong>. Falta recurso
+    computacional dedicado para <strong>compilar o Android</strong> e <strong>rodar a bateria de
+    testes</strong> nas três plataformas — e não há estrutura para o <strong>backup</strong> seguro das
+    imagens e do progresso do projeto.
+  </p>
+
+  <div class="grid2" style="align-items:stretch; gap:20px;">
+    <!-- registro real do ambiente de trabalho -->
+    <div class="gargalo-media">
+      <figure>
+        <video src="imgs/problema-compilacao.mp4" poster="imgs/problema-compilacao-poster.jpg"
+               controls preload="none" playsinline></video>
+        <figcaption>🎬 Registro do ambiente real: a compilação e os testes rodando no computador pessoal do autor.</figcaption>
+      </figure>
+      <figure class="gm-small">
+        <img src="imgs/problema-compilacao.jpg" alt="Computador pessoal usado para compilar e testar o CompSTEAM OS"
+             onerror="this.closest('figure').style.display='none'">
+        <figcaption>📷 Estação única em que todo o build e os testes são executados hoje.</figcaption>
+      </figure>
+    </div>
+
+    <!-- indicadores do gargalo -->
+    <div class="g-stats">
+      <div class="g-stat">
+        <span class="g-ico">⏳</span>
+        <div><span class="g-num">~10&nbsp;horas</span>
+          <div class="g-lbl">por <strong>compilação completa</strong> do Android — cada ajuste exige recomeçar o build.</div></div>
+      </div>
+      <div class="g-stat">
+        <span class="g-ico">🧪</span>
+        <div><span class="g-num">dias</span>
+          <div class="g-lbl">para rodar a <strong>bateria de testes</strong> em cada box (TX9 · MXQ Pro · BTV11), um de cada vez.</div></div>
+      </div>
+      <div class="g-stat warn">
+        <span class="g-ico">💾</span>
+        <div><span class="g-num">sem backup</span>
+          <div class="g-lbl">não há <strong>armazenamento dedicado</strong> para proteger imagens, logs e progresso — risco de perda do trabalho.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="ok-box fragment" style="margin-top:10px;">
+    💡 Com um <strong>servidor de build dedicado</strong> (CPU, memória e armazenamento) a compilação cairia de
+    <strong>horas para minutos</strong>, os testes rodariam <strong>em paralelo</strong> nas três plataformas e o
+    <strong>backup automático</strong> garantiria a continuidade — destravando o ritmo de todo o projeto.
+  </p>
+</section>
+
+<!-- ============ 12. DE TV BOX A PLATAFORMA COMPUTACIONAL ============ -->
+<section class="center">
+  <h2 style="display:block;text-align:center;border:none">De TV Box a plataforma computacional</h2>
+  <div class="hub">
+    <div class="center">
+      <div style="font-size:30px;letter-spacing:4px;">📺📺📺</div>
+      <div style="font-weight:800;color:var(--ifsc-green);margin-top:4px;">TX9 · MXQ Pro · BTV11</div>
+      <div class="small-text">as três placas, uma plataforma aberta</div>
+    </div>
+    <div class="spokes">
+      <div class="spoke" style="animation-delay:.3s">🎓 Computador educacional</div>
+      <div class="spoke" style="animation-delay:.5s">🖥️ Servidor / infraestrutura</div>
+      <div class="spoke" style="animation-delay:.7s">⚖️ Balança / aquisição de dados</div>
+      <div class="spoke" style="animation-delay:.9s">🖨️ Impressão 3D com IA</div>
+      <div class="spoke" style="animation-delay:1.1s">🔬 Plataforma científica e de desenvolvimento</div>
+    </div>
+  </div>
+  <p class="fragment lead" style="text-align:center; margin:6px auto 0; max-width:90%;">
+    Com a <strong>infraestrutura construída</strong> e os <strong>DTBs definidos</strong>, portar novos aparelhos deixou de ser engenharia reversa do zero: a mesma base de boot, kernel e instalador foi reaproveitada para <strong>trazer outros boxes à plataforma</strong>.
+  </p>
+  <figure class="fragment" style="margin:6px auto 0; max-width:94%;">
+    <img src="imgs/box-suportados.png" alt="Boxes suportados: TX9 (Amlogic S905W), MXQ Pro (Rockchip RK3229) e BTV11 (Amlogic S905X3) com suas especificações"
+         style="width:100%; max-height:240px; object-fit:contain; border-radius:12px; box-shadow:0 10px 28px rgba(0,0,0,.14);"
+         onerror="this.closest('figure').style.display='none'">
+    <figcaption>Os três aparelhos suportados e suas placas — TX9 / P281, MXQ Pro / R329Q e BTV11 / X3BL46.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ AGRADECIMENTOS ============ -->
+<section class="center">
+  <h2 style="display:block;text-align:center;border:none;">Agradecimentos</h2>
+  <p class="lead" style="text-align:center;margin:2px auto 14px;max-width:92%;">
+    Este trabalho só foi possível graças ao apoio de instituições e pessoas que disponibilizaram
+    <strong>tempo, espaço, equipamentos e conhecimento</strong>.
+  </p>
+
+  <!-- instituições que viabilizaram -->
+  <div class="grid2" style="gap:22px;align-items:stretch;max-width:1000px;margin:0 auto;">
+    <div class="card" style="display:flex;gap:16px;align-items:center;text-align:left;">
+      <span class="apoio-chip" style="flex:none;border:1px solid var(--line);box-shadow:0 4px 12px rgba(0,0,0,.10);">
+        <img src="imgs/logo-ifsc.png" alt="IFSC Câmpus Gaspar" onerror="this.parentNode.style.display='none'">
+      </span>
+      <div>
+        <h4 style="font-size:.72em;margin:0 0 4px;">IFSC · Câmpus Gaspar</h4>
+        <p style="font-size:.52em;margin:0;line-height:1.35;">À <strong>direção</strong> (Dra. Glaucia Marian Tenfen) e à <strong>chefia do DEPE</strong> (Geannine Martins),
+          pela disponibilização de <strong>tempo e espaço</strong> para a realização do desenvolvimento.</p>
+      </div>
+    </div>
+    <div class="card" style="display:flex;gap:16px;align-items:center;text-align:left;">
+      <span class="apoio-chip" style="flex:none;border:1px solid var(--line);box-shadow:0 4px 12px rgba(0,0,0,.10);">
+        <img src="imgs/logo-receita.png" alt="Receita Federal" onerror="this.parentNode.style.display='none'">
+      </span>
+      <div>
+        <h4 style="font-size:.72em;margin:0 0 4px;">Receita Federal</h4>
+        <p style="font-size:.52em;margin:0;line-height:1.35;">Pela disponibilização dos
+          <strong>dispositivos</strong> que tornaram possível a engenharia reversa e os testes do projeto.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- colegas que apoiaram -->
+  <div class="card" style="max-width:1000px;margin:16px auto 0;text-align:left;">
+    <h4 style="font-size:.72em;margin:0 0 8px;">👥 Colegas que apoiaram o desenvolvimento</h4>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span class="pill">Leonardo Rauta · Professor de Informática</span>
+      <span class="pill">Kélcio César Goedert · Servidor da Receita Federal</span>
+    </div>
+    <p style="font-size:.5em;margin:9px 0 0;color:var(--muted);">
+      Pelo apoio técnico e pela colaboração ao longo do desenvolvimento do projeto.</p>
+  </div>
+</section>
+
+<!-- ============ ENCERRAMENTO ============ -->
+<section class="center" data-no-brand data-background-gradient="radial-gradient(circle at 50% 40%, #1b5e20, #0d2b12)">
+  <div class="encerra-bg" aria-hidden="true"></div>
+  <div class="encerra">
+    <div class="encerra-emoji">📺 → 🐧 → 🚀</div>
+    <blockquote class="encerra-quote">
+      “Não estamos apenas instalando outro sistema operacional.<br>
+      Estamos <span class="hl">recuperando o controle do hardware</span> para transformá-lo<br>
+      em uma <strong>plataforma aberta</strong> de computação, ensino e desenvolvimento tecnológico.”
+    </blockquote>
+    <div class="encerra-apoio">
+      <figure class="apoio-item">
+        <span class="apoio-chip"><img src="imgs/logo-ifsc.png" alt="Instituto Federal de Santa Catarina"></span>
+        <figcaption>IFSC · Câmpus Gaspar</figcaption>
+      </figure>
+      <figure class="apoio-item">
+        <span class="apoio-chip"><img src="imgs/logo-gfig.png" alt="GFIG"></span>
+        <figcaption>GFIG</figcaption>
+      </figure>
+      <figure class="apoio-item">
+        <span class="apoio-chip"><img src="imgs/logo-receita.png" alt="Receita Federal"></span>
+        <figcaption>Receita Federal</figcaption>
+      </figure>
+    </div>
+    <div class="encerra-foot">
+      <span class="pill ghost" style="background:rgba(255,255,255,.12);color:#eafaec;border-color:rgba(255,255,255,.28)">CompSTEAM OS · IFSC</span>
+      <a class="repo-link on-dark" href="https://rbeninca.github.io/tvbox/" target="_blank" rel="noopener"><span class="ic">🔗</span> rbeninca.github.io/tvbox</a>
+      <p class="small-text" style="margin:0;color:#d6ecd9;text-shadow:0 1px 4px rgba(0,0,0,.7);">Obrigado! Dúvidas?</p>
+      <p class="encerra-autor">Desenvolvido por <strong>Professor Romulo Beninca</strong> — IFSC Câmpus Gaspar</p>
+    </div>
+  </div>
+</section>
+
+<div class="site-footer">Desenvolvido por <b>Professor Romulo Beninca</b> — IFSC Campus Gaspar</div>
+<div class="brand-logo" id="brandLogo"><img src="imgs/logo-ifsc.png" alt="Instituto Federal de Santa Catarina" onerror="this.parentNode.style.display='none'"></div>
+
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+<script>
+/* Embutida no palco do site (apresentacao/?embedded=true): o deck precisa saber
+   que está dentro de um iframe, senão o Reveal dimensiona pelo viewport da janela
+   e distorce. Em página inteira segue como antes, com hash para links diretos. */
+var EMBUTIDA = new URLSearchParams(location.search).get('embedded') === 'true';
+if (EMBUTIDA) document.documentElement.classList.add('embutida');
+Reveal.initialize({
+  width: 1320, height: 720, margin: 0.025,
+  embedded: EMBUTIDA,
+  controls: true, progress: true, slideNumber: 'c/t', hash: !EMBUTIDA,
+  transition: 'slide', backgroundTransition: 'fade',
+  plugins: [ RevealHighlight ]
+});
+
+/* ---------- marca institucional: esconde nos slides data-no-brand ---------- */
+(function(){
+  const brand = document.getElementById('brandLogo');
+  if(!brand) return;
+  function sync(){
+    const cur = Reveal.getCurrentSlide();
+    const hide = cur && cur.hasAttribute('data-no-brand');
+    brand.classList.toggle('is-hidden', !!hide);
+  }
+  Reveal.on('ready', sync);
+  Reveal.on('slidechanged', sync);
+})();
+
+/* ---------- Slide 5: DTB interativo ---------- */
+(function(){
+  const code = document.getElementById('dts');
+  if(!code) return;
+  const lines = code.querySelectorAll('.node-line');
+  function light(hot){
+    code.querySelectorAll('.node-line').forEach(l=>l.classList.toggle('active', l.dataset.hot===hot));
+    document.querySelectorAll('.board-svg .hot').forEach(h=>h.classList.remove('active'));
+    const el = document.getElementById('h-'+hot);
+    if(el) el.classList.add('active');
+  }
+  lines.forEach(l=> l.addEventListener('click', ()=>light(l.dataset.hot)));
+  // ciclo automático enquanto o slide 5 estiver visível
+  let timer=null, i=0;
+  const order=['soc','emmc','gpu','ir','disp','wifi'];
+  function startCycle(){ stopCycle(); light(order[0]); i=0; timer=setInterval(()=>{ i=(i+1)%order.length; light(order[i]); },1600); }
+  function stopCycle(){ if(timer){clearInterval(timer); timer=null;} }
+  Reveal.on('slidechanged', e=>{
+    const idx = Reveal.getIndices().h;
+    if(e.currentSlide.querySelector('#dts')) startCycle(); else stopCycle();
+  });
+  // inicia se já abrir nele
+  if(Reveal.getCurrentSlide && Reveal.getCurrentSlide()?.querySelector?.('#dts')) startCycle();
+})();
+
+/* ---------- Slide arquitetura: repetir o zoom placa→SoC→diagrama ---------- */
+function replaySocZoom(){
+  const z=document.getElementById('socZoom'); if(!z) return;
+  z.classList.add('replay-reset'); void z.offsetWidth; z.classList.remove('replay-reset');
+}
+
+/* ---------- Slide 3: boot realista (UEFI → PCIe → drivers) ---------- */
+(function(){
+  const term=document.getElementById('bootTerm');
+  if(!term) return;
+  const mb=document.getElementById('mb'), cpu=document.getElementById('cpu'),
+        stage=document.getElementById('bootStage');
+  const slots=['slot0','slot1','slot2','slot3'].map(id=>document.getElementById(id));
+  // roteiro: [texto html, delay_ms até a próxima, callback opcional]
+  const script=[
+    ['<span class="dim">[    0.0000]</span> UEFI firmware · <span class="acc">POST</span> · inicializando plataforma', 500, ()=>{stage.textContent='UEFI';}],
+    ['<span class="dim">[    0.0120]</span> <span class="ok">ACPI:</span> tabelas carregadas <span class="dim">(RSDP, DSDT, MADT)</span>', 650, ()=>{cpu.classList.add('on');}],
+    ['<span class="dim">[    0.0450]</span> <span class="acc">PCI:</span> enumerando barramento <span class="hw">0000:00</span>…', 700, ()=>{stage.textContent='Enumeração PCIe'; mb.classList.add('scanning');}],
+    ['<span class="dim">[    0.8100]</span> pci <span class="hw">0000:00:02.0</span>: [VGA] dispositivo <span class="ok">encontrado</span>', 780, ()=>slots[0].classList.add('found')],
+    ['<span class="dim">[    1.0400]</span> pci <span class="hw">0000:00:1f.2</span>: [NVMe] dispositivo <span class="ok">encontrado</span>', 760, ()=>slots[1].classList.add('found')],
+    ['<span class="dim">[    1.2600]</span> pci <span class="hw">0000:00:14.0</span>: [USB] dispositivo <span class="ok">encontrado</span>', 760, ()=>slots[2].classList.add('found')],
+    ['<span class="dim">[    1.4800]</span> pci <span class="hw">0000:02:00.0</span>: [Ethernet] dispositivo <span class="ok">encontrado</span>', 820, ()=>{slots[3].classList.add('found'); stage.textContent='Drivers';}],
+    ['<span class="dim">[    2.1000]</span> driver <span class="ok">i915</span> → 00:02.0 · <span class="ok">xhci_hcd</span> → 00:14.0', 650, null],
+    ['<span class="dim">[    2.3000]</span> driver <span class="ok">nvme</span> → 00:1f.2 · <span class="ok">e1000e</span> → 02:00.0', 650, ()=>{stage.textContent='Kernel pronto';}],
+    ['<span class="ok">✓ Hardware descoberto e associado automaticamente.</span>', 400, null],
+  ];
+  let timers=[];
+  function clearAll(){ timers.forEach(clearTimeout); timers=[];
+    term.innerHTML='<span class="cursor"></span>';
+    mb.classList.remove('scanning'); cpu.classList.remove('on');
+    slots.forEach(s=>s.classList.remove('found')); stage.textContent='POST'; }
+  function run(){
+    clearAll();
+    const cur=term.querySelector('.cursor');
+    let t=250;
+    script.forEach(step=>{
+      timers.push(setTimeout(()=>{
+        const ln=document.createElement('div'); ln.className='ln'; ln.innerHTML=step[0];
+        term.insertBefore(ln, cur);
+        requestAnimationFrame(()=>ln.classList.add('show'));
+        term.scrollTop=term.scrollHeight;
+        if(step[2]) step[2]();
+      }, t));
+      t+=step[1];
+    });
+  }
+  Reveal.on('slidechanged', e=>{ if(e.currentSlide.querySelector('#bootTerm')) run(); else clearAll(); });
+  if(Reveal.getCurrentSlide && Reveal.getCurrentSlide()?.querySelector?.('#bootTerm')) run();
+})();
+
+/* ---------- Slide drivers: imagem troca a cada fragment ---------- */
+(function(){
+  const img=document.getElementById('drvImg'), cap=document.getElementById('drvCap');
+  if(!img) return;
+  const vidWrap=document.getElementById('drvVideoWrap');
+  const vids=vidWrap?[...vidWrap.querySelectorAll('video')]:[];
+  const DEF={ src:'imgs/driver-wifi-sv6051.png',
+    cap:'Driver de rede: o chip Wi-Fi SSV6051 fala com o kernel (ssv6051.ko) pelo SDIO até a interface wlan0.' };
+  function hideVideo(){ if(!vidWrap) return; vids.forEach(v=>{ try{ v.pause(); }catch(e){} }); vidWrap.hidden=true; }
+  function showVideo(){ if(!vidWrap) return; vidWrap.hidden=false; vids.forEach(v=>{ try{ v.currentTime=0; const p=v.play(); if(p&&p.catch) p.catch(()=>{}); }catch(e){} }); }
+  function apply(el){
+    if(el&&el.dataset.img){ img.src=el.dataset.img; if(cap&&el.dataset.cap) cap.textContent=el.dataset.cap; }
+    if(el&&el.dataset.video) showVideo(); else hideVideo();
+  }
+  function syncTo(slide){
+    const vis=[...slide.querySelectorAll('.drv.visible')];
+    const last=vis[vis.length-1];
+    if(last) apply(last); else { img.src=DEF.src; if(cap) cap.textContent=DEF.cap; hideVideo(); }
+  }
+  Reveal.on('fragmentshown',  e=>{ if(e.fragment.classList.contains('drv')) apply(e.fragment); });
+  Reveal.on('fragmenthidden', e=>{ if(e.fragment.classList.contains('drv')) syncTo(e.fragment.closest('section')); });
+  Reveal.on('slidechanged',   e=>{ if(e.currentSlide.querySelector('#drvImg')) syncTo(e.currentSlide); });
+})();
+
+/* ---------- Slide 12: instalação passo a passo (avançar -> próximo passo) ---------- */
+(function(){
+  const img=document.getElementById('instStepImg'), cap=document.getElementById('instStepCap');
+  if(!img) return;
+  const steps=[...document.querySelectorAll('#instSteps .inst-step')];
+  function setStep(s){
+    if(!s) return;
+    if(s.dataset.img) img.src=s.dataset.img;
+    if(cap&&s.dataset.cap) cap.textContent=s.dataset.cap;
+    steps.forEach(x=>x.classList.toggle('current-fragment', x===s));
+  }
+  steps.forEach(s=> s.addEventListener('click', ()=>setStep(s)));
+  function syncTo(slide){
+    const vis=steps.filter(s=>s.classList.contains('visible'));
+    setStep(vis.length ? vis[vis.length-1] : steps[0]);
+  }
+  Reveal.on('fragmentshown',  e=>{ if(e.fragment.classList.contains('inst-step')) setStep(e.fragment); });
+  Reveal.on('fragmenthidden', e=>{ if(e.fragment.classList.contains('inst-step')) syncTo(e.fragment.closest('section')); });
+  Reveal.on('slidechanged',   e=>{ if(e.currentSlide.querySelector('#instStepImg')) syncTo(e.currentSlide); });
+})();
+
+/* ---------- Slide 11: vitrine de sistemas (avançar -> próximo sistema) ---------- */
+(function(){
+  const img=document.getElementById('sysImg'), cap=document.getElementById('sysCap');
+  if(!img) return;
+  const chips=[...document.querySelectorAll('#sysShow .sys-chip')];
+  function setActive(c){
+    if(!c) return;
+    if(c.dataset.img) img.src=c.dataset.img;
+    if(cap&&c.dataset.cap) cap.textContent=c.dataset.cap;
+    chips.forEach(x=>x.classList.toggle('active', x===c));
+  }
+  // clique direto (opcional)
+  chips.forEach(c=> c.addEventListener('click', ()=>setActive(c)));
+  // avançar/retroceder controla o sistema ativo
+  Reveal.on('fragmentshown',  e=>{ if(e.fragment.classList.contains('sys-chip')) setActive(e.fragment); });
+  Reveal.on('fragmenthidden', e=>{
+    if(!e.fragment.classList.contains('sys-chip')) return;
+    const vis=chips.filter(c=>c.classList.contains('visible'));
+    setActive(vis.length ? vis[vis.length-1] : chips[0]);
+  });
+  Reveal.on('slidechanged', e=>{
+    if(!e.currentSlide.querySelector('#sysShow')) return;
+    const vis=chips.filter(c=>c.classList.contains('visible'));
+    setActive(vis.length ? vis[vis.length-1] : chips[0]);
+  });
+})();
+
+/* ---------- Galerias de fotos (slides 6, 7, 9, 10) ---------- */
+document.querySelectorAll('.shot-gallery').forEach(gal=>{
+  const main=gal.querySelector(':scope > img');
+  const cap =gal.querySelector(':scope > figcaption');
+  const thumbs=gal.querySelectorAll('.shot-thumbs img');
+  if(!main||!thumbs.length) return;
+  thumbs.forEach(t=> t.addEventListener('click', ()=>{
+    main.src=t.src; if(cap) cap.textContent=t.dataset.cap;
+    thumbs.forEach(x=>x.classList.toggle('active', x===t));
+  }));
+});
+
+/* tenta tocar com som; se o navegador bloquear, cai para mudo */
+function tryPlay(v){
+  if(!v) return;
+  try{ v.currentTime=0; }catch(e){}
+  try{
+    const p=v.play();
+    if(p&&p.catch) p.catch(()=>{ v.muted=true; v.play().catch(()=>{}); });
+  }catch(e){}
+}
+
+/* ---------- Slide 14: Aplicações — cenas avançam com o "next" (A→B→C→D) ---------- */
+(function(){
+  const sec = document.querySelector('.tabs')?.closest('section');
+  if(!sec) return;
+  const tabs   = [...sec.querySelectorAll('.tab')];
+  const scenes = [...sec.querySelectorAll('.scene')];
+  const advs   = [...sec.querySelectorAll('.scene-adv')];
+  function activate(key){
+    tabs.forEach(t=>t.classList.toggle('active', t.dataset.scene===key));
+    scenes.forEach(s=>s.classList.toggle('active', s.dataset.scene===key));
+    // pausa vídeos fora da cena ativa
+    sec.querySelectorAll('video').forEach(v=>{
+      if(v.closest('.scene')?.dataset.scene!==key){ try{ v.pause(); }catch(e){} }
+    });
+    // impressora 3D: inicia sozinho (em loop) ao entrar na cena
+    if(key==='C') tryPlay(document.getElementById('p3dVideo'));
+  }
+  tabs.forEach(t=> t.addEventListener('click', ()=>activate(t.dataset.scene)));
+  function sync(){
+    const vis = advs.filter(a=>a.classList.contains('visible'));
+    activate(vis.length ? vis[vis.length-1].dataset.scene : 'A');
+  }
+  Reveal.on('fragmentshown',  e=>{ if(e.fragment.classList.contains('scene-adv')) activate(e.fragment.dataset.scene); });
+  Reveal.on('fragmenthidden', e=>{ if(e.fragment.classList.contains('scene-adv')) sync(); });
+  Reveal.on('slidechanged',   e=>{ if(e.currentSlide.querySelector('.balanca-tabs')) sync(); });
+})();
+
+/* ---------- Slide 14 Cena A: balança avança vídeo -> curva -> relatório ---------- */
+(function(){
+  const wrap = document.getElementById('balancaPanels'); if(!wrap) return;
+  const tabs   = [...document.querySelectorAll('.balanca-tabs .bt')];
+  const panels = [...wrap.querySelectorAll('.bp')];
+  const vid    = document.getElementById('balancaVideo');
+  const sec    = wrap.closest('section');
+  const advs   = [...sec.querySelectorAll('.balanca-adv')];
+  function activatePanel(key){
+    tabs.forEach(x=>x.classList.toggle('active', x.dataset.t===key));
+    panels.forEach(p=>p.classList.toggle('active', p.dataset.t===key));
+    // vídeo da medição inicia sozinho ao abrir seu painel
+    if(key==='video') tryPlay(vid); else if(vid){ try{ vid.pause(); }catch(e){} }
+  }
+  tabs.forEach(t=> t.addEventListener('click', ()=>activatePanel(t.dataset.t)));
+  function sync(){
+    const vis = advs.filter(a=>a.classList.contains('visible'));
+    activatePanel(vis.length ? vis[vis.length-1].dataset.t : 'video');
+  }
+  Reveal.on('fragmentshown',  e=>{ if(e.fragment.classList.contains('balanca-adv')) activatePanel(e.fragment.dataset.t); });
+  Reveal.on('fragmenthidden', e=>{ if(e.fragment.classList.contains('balanca-adv')) sync(); });
+  Reveal.on('slidechanged',   e=>{ if(e.currentSlide.querySelector('.balanca-tabs')) sync(); });
+})();
+
+/* ---------- Slide 11 Cena C: telemetria ---------- */
+(function(){
+  const temp=document.getElementById('tTemp'), vel=document.getElementById('tVel'), prog=document.getElementById('tProg');
+  if(!temp) return;
+  let p=42, timer=null;
+  function tick(){
+    temp.textContent = (203+Math.round(Math.random()*5))+'°';
+    vel.textContent = (78+Math.round(Math.random()*6));
+    p=(p>=99?42:p+1); prog.textContent = p+'%';
+  }
+  function start(){ if(timer) return; timer=setInterval(tick,900);}
+  function stop(){ clearInterval(timer); timer=null; }
+  Reveal.on('slidechanged', e=>{ if(e.currentSlide.querySelector('#tTemp')) start(); else stop(); });
+})();
+</script>
+</body>
+</html>
+
