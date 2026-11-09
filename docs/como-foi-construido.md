@@ -49,7 +49,7 @@ Programa único para Android e Linux, atualizável sem reinstalar o sistema, que
 versão, temperatura, uso).
 
 **Nas versões públicas:**
-- a **telemetria vem desligada** e só liga com o consentimento de quem está no box (botão "Telemetria" do instalador, QR e conta
-  Google); sem isso, o sistema não envia nada nem recebe comandos;
+- a **telemetria vem ligada** (desde o instalador 1.2.47); quem não quiser a desliga no botão "Telemetria" do instalador ou com
+  `telemetria=off` no `compsteam.conf`; desligada, o sistema não envia nada nem recebe comandos, e uma escolha anterior é mantida;
 - com a telemetria ligada, só o dono do box envia comandos; atualizações vêm apenas das releases do GitHub;
 - o identificador do box vem do número de série do chip, nunca do MAC.

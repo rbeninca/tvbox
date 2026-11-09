@@ -62,13 +62,14 @@ Texto simples; `#` comenta. Padrão da versão pública:
 
 ```
 fonte=github:rbeninca/tvbox   # de onde baixar as imagens (releases do GitHub)
-telemetria=off                # o sistema instalado não envia nada ao painel
+telemetria=on                 # padrão desde a 1.2.47; off = o sistema instalado não envia nada ao painel
 registro=instalacao           # só a "batida" de presença no instalador; nenhum = nem isso
 # catalogo=publico            # limita a lista às imagens públicas e às do cartão
 # wifi_rede=...               # (opcional) rede Wi-Fi para o instalador
 ```
 
-Telemetria: o botão **Telemetria**, no rodapé, explica o que seria enviado; só liga com consentimento (QR na TV e login Google).
+Telemetria: vem ligada desde a 1.2.47, sem pergunta. O botão **Telemetria**, embaixo da lista, explica o que é enviado e desliga;
+`telemetria=off` faz o mesmo antes de ligar o box (no MXQ Pro: `rastreamento=desativado`). Uma escolha anterior é mantida.
 `telemetria=sem_agente` instala sem o agente do inventário.
 
 ## Se algo der errado
