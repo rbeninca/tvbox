@@ -7,7 +7,7 @@ arquivos das releases; **não baixe à mão**. "Variação do sistema" (antes, "
 
 | Sistema (nome na lista) | Para quê | Release |
 |---|---|---|
-| **Instalador** 1.2.45 (zip para o cartão) | programa que instala os demais | [`instalador-tx9-1.2.45`](https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.45) (Latest) |
+| **Instalador** 1.2.47 (zip para o cartão) | programa que instala os demais | [`instalador-tx9-1.2.47`](https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.47) (Latest) |
 | **CompSTEAM Educação** 1.3.12 (Debian 13) | blocos/TurboWarp, GeoGebra offline, Arduino IDE, Thonny, LibreOffice, GCompris; **precisa do instalador 1.2.44 ou mais novo** (usa a memória toda) | [`debian-educacao-gui-1.3.12`](https://github.com/rbeninca/tvbox/releases/tag/debian-educacao-gui-1.3.12) |
 | **Área de Trabalho** 1.2.69 (Debian 13, labwc) | área de trabalho leve, com painel, navegador e arquivos | [`debian-labwc-gui-1.2.69`](https://github.com/rbeninca/tvbox/releases/tag/debian-labwc-gui-1.2.69) |
 | **Linux Gráfico** 1.2.69 (Debian 13, Weston) | Chromium e terminal | [`debian-gui-1.2.69`](https://github.com/rbeninca/tvbox/releases/tag/debian-gui-1.2.69) |
@@ -21,7 +21,7 @@ O Android CompSTEAM TV (LineageOS 22.2) não é release pública.
 
 | Sistema | Release |
 |---|---|
-| **Instalador** 1.2.46 (imagem para o cartão microSD) | [`instalador-mxq-1.2.46`](https://github.com/rbeninca/tvbox/releases/tag/instalador-mxq-1.2.46) |
+| **Instalador** 1.2.47 (imagem para o cartão microSD) | [`instalador-mxq-1.2.47`](https://github.com/rbeninca/tvbox/releases/tag/instalador-mxq-1.2.47) |
 | Educação | [`mxqpro-debian-educacao-gui-0.2.43`](https://github.com/rbeninca/tvbox/releases/tag/mxqpro-debian-educacao-gui-0.2.43) |
 | Área de trabalho leve (labwc) | [`mxqpro-debian-labwc-gui-0.2.43`](https://github.com/rbeninca/tvbox/releases/tag/mxqpro-debian-labwc-gui-0.2.43) |
 | Debian com área de trabalho | [`mxqpro-debian-gui-0.2.43`](https://github.com/rbeninca/tvbox/releases/tag/mxqpro-debian-gui-0.2.43) |
@@ -32,7 +32,7 @@ O Android CompSTEAM TV (LineageOS 22.2) não é release pública.
 
 | Sistema | Release |
 |---|---|
-| **Instalador** 1.2.45 (zip para o pendrive) | [`instalador-btv11-1.2.45`](https://github.com/rbeninca/tvbox/releases/tag/instalador-btv11-1.2.45) |
+| **Instalador** 1.2.47 (zip para o pendrive) | [`instalador-btv11-1.2.47`](https://github.com/rbeninca/tvbox/releases/tag/instalador-btv11-1.2.47) |
 | Área de trabalho leve (labwc) | [`btv11-debian-labwc-gui-0.1.8`](https://github.com/rbeninca/tvbox/releases/tag/btv11-debian-labwc-gui-0.1.8) |
 | Debian com Weston | [`btv11-debian-gui-0.1.8`](https://github.com/rbeninca/tvbox/releases/tag/btv11-debian-gui-0.1.8) |
 | Debian (linha de comando) | [`btv11-debian-0.1.8`](https://github.com/rbeninca/tvbox/releases/tag/btv11-debian-0.1.8) |
