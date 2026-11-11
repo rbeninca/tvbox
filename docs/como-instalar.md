@@ -1,6 +1,6 @@
 # Como instalar um sistema CompSTEAM num TX9
 
-Instalador público, versão **1.2.47** (release [`instalador-tx9-1.2.47`](https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.47)).
+Instalador público, versão **1.2.57** (release [`instalador-tx9-1.2.57`](https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.57)).
 Serve para o **TX9 com SoC Amlogic S905W (placa P281)**. O instalador baixa sozinho a imagem escolhida; não baixe à mão.
 
 ## O que você precisa
@@ -13,7 +13,7 @@ Serve para o **TX9 com SoC Amlogic S905W (placa P281)**. O instalador baixa sozi
 
 ## Passo a passo
 
-1. **Baixe o zip** `instalador-publico-tx9-1.2.47.zip` na release acima.
+1. **Baixe o zip** `instalador-publico-tx9-1.2.57.zip` na release acima.
    SHA-256: `c36acc1dc37b0d23e8eb46833b297816f708ba7d1ac4f6e464db979f6ce838a6`.
 2. **Descompacte TODOS os arquivos na raiz** do cartão/pendrive (sem criar pasta). Não deixe `aml_autoscript`
    nem `aml_sdc_burn.ini`.
@@ -82,10 +82,10 @@ Telemetria: vem ligada desde a 1.2.47, sem pergunta. O botão **Telemetria**, em
 
 ## MXQ Pro
 
-Imagens em [sistemas.md](sistemas.md). O zip do TX9 (`instalador-publico-tx9-1.2.47.zip`) não serve; o MXQ tem o seu: [instalador-mxq-1.2.47](https://github.com/rbeninca/tvbox/releases/tag/instalador-mxq-1.2.47)
-(`instalador-publico-mxq-1.2.47.zip`).
+Imagens em [sistemas.md](sistemas.md). O zip do TX9 (`instalador-publico-tx9-1.2.57.zip`) não serve; o MXQ tem o seu: [instalador-mxq-1.2.57](https://github.com/rbeninca/tvbox/releases/tag/instalador-mxq-1.2.57)
+(`instalador-publico-mxq-1.2.57.zip`).
 
-1. Confira o `SHA256SUMS` e grave o arquivo `compsteam-mxq-publico-1.2.47.img` num microSD de 1 GB ou mais
+1. Confira o `SHA256SUMS` e grave o arquivo `compsteam-mxq-publico-1.2.57.img` num microSD de 1 GB ou mais
    (balenaEtcher, Raspberry Pi Imager ou `dd`). O cartão é apagado.
 2. (Opcional) Edite o `compsteam.conf` da unidade `COMPSTEAM` (telemetria, registro).
 3. Box desligado, cabo de rede com internet, TV no HDMI. Ponha o cartão no slot microSD e ligue a fonte.
@@ -98,8 +98,8 @@ A versão 0.2.43 muda as partições e apaga o `/home`: guarde seus arquivos ant
 
 ## BTV11
 
-O zip do TX9 não serve; o BTV11 tem o seu: [instalador-btv11-1.2.47](https://github.com/rbeninca/tvbox/releases/tag/instalador-btv11-1.2.47)
-(`instalador-publico-btv11-1.2.47.zip`), para pendrive USB.
+O zip do TX9 não serve; o BTV11 tem o seu: [instalador-btv11-1.2.57](https://github.com/rbeninca/tvbox/releases/tag/instalador-btv11-1.2.57)
+(`instalador-publico-btv11-1.2.57.zip`), para pendrive USB.
 
 1. Pendrive FAT32. Descompacte o zip na raiz, sem pasta. Não deixe `aml_autoscript` nem `emmc_autoscript` no pendrive.
 2. Box desligado, cabo de rede com internet, TV no HDMI, pendrive numa porta USB. Ligue o box.
