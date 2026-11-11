@@ -28,6 +28,6 @@ Para técnicos e professores. O código-fonte não é publicado aqui; as imagens
 
 ## Aviso
 
-Gravar a memória de um box apaga o sistema de fábrica. O instalador guarda uma cópia da identidade do box antes de gravar
+Gravar a memória de um box apaga o sistema de fábrica. O instalador tenta guardar uma cópia da identidade do box antes de gravar
 (ver [como-instalar.md](como-instalar.md)), mas a responsabilidade pelo equipamento é de quem instala. Projeto educacional,
 sem vínculo com os fabricantes dos chips ou com as distribuições Linux citadas.

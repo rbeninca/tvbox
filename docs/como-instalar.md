@@ -44,11 +44,11 @@ Serve para o **TX9 com SoC Amlogic S905W (placa P281)**. O instalador baixa sozi
 
 10. **Tire o cartão/pendrive depois de instalar.** Com ele no box, o instalador do cartão sempre abre.
 
-## Box de fábrica: guarde a pasta `compsteam-reserved`
+## Box de fábrica: a pasta `compsteam-reserved`
 
-Num box com o sistema de fábrica, antes de gravar, o instalador **copia para o cartão a pasta `compsteam-reserved`**: a identidade
-do box (partição `reserved`, única de cada aparelho). **Guarde essa pasta.** Sem proteção contra escrita no cartão; sem a cópia,
-**nada é gravado**.
+Num box com o sistema de fábrica, antes de gravar, o instalador **tenta copiar para o cartão a pasta `compsteam-reserved`**: a
+identidade do box (partição `reserved`, única de cada aparelho). Se a cópia der certo, guarde essa pasta. Se não der (cartão
+protegido contra escrita, por exemplo), o instalador avisa e **instala assim mesmo**.
 
 ## Depois da instalação
 

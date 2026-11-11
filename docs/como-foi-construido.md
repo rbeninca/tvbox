@@ -32,8 +32,8 @@ Programa que roda no box a partir do cartão ou da partição de recuperação (
 1. O catálogo e cada imagem são **assinados**; arquivo alterado é recusado. Por isso qualquer servidor pode distribuir as imagens.
 2. Cada partição é conferida por **SHA-256** depois de baixada e de gravada.
 3. **Nunca grava o `bootloader` nem a área de chaves** da `reserved`.
-4. Num box de fábrica, antes de tudo, guarda no cartão uma cópia da `reserved` (identidade única) na pasta `compsteam-reserved`;
-   sem ela nada é gravado.
+4. Num box de fábrica, antes de tudo, tenta guardar no cartão uma cópia da `reserved` (identidade única) na pasta
+   `compsteam-reserved`; se não conseguir, avisa e instala assim mesmo.
 5. Contagem de 10 segundos para desistir após a confirmação.
 
 **Fontes de imagem:** cartão/pendrive, servidor local, espelho na nuvem e **releases do GitHub** `rbeninca/tvbox`. No perfil
