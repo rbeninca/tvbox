@@ -30,7 +30,7 @@ Serve para o **TX9 com SoC Amlogic S905W (placa P281)**. O instalador baixa sozi
 
    ![Atualizar ou instalação limpa](../imgs/compsteam/instalador-atualizar-ou-limpa.png)
 
-   Se a troca **muda o arranjo do disco** (por exemplo, de linha de comando para o CompSTEAM Educação, que usa a memória toda), só
+   Se a troca **muda o arranjo do disco** (por exemplo, de linha de comando para o Linux Gráfico, que usa a memória toda), só
    há a **"Instalação limpa"**.
 8. **10 segundos para desistir.** Após confirmar há uma contagem; **Voltar / Esc** ou **Cancelar** desiste sem gravar nada.
    Depois dela, a instalação **grava a memória do box**.
@@ -38,7 +38,7 @@ Serve para o **TX9 com SoC Amlogic S905W (placa P281)**. O instalador baixa sozi
    ![Contagem de 10 segundos](../imgs/compsteam/instalador-contagem-antes-de-gravar.png)
 
 9. **Não desligue nem mexa no box durante a gravação.** A tela mostra o progresso por partição; leva de poucos a cerca de 20
-   minutos, conforme sistema e rede (Mínimo, cerca de 2; Educação, 17 a 21 na rede local). O box reinicia sozinho no sistema novo.
+   minutos, conforme sistema e rede (Linux texto, cerca de 2; Linux Gráfico com o kit Educação, 17 a 21 na rede local). O box reinicia sozinho no sistema novo.
 
    ![Progresso da gravação](../imgs/compsteam/instalador-progresso-gravacao.png)
 

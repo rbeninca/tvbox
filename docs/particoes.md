@@ -35,9 +35,9 @@ A raiz de uma variação de Linux precisa de mais espaço que a partição `syst
 
 | Perfil | Raiz formada por | Tamanho da raiz | `/home` | Usado em |
 |---|---|---:|---|---|
-| **5a** | `system` + `vendor` + `odm` + `dtbo` + `metadata` | 2052 MiB | a partição `data` | linha de comando (Alpine, Debian) |
-| **5b** | as seis, com `data` | 6988 MiB | dentro da raiz | variações gráficas e Educação |
-| **5c** | as cinco do 5a + o começo da `data` | 4096 MiB | o fim da `data` (2892 MiB) | previsto; não publicado |
+| **5a** | `system` + `vendor` + `odm` + `dtbo` + `metadata` | 2052 MiB | a partição `data` | linha de comando (Debian) |
+| **5b** | as seis, com `data` | 6988 MiB | dentro da raiz | desenho anterior (variações gráficas e Educação) |
+| **5c** | as cinco do 5a + o começo da `data` | 2892 MiB | o fim da `data` (4096 MiB) | layout v2 (Linux texto e Linux Gráfico) |
 
 Cuidado: sair de uma variação com raiz grande para uma clássica por "Atualizar" pode reformatar a partição de dados; por isso o
 instalador só oferece **"Instalação limpa"** quando o arranjo do disco muda (ver [como-instalar.md](como-instalar.md)).
@@ -58,11 +58,11 @@ O CompSTEAM **não mexe** em `uboot`, `trust`, `baseparamer` nem no parâmetro d
 | `cache` | 128 MiB | livre |
 | `config` | 16 MiB | identidade, configuração e redes Wi-Fi |
 | `kpanic` | 4 MiB | livre |
-| `reserva` | 3 GiB | `/home` |
+| `reserva` | 4096 MiB | `/home` |
 | `sistema` | o restante | raiz do sistema |
 
-Não há perfis de volume. No desenho aprovado em 2026-11-03, o `/home` (`reserva`) passa a **1536 MiB** e a raiz (`sistema`) fica com
-**o restante** da NAND; a variação Educação do MXQ precisa dele e está em teste.
+Não há perfis de volume. No layout l3, o `/home` (`reserva`) tem **4096 MiB** e a raiz (`sistema`) fica com
+**o restante** da NAND (cerca de 2896 MiB na NAND de 8 GB); o kit Educação cabe na camada gravável do `/home`.
 
 ## BTV11 (eMMC de 16 GB)
 

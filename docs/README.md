@@ -20,8 +20,7 @@ Para técnicos e professores. O código-fonte não é publicado aqui; as imagens
 ## Palavras que aparecem muito
 
 - **Box**: a TV box, o aparelho.
-- **Variação do sistema** (nos textos antigos, "spin"): imagem pronta com um conjunto de programas. Exemplos: Alpine (mínimo),
-  Debian (linha de comando), Debian com área de trabalho, CompSTEAM Educação.
+- **Variação do sistema** (nos textos antigos, "spin"): imagem pronta com um conjunto de programas. Exemplos: Linux texto (linha de comando) e Linux Gráfico (área de trabalho), com o kit opcional Educação.
 - **eMMC / NAND**: memória interna onde o sistema fica gravado (TX9: eMMC; MXQ Pro: NAND).
 - **DTB**: descreve o hardware para o kernel (ver [dtb-e-drivers.md](dtb-e-drivers.md)).
 - **Bootloader / U-Boot**: primeiro programa ao ligar. O do fabricante **nunca é substituído**.

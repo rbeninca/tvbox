@@ -16,10 +16,10 @@ quebrado volta a ser gravável. Todo sistema novo é testado **pela RAM**, via U
 
 ## 2. Variações de Linux
 
-- Base **Debian 13** (e Alpine na mínima).
+- Base **Debian 13**.
 - Em todas: Docker, Wi-Fi, controle IR, áudio, display frontal, git, vim e htop.
-- Variações: Alpine (mínimo), Debian (linha de comando), Linux Gráfico (Weston e Chromium), Área de Trabalho (labwc) e
-  **CompSTEAM Educação** (blocos/TurboWarp, GeoGebra offline, Arduino IDE, Thonny, LibreOffice, GCompris, SQLite). Detalhes em
+- Variações: Linux texto (linha de comando) e Linux Gráfico (labwc e Chromium), com o kit opcional
+  **Educação** (blocos/TurboWarp, GeoGebra offline, Arduino IDE, Thonny, LibreOffice, GCompris, SQLite). Detalhes em
   [sistemas.md](sistemas.md).
 - Cada variação passa por verificação de drivers e serviços antes de publicada.
 
