@@ -1,6 +1,6 @@
 # Como instalar um sistema CompSTEAM num TX9
 
-Instalador público, versão **1.2.57** (release [`instalador-tx9-1.2.57`](https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.57)).
+Instalador público, versão **1.2.62** (release [`instalador-tx9-1.2.62`](https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.62)).
 Serve para o **TX9 com SoC Amlogic S905W (placa P281)**. O instalador baixa sozinho a imagem escolhida; não baixe à mão.
 
 ## O que você precisa
@@ -13,18 +13,17 @@ Serve para o **TX9 com SoC Amlogic S905W (placa P281)**. O instalador baixa sozi
 
 ## Passo a passo
 
-1. **Baixe o zip** `instalador-publico-tx9-1.2.57.zip` na release acima.
-   SHA-256: `c36acc1dc37b0d23e8eb46833b297816f708ba7d1ac4f6e464db979f6ce838a6`.
+1. **Baixe o zip** `instalador-publico-tx9-1.2.62.zip` na release acima.
+   SHA-256: `4f771acd4d725385a00ac3e5180c298b44e54273c4e7632520378eff2a538f1c`.
 2. **Descompacte TODOS os arquivos na raiz** do cartão/pendrive (sem criar pasta). Não deixe `aml_autoscript`
    nem `aml_sdc_burn.ini`.
-3. (Opcional) Edite o `compsteam.conf` do cartão (ver abaixo).
-4. Com o box **desligado**: ligue o cabo de rede, a TV no HDMI e coloque o cartão/pendrive no box.
-5. **Segure o botão reset** com o palito e **ligue** o box (conecte a fonte). Solte após cerca de 5 segundos.
-6. A TV mostra a lista de sistemas. Escolha e confirme.
+3. Com o box **desligado**: ligue o cabo de rede, a TV no HDMI e coloque o cartão/pendrive no box.
+4. **Segure o botão reset** com o palito e **ligue** o box (conecte a fonte). Solte após cerca de 5 segundos.
+5. A TV mostra a lista de sistemas. Escolha e confirme.
 
    ![Lista de sistemas do instalador](../imgs/compsteam/instalador-lista-de-sistemas.png)
 
-7. Se o box já tem um sistema CompSTEAM, aparece **"O que fazer?"**:
+6. Se o box já tem um sistema CompSTEAM, aparece **"O que fazer?"**:
    - **Atualizar**: troca o sistema (programas instalados e configurações são apagados; a pasta `/dados` é mantida);
    - **Instalação limpa**: apaga tudo.
 
@@ -32,17 +31,17 @@ Serve para o **TX9 com SoC Amlogic S905W (placa P281)**. O instalador baixa sozi
 
    Se a troca **muda o arranjo do disco** (por exemplo, de linha de comando para o Linux Gráfico, que usa a memória toda), só
    há a **"Instalação limpa"**.
-8. **10 segundos para desistir.** Após confirmar há uma contagem; **Voltar / Esc** ou **Cancelar** desiste sem gravar nada.
+7. **10 segundos para desistir.** Após confirmar há uma contagem; **Voltar / Esc** ou **Cancelar** desiste sem gravar nada.
    Depois dela, a instalação **grava a memória do box**.
 
    ![Contagem de 10 segundos](../imgs/compsteam/instalador-contagem-antes-de-gravar.png)
 
-9. **Não desligue nem mexa no box durante a gravação.** A tela mostra o progresso por partição; leva de poucos a cerca de 20
+8. **Não desligue nem mexa no box durante a gravação.** A tela mostra o progresso por partição; leva de poucos a cerca de 20
    minutos, conforme sistema e rede (Linux texto, cerca de 2; Linux Gráfico com o kit Educação, 17 a 21 na rede local). O box reinicia sozinho no sistema novo.
 
    ![Progresso da gravação](../imgs/compsteam/instalador-progresso-gravacao.png)
 
-10. **Tire o cartão/pendrive depois de instalar.** Com ele no box, o instalador do cartão sempre abre.
+9. **Tire o cartão/pendrive depois de instalar.** Com ele no box, o instalador do cartão sempre abre.
 
 ## Box de fábrica: a pasta `compsteam-reserved`
 
@@ -82,7 +81,7 @@ Telemetria: vem ligada desde a 1.2.47, sem pergunta. O botão **Telemetria**, em
 
 ## MXQ Pro
 
-Imagens em [sistemas.md](sistemas.md). O zip do TX9 (`instalador-publico-tx9-1.2.57.zip`) não serve; o MXQ tem o seu: [instalador-mxq-1.2.57](https://github.com/rbeninca/tvbox/releases/tag/instalador-mxq-1.2.57)
+Imagens em [sistemas.md](sistemas.md). O zip do TX9 (`instalador-publico-tx9-1.2.62.zip`) não serve; o MXQ tem o seu: [instalador-mxq-1.2.57](https://github.com/rbeninca/tvbox/releases/tag/instalador-mxq-1.2.57)
 (`instalador-publico-mxq-1.2.57.zip`).
 
 1. Confira o `SHA256SUMS` e grave o arquivo `compsteam-mxq-publico-1.2.57.img` num microSD de 1 GB ou mais

@@ -12,7 +12,7 @@ o box que as usa é levado à versão que as substitui. As releases antigas cont
 
 | Sistema (nome na lista) | Para quê | Release |
 |---|---|---|
-| **Instalador** 1.2.57 (zip para o cartão) | programa que instala os demais | [`instalador-tx9-1.2.57`](https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.57) (Latest) |
+| **Instalador** 1.2.62 (zip para o cartão) | programa que instala os demais | [`instalador-tx9-1.2.62`](https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.62) (Latest) |
 | **Linux Gráfico** (Debian 13, labwc) | área de trabalho leve com barra, arquivos, navegador, Docker e Wi-Fi; sem os programas da aula (kit opcional) | em preparo |
 | **Linux** 1.2.69 (Debian 13) | linha de comando, com Docker | [`debian-1.2.69`](https://github.com/rbeninca/tvbox/releases/tag/debian-1.2.69) |
 
