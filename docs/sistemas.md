@@ -12,7 +12,7 @@ o box que as usa é levado à versão que as substitui. As releases antigas cont
 
 | Sistema (nome na lista) | Para quê | Release |
 |---|---|---|
-| **Instalador** 1.2.62 (zip para o cartão) | programa que instala os demais | [`instalador-tx9-1.2.62`](https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.62) (Latest) |
+| **Instalador** 1.2.64 (zip para o cartão) | programa que instala os demais | [`instalador-tx9-1.2.64`](https://github.com/rbeninca/tvbox/releases/tag/instalador-tx9-1.2.64) (Latest) |
 | **Linux Gráfico** (Debian 13, labwc) | área de trabalho leve com barra, arquivos, navegador, Docker e Wi-Fi; sem os programas da aula (kit opcional) | em preparo |
 | **Linux** 1.2.69 (Debian 13) | linha de comando, com Docker | [`debian-1.2.69`](https://github.com/rbeninca/tvbox/releases/tag/debian-1.2.69) |
 
@@ -23,7 +23,7 @@ O Android CompSTEAM TV (LineageOS 22.2) não é release pública.
 
 | Sistema | Release |
 |---|---|
-| **Instalador** 1.2.57 (imagem para o cartão microSD) | [`instalador-mxq-1.2.57`](https://github.com/rbeninca/tvbox/releases/tag/instalador-mxq-1.2.57) |
+| **Instalador** 1.2.64 (imagem para o cartão microSD) | [`instalador-mxq-1.2.64`](https://github.com/rbeninca/tvbox/releases/tag/instalador-mxq-1.2.64) |
 | Linux Gráfico (Debian, labwc) | em preparo |
 | Debian (linha de comando) | [`mxqpro-debian-0.2.43`](https://github.com/rbeninca/tvbox/releases/tag/mxqpro-debian-0.2.43) |
 
@@ -31,7 +31,7 @@ O Android CompSTEAM TV (LineageOS 22.2) não é release pública.
 
 | Sistema | Release |
 |---|---|
-| **Instalador** 1.2.57 (zip para o pendrive) | [`instalador-btv11-1.2.57`](https://github.com/rbeninca/tvbox/releases/tag/instalador-btv11-1.2.57) |
+| **Instalador** 1.2.64 (zip para o pendrive) | [`instalador-btv11-1.2.64`](https://github.com/rbeninca/tvbox/releases/tag/instalador-btv11-1.2.64) |
 | Linux Gráfico (Debian, labwc) | em preparo |
 | Debian (linha de comando) | [`btv11-debian-0.1.8`](https://github.com/rbeninca/tvbox/releases/tag/btv11-debian-0.1.8) |
 
